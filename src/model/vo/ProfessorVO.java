@@ -1,6 +1,6 @@
 package model.vo;
 
-public class ProfessorVO {
+public class ProfessorVO extends UsuarioVO {
     
     private String cpf;
     private EnderecoVO endereco;
