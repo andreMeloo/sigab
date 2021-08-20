@@ -11,27 +11,27 @@ public class EnderecoVO {
 	}
 	public void setId(long id) {
 		if(id>0)
-		this.id = id;
+			this.id = id;
 	}
 	public String getRua() {
 		return rua;
 	}
 	public void setRua(String rua) {
 		if(rua!=null && !rua.equals(""))
-		this.rua = rua;
+			this.rua = rua;
 	}
 	public String getCidade() {
 		return cidade;
 	}
 	public void setCidade(String cidade) {
 		if(cidade!=null && !cidade.equals(""))
-		this.cidade = cidade;
+			this.cidade = cidade;
 	}
 	public String getUf() {
 		return uf;
 	}
 	public void setUf(String uf) {
 		if(uf!=null && !uf.equals(""))
-		this.uf = uf;
+			this.uf = uf;
 	}
 }
