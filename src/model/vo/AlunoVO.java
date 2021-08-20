@@ -1,6 +1,6 @@
 package model.vo;
 
-public class AlunoVO {
+public class AlunoVO extends UsuarioVO {
 	private String matricula;
 	private EnderecoVO endereco;
 	
