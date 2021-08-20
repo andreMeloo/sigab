@@ -17,7 +17,9 @@ public class TurmaVO {
     }
 
     public void setId(long id) {
-        this.id = id;
+        if (id > 0) {
+            this.id = id;
+        }
     }
 
     public String getHorario() {
@@ -25,7 +27,9 @@ public class TurmaVO {
     }
 
     public void setHorario(String horario) {
-        this.horario = horario;
+        if (horario != null && !horario.equals("")) {
+            this.horario = horario;
+        }
     }
 
     public String getLocal() {
@@ -33,7 +37,9 @@ public class TurmaVO {
     }
 
     public void setLocal(String local) {
-        this.local = local;
+        if (local != null && !local.equals("")) {
+            this.local = local;
+        }
     }
 
     public DisciplinaVO getDisciplina() {
@@ -41,7 +47,9 @@ public class TurmaVO {
     }
 
     public void setDisciplina(DisciplinaVO disciplina) {
-        this.disciplina = disciplina;
+        if (professor != null) {
+            this.disciplina = disciplina;
+        }
     }
 
     public List<AlunoVO> getAlunos() {
@@ -55,9 +63,11 @@ public class TurmaVO {
     public ProfessorVO getProfessor() {
         return professor;
     }
-    
+
     public void setProfessor(ProfessorVO professor) {
-        this.professor = professor;
+        if (professor != null) {
+            this.professor = professor;
+        }
     }
     
 }
