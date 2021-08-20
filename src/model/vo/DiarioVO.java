@@ -1,0 +1,85 @@
+package model.vo;
+
+class DiarioVO {	
+	private long id;
+	private double nota1;
+	private double nota2;
+	private double nota3;
+	private double quartaProva;
+	private int frequencia;
+	private AlunoVO aluno;
+	private TurmaVO turma;
+
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		if(id > 0)
+		this.id = id;
+	}
+
+
+	public double getNota1() {
+		return nota1;
+	} 
+	public void setNota1(double nota1) {
+		if(nota1 >= 0)
+		this.nota1 = nota1;
+	}
+
+
+	public double getNota2() {
+		return nota2;
+	}
+	public void setNota2(double nota2) {
+		if(nota2 >= 0)
+		this.nota2 = nota2;
+	}
+
+
+	public double getNota3() {
+		if(nota3 >= 0)
+		return nota3;
+	}
+	public void setNota3(double nota3) {
+		this.nota3 = nota3;
+	}
+
+
+	public double getQuartaProva() {
+		return quartaProva;
+	}
+	public void setQuartaProva(double quartaProva) {
+		if(quartaProva >= 0)
+		this.quartaProva = quartaProva;
+	}
+
+
+	public int getFrequencia() {
+		return frequencia;
+	}
+	public void setFrequencia(int frequencia) {
+		if(frequencia >= 0)
+		this.frequencia = frequencia;
+	}
+
+
+	public AlunoVO getAluno() {
+		return aluno;
+	}
+	public void setAluno(AlunoVO aluno) {
+		this.aluno = aluno;
+	}
+
+
+	public TurmaVO getTurma() {
+		return turma;
+	}
+	public void setTurma(TurmaVO turma) {
+		this.turma = turma;
+	}
+	
+	
+	
+
+}
