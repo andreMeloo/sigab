@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class BaseDAO {
     Connection connection = null;
-    String url;
+    String url = "jdbc:postgresql://localhost:5432/sigab";
     String user;
     String senha;
 
