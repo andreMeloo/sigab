@@ -17,8 +17,8 @@ public class BaseDAO {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            return connection;
-        }else
+        }
+        
         return connection;
     }
 }
