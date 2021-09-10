@@ -54,9 +54,9 @@ public class ProfessorDAO extends BaseDAO {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
-            ProfessorVO professor = new ProfessorVO();
-
+            
             while (resultSet.next()) {
+                ProfessorVO professor = new ProfessorVO();
                 professor.setId(resultSet.getLong("id"));
                 professor.setNome(resultSet.getString("nome"));
                 professor.setNivel(NivelDeUsuario.valueOf(resultSet.getString("nivel")));

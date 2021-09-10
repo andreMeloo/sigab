@@ -51,12 +51,12 @@ public class AlunoDAO extends BaseDAO{
         Statement statement;
         ResultSet resultSet;
         List<AlunoVO> alunoVOs = new ArrayList<AlunoVO>();
-        AlunoVO alunoVO = new AlunoVO();
-
+        
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
+                AlunoVO alunoVO = new AlunoVO();
                 alunoVO.setId(resultSet.getLong("id"));
                 alunoVO.setNome(resultSet.getString("nome"));
                 alunoVO.setNivel(NivelDeUsuario.valueOf(resultSet.getString("nivel")));

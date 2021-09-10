@@ -41,12 +41,12 @@ public class DisciplinaDAO extends BaseDAO{
         Statement statement;
         ResultSet resultSet;
         List<DisciplinaVO> disciplinaVOs = new ArrayList<DisciplinaVO>();
-        DisciplinaVO disciplinaVO = new DisciplinaVO();
-
+        
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
+                DisciplinaVO disciplinaVO = new DisciplinaVO();
                 disciplinaVO.setCodigo(resultSet.getLong("codigo"));
                 disciplinaVO.setNome(resultSet.getString("nome"));
                 disciplinaVOs.add(disciplinaVO);

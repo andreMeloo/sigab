@@ -47,12 +47,12 @@ public class EnderecoDAO extends BaseDAO{
         Statement statement;
         ResultSet resultSet;
         List<EnderecoVO> enderecoVOs = new ArrayList<EnderecoVO>();
-        EnderecoVO enderecoVO = new EnderecoVO();
-
+        
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
+                EnderecoVO enderecoVO = new EnderecoVO();
                 enderecoVO.setRua(resultSet.getString("rua"));
                 enderecoVO.setCidade(resultSet.getString("cidade"));
                 enderecoVO.setUf(resultSet.getString("uf"));
