@@ -11,30 +11,36 @@ import model.vo.EnderecoVO;
 
 public class EnderecoDAO extends BaseDAO{
 
-    public void inserir(EnderecoVO enderecoVO){
+    public long inserir(EnderecoVO enderecoVO){
+
+        List<EnderecoVO> list = this.listar();
+        long lastId = list.get(list.size() - 1).getId();
+        long id = lastId + 1;
+
         connection = getConnection();
-        String sql = "insert into Endereco (rua, cidade, uf) values (?,?,?)";
+        String sql = "INSERT INTO Endereco (id, endereco, cidade, uf) VALUES (?,?,?,?)";
         PreparedStatement preparedStatement;
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, enderecoVO.getRua());
-            preparedStatement.setString(2, enderecoVO.getCidade());
-            preparedStatement.setString(3, enderecoVO.getUf());
+            preparedStatement.setLong(1, id);
+            preparedStatement.setString(2, enderecoVO.getRua());
+            preparedStatement.setString(3, enderecoVO.getCidade());
+            preparedStatement.setString(4, enderecoVO.getUf());
+            preparedStatement.execute();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        return id;
     }
 
     public void removerById(EnderecoVO enderecoVO){
         connection = getConnection();
-        String sql = "delete from Disciplina where values codigo = ?";
+        String sql = "DELETE FROM Endereco WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, enderecoVO.getRua());
-            preparedStatement.setString(2, enderecoVO.getCidade());
-            preparedStatement.setString(3, enderecoVO.getUf());
+            preparedStatement.setLong(1, enderecoVO.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,7 +49,7 @@ public class EnderecoDAO extends BaseDAO{
 
     public List<EnderecoVO> listar() {
         connection = getConnection();
-        String sql = "select * from Endereco";
+        String sql = "SELECT * FROM Endereco";
         Statement statement;
         ResultSet resultSet;
         List<EnderecoVO> enderecoVOs = new ArrayList<EnderecoVO>();
@@ -53,7 +59,8 @@ public class EnderecoDAO extends BaseDAO{
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 EnderecoVO enderecoVO = new EnderecoVO();
-                enderecoVO.setRua(resultSet.getString("rua"));
+                enderecoVO.setId(resultSet.getLong("id"));
+                enderecoVO.setRua(resultSet.getString("endereco"));
                 enderecoVO.setCidade(resultSet.getString("cidade"));
                 enderecoVO.setUf(resultSet.getString("uf"));
                 enderecoVOs.add(enderecoVO);
@@ -66,13 +73,14 @@ public class EnderecoDAO extends BaseDAO{
 
     public void editar(EnderecoVO enderecoVO){
         connection = getConnection();
-        String sql = "update Endereco set rua = ?, cidade = ?, uf = ?";
+        String sql = "UPDATE Endereco SET endereco = ?, cidade = ?, uf = ? WHERE id = ?";
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, enderecoVO.getRua());
             preparedStatement.setString(2, enderecoVO.getCidade());
             preparedStatement.setString(3, enderecoVO.getUf());
+            preparedStatement.setLong(4, enderecoVO.getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

@@ -12,7 +12,7 @@ import model.vo.DisciplinaVO;
 public class DisciplinaDAO extends BaseDAO{
     public void inserir(DisciplinaVO disciplinaVO){
         connection = getConnection();
-        String sql = "insert into Disciplina (codigo, nome) values (?,?)";
+        String sql = "INSERT INTO Disciplina (codigo, nome) VALUES (?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, disciplinaVO.getCodigo());
@@ -25,7 +25,7 @@ public class DisciplinaDAO extends BaseDAO{
 
     public void removerByCodigo(DisciplinaVO disciplinaVO){
         connection = getConnection();
-        String sql = "delete from Disciplina where values codigo = ?";
+        String sql = "DELETE FROM Disciplina WHERE codigo = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, disciplinaVO.getCodigo());
@@ -37,7 +37,7 @@ public class DisciplinaDAO extends BaseDAO{
 
     public List<DisciplinaVO> listar() {
         connection = getConnection();
-        String sql = "select * from Disciplina";
+        String sql = "SELECT * FROM Disciplina";
         Statement statement;
         ResultSet resultSet;
         List<DisciplinaVO> disciplinaVOs = new ArrayList<DisciplinaVO>();
@@ -59,12 +59,12 @@ public class DisciplinaDAO extends BaseDAO{
 
     public void editar(DisciplinaVO disciplinaVO){
         connection = getConnection();
-        String sql = "update Disciplina set codigo = ?, nome = ?";
+        String sql = "UPDATE Disciplina SET nome = ? WHERE codigo = ?";
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, disciplinaVO.getCodigo());
-            preparedStatement.setString(2, disciplinaVO.getNome());
+            preparedStatement.setString(1, disciplinaVO.getNome());
+            preparedStatement.setLong(2, disciplinaVO.getCodigo());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
