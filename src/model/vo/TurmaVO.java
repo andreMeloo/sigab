@@ -7,6 +7,7 @@ public class TurmaVO {
     private long id;
     private String horario;
     private String local;
+    private boolean aberta = true;
 
     private DisciplinaVO disciplina;
     private List<AlunoVO> alunos;
@@ -40,6 +41,14 @@ public class TurmaVO {
         if (local != null && !local.equals("")) {
             this.local = local;
         }
+    }
+
+    public boolean isAberta() {
+        return aberta;
+    }
+
+    public void setAberta(boolean aberta) {
+        this.aberta = aberta;
     }
 
     public DisciplinaVO getDisciplina() {

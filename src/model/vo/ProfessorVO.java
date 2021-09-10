@@ -10,7 +10,7 @@ public class ProfessorVO extends UsuarioVO {
     }
 
     public void setCpf(String cpf) {
-        if (cpf != null || cpf.length() != 11) {
+        if (cpf != null && cpf.length() == 11) {
             this.cpf = cpf;
         }
     }
