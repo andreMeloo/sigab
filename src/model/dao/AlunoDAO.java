@@ -34,7 +34,7 @@ public class AlunoDAO extends BaseDAO{
 
     public void remover(AlunoVO alunoVO){
         connection = getConnection();
-        String sql ="delete from Aluno where values id = ?";
+        String sql ="delete from Aluno where id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, alunoVO.getId());
@@ -63,7 +63,7 @@ public class AlunoDAO extends BaseDAO{
                 alunoVO.setUsername(resultSet.getString("username"));
                 alunoVO.setSenha(resultSet.getString("senha"));
                 alunoVO.setMatricula(resultSet.getString("matricula"));
-                // Casting???
+                // TODO Casting???
                 alunoVO.setEndereco((EnderecoVO) resultSet.getObject("endereco"));
 
                 alunoVOs.add(alunoVO);
