@@ -59,7 +59,6 @@ public class ProfessorDAO extends BaseDAO {
                 ProfessorVO professor = new ProfessorVO();
                 professor.setId(resultSet.getLong("id"));
                 professor.setNome(resultSet.getString("nome"));
-                professor.setNivel(NivelDeUsuario.valueOf(resultSet.getString("nivel")));
                 professor.setUsername(resultSet.getString("username"));
                 professor.setSenha(resultSet.getString("senha"));
                 professor.setCpf(resultSet.getString("cpf"));

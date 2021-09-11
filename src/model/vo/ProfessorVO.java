@@ -1,9 +1,15 @@
 package model.vo;
 
+import enums.NivelDeUsuario;
+
 public class ProfessorVO extends UsuarioVO {
     
     private String cpf;
     private EnderecoVO endereco;
+
+    public ProfessorVO() {
+		this.setNivel(NivelDeUsuario.PROFESSOR);
+	}
 
     public String getCpf() {
         return cpf;
