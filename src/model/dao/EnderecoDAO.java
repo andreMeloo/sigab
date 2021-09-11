@@ -41,6 +41,7 @@ public class EnderecoDAO extends BaseDAO{
     public void removerById(EnderecoVO enderecoVO){
         connection = getConnection();
         String sql = "DELETE FROM Endereco WHERE id = ?";
+
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, enderecoVO.getId());
@@ -64,6 +65,7 @@ public class EnderecoDAO extends BaseDAO{
                 EnderecoVO enderecoVO = new EnderecoVO();
                 enderecoVO.setId(resultSet.getLong("id"));
                 enderecoVO.setRua(resultSet.getString("endereco"));
+
                 enderecoVO.setCidade(resultSet.getString("cidade"));
                 enderecoVO.setUf(resultSet.getString("uf"));
                 enderecoVOs.add(enderecoVO);
