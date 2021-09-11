@@ -10,6 +10,9 @@ public class UsuarioVO {
 	private String username;
 	private String senha;
 
+	public UsuarioVO() {
+		this.setNivel(NivelDeUsuario.ADMIN);
+	}
 
 	public long getId() {
 		return id;
@@ -33,7 +36,7 @@ public class UsuarioVO {
 		return nivel;
 	}
 
-	public void setNivel(NivelDeUsuario nivel) {
+	protected void setNivel(NivelDeUsuario nivel) {
 		this.nivel = nivel;
 	}
 
@@ -42,7 +45,7 @@ public class UsuarioVO {
 	}
 
 	public void setUsername(String username) {
-		if (username != null && username.equals(""))
+		if (username != null && !username.equals(""))
 			this.username = username;
 	}
 

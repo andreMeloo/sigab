@@ -13,23 +13,30 @@ import model.vo.EnderecoVO;
 
 public class AlunoDAO extends BaseDAO{
     
-    public void inserir(AlunoVO alunoVO){
+    public long inserir(AlunoVO alunoVO){
+
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        long id = usuarioDAO.inserir(alunoVO);
+
         connection = getConnection();
-        String sql = "insert into Aluno (nome, nivel, username, senha, matricula, endereco) values (?,?,?,?,?,?)";
+        String sql = "INSERT INTO Aluno (id, nome, nivel, username, senha, matricula, endereco) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement;
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, alunoVO.getNome());
-            preparedStatement.setObject(2, alunoVO.getNivel());
-            preparedStatement.setString(3, alunoVO.getUsername());
-            preparedStatement.setString(4, alunoVO.getSenha());
-            preparedStatement.setString(5, alunoVO.getMatricula());
-            preparedStatement.setObject(6, alunoVO.getEndereco());
+            preparedStatement.setLong(1, id);
+            preparedStatement.setString(2, alunoVO.getNome());
+            preparedStatement.setObject(3, alunoVO.getNivel());
+            preparedStatement.setString(4, alunoVO.getUsername());
+            preparedStatement.setString(5, alunoVO.getSenha());
+            preparedStatement.setString(6, alunoVO.getMatricula());
+            preparedStatement.setObject(7, alunoVO.getEndereco());
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        return id;
     }
 
     public void remover(AlunoVO alunoVO){
@@ -47,9 +54,10 @@ public class AlunoDAO extends BaseDAO{
 
     public List<AlunoVO> listar(){
         connection = getConnection();
-        String sql = "select * from Aluno";
+        String sql = "SELECT * FROM Aluno INNER JOIN Usuario ON Aluno.id=Usuario.id";
         Statement statement;
         ResultSet resultSet;
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
         List<AlunoVO> alunoVOs = new ArrayList<AlunoVO>();
         
         try {
@@ -59,12 +67,10 @@ public class AlunoDAO extends BaseDAO{
                 AlunoVO alunoVO = new AlunoVO();
                 alunoVO.setId(resultSet.getLong("id"));
                 alunoVO.setNome(resultSet.getString("nome"));
-                alunoVO.setNivel(NivelDeUsuario.valueOf(resultSet.getString("nivel")));
                 alunoVO.setUsername(resultSet.getString("username"));
                 alunoVO.setSenha(resultSet.getString("senha"));
                 alunoVO.setMatricula(resultSet.getString("matricula"));
-                // TODO Casting???
-                alunoVO.setEndereco((EnderecoVO) resultSet.getObject("endereco"));
+                alunoVO.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
 
                 alunoVOs.add(alunoVO);
             }
