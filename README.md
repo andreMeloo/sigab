@@ -1,6 +1,6 @@
 ## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This is a java project develop for the POO class. Its a mangement school sytem  
 
 ## Folder Structure
 
