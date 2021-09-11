@@ -36,7 +36,7 @@ public class UsuarioVO {
 		return nivel;
 	}
 
-	protected void setNivel(NivelDeUsuario nivel) {
+	public void setNivel(NivelDeUsuario nivel) {
 		this.nivel = nivel;
 	}
 

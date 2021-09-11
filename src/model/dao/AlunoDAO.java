@@ -7,9 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import enums.NivelDeUsuario;
 import model.vo.AlunoVO;
-import model.vo.EnderecoVO;
 
 public class AlunoDAO extends BaseDAO{
     
@@ -18,19 +16,19 @@ public class AlunoDAO extends BaseDAO{
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         long id = usuarioDAO.inserir(alunoVO);
 
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        long enderecoId = enderecoDAO.inserir(alunoVO.getEndereco());
+
         connection = getConnection();
-        String sql = "INSERT INTO Aluno (id, nome, nivel, username, senha, matricula, endereco) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Aluno (id, matricula, endereco_id) VALUES (?,?,?)";
         PreparedStatement preparedStatement;
 
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
-            preparedStatement.setString(2, alunoVO.getNome());
-            preparedStatement.setObject(3, alunoVO.getNivel());
-            preparedStatement.setString(4, alunoVO.getUsername());
-            preparedStatement.setString(5, alunoVO.getSenha());
-            preparedStatement.setString(6, alunoVO.getMatricula());
-            preparedStatement.setObject(7, alunoVO.getEndereco());
+            preparedStatement.setString(2, alunoVO.getMatricula());
+            preparedStatement.setLong(3, enderecoId);
+            preparedStatement.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -41,7 +39,7 @@ public class AlunoDAO extends BaseDAO{
 
     public void remover(AlunoVO alunoVO){
         connection = getConnection();
-        String sql ="delete from Aluno where values id = ?";
+        String sql ="DELETE FROM Aluno WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, alunoVO.getId());
@@ -50,6 +48,9 @@ public class AlunoDAO extends BaseDAO{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuarioDAO.remover(alunoVO);
     }
 
     public List<AlunoVO> listar(){
@@ -82,23 +83,52 @@ public class AlunoDAO extends BaseDAO{
     }
 
     public void editar(AlunoVO alunoVO){
+
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuarioDAO.editar(alunoVO);
+
         connection = getConnection();
-        String sql = "update Aluno set nome = ?, nivel = ?, username = ?, senha = ?, matricula = ?, endereco = ?";
+        String sql = "UPDATE Aluno SET matricula = ?, endereco_id = ? WHERE id = ?";
         PreparedStatement preparedStatement;
         
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, alunoVO.getNome());
-            preparedStatement.setObject(2, alunoVO.getNivel());
-            preparedStatement.setString(3, alunoVO.getUsername());
-            preparedStatement.setString(4, alunoVO.getSenha());
-            preparedStatement.setString(5, alunoVO.getMatricula());
-            preparedStatement.setObject(6, alunoVO.getEndereco());
+            preparedStatement.setString(1, alunoVO.getMatricula());
+            preparedStatement.setLong(2, alunoVO.getEndereco().getId());
+            preparedStatement.setLong(3, alunoVO.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
+    }
+
+    public AlunoVO getById(long id) {
+        connection = getConnection();
+        String sql = "SELECT * FROM Aluno INNER JOIN Usuario ON Aluno.id=Usuario.id WHERE Aluno.id=?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        AlunoVO alunoVO = new AlunoVO();
+        
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+
+            resultSet.next();
+            alunoVO.setId(resultSet.getLong("id"));
+            alunoVO.setNome(resultSet.getString("nome"));
+            alunoVO.setMatricula(resultSet.getString("matricula"));
+            alunoVO.setUsername(resultSet.getString("username"));
+            alunoVO.setSenha(resultSet.getString("senha"));
+            alunoVO.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return alunoVO;
     }
 }

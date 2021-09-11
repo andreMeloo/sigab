@@ -15,28 +15,38 @@ import model.vo.UsuarioVO;
 
 public class UsuarioDAO extends BaseDAO {
     
-    public void inserir(UsuarioVO usuarioVO) {
+    public long inserir(UsuarioVO usuarioVO) {
+
+        List<UsuarioVO> list = this.listar();
+        long id = 1;
+        if (list.size() > 0) {
+            long lastId = list.get(list.size() - 1).getId();
+            id = lastId + 1;
+        }
+
         connection = getConnection();
-        String sql = "insert into Usuario(nome, nivel, username, senha) values (?,?,?,?)";
+        String sql = "insert into Usuario(id, nome, nivel, username, senha) values (?,?,?,?,?)";
         PreparedStatement preparedStatement;
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, usuarioVO.getNome());
-            preparedStatement.setObject(2, usuarioVO.getNivel());
-            preparedStatement.setString(3, usuarioVO.getUsername());
-            preparedStatement.setString(4, usuarioVO.getSenha());
+            preparedStatement.setLong(1, id);
+            preparedStatement.setString(2, usuarioVO.getNome());
+            preparedStatement.setString(3, usuarioVO.getNivel().name());
+            preparedStatement.setString(4, usuarioVO.getUsername());
+            preparedStatement.setString(5, usuarioVO.getSenha());
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        return id;
     }
 
     public void remover(UsuarioVO usuarioVO) {
         connection = getConnection();
-        String sql = "delete from Usuario where values id = ?";
+        String sql = "DELETE FROM Usuario WHERE id = ?";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -51,16 +61,17 @@ public class UsuarioDAO extends BaseDAO {
 
     public List<UsuarioVO> listar() {
         connection = getConnection();
-        String sql = "select * from Usuario";
+        String sql = "SELECT * FROM Usuario";
         Statement statement;
         ResultSet resultSet;
         List<UsuarioVO> usuarioVOs = new ArrayList<UsuarioVO>();
-        UsuarioVO usuarioVO = new UsuarioVO();
-
+        
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
+
             while (resultSet.next()) {
+                UsuarioVO usuarioVO = new UsuarioVO();
                 usuarioVO.setId(resultSet.getLong("id"));
                 usuarioVO.setNome(resultSet.getString("nome"));
                 usuarioVO.setNivel(NivelDeUsuario.valueOf(resultSet.getString("nivel")));
@@ -79,14 +90,14 @@ public class UsuarioDAO extends BaseDAO {
 
     public void editar(UsuarioVO usuarioVO){
         connection = getConnection();
-        String sql = "UPDATE Usuario SET nome = ?, nivel = ?, username = ?, senha = ? WHERE id = ?";
+        String sql = "UPDATE Usuario SET nome = ?, username = ?, senha = ? WHERE id = ?";
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, usuarioVO.getNome());
-            preparedStatement.setObject(2, usuarioVO.getNivel());
-            preparedStatement.setString(3, usuarioVO.getUsername());
-            preparedStatement.setString(4, usuarioVO.getSenha());
+            preparedStatement.setString(2, usuarioVO.getUsername());
+            preparedStatement.setString(3, usuarioVO.getSenha());
+            preparedStatement.setLong(4, usuarioVO.getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
