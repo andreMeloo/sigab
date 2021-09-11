@@ -1,7 +1,9 @@
 import java.util.List;
 
+import model.dao.AlunoDAO;
 import model.dao.DisciplinaDAO;
 import model.dao.EnderecoDAO;
+import model.vo.AlunoVO;
 import model.vo.DisciplinaVO;
 import model.vo.EnderecoVO;
 
@@ -77,5 +79,42 @@ public class App {
             System.out.println(row.getId() + " - " + row.getRua() + ". " + row.getCidade() + ", " + row.getUf());
         }
 
+        // Aluno
+        System.out.println("\nAluno\n");
+
+        AlunoDAO alunoDao = new AlunoDAO();
+
+        System.out.println("Adicionando:");
+        AlunoVO aluno = new AlunoVO();
+        aluno.setEndereco(new EnderecoVO("Rua Aleatoria", "Natal", "RN"));
+        aluno.setMatricula("2021010256");
+        aluno.setNome("Joaozinho");
+        aluno.setSenha("123456");
+        aluno.setUsername("jaozin");
+
+        long alunoId = alunoDao.inserir(aluno);
+        aluno = alunoDao.getById(alunoId);
+        List<AlunoVO> alunos = alunoDao.listar();
+
+        for (var row : alunos) {
+            System.out.println(row.getNome() + " - " + row.getMatricula());
+        }
+
+        System.out.println("\nEditando:");
+        aluno.setNome("João da Silva");
+        alunoDao.editar(aluno);
+        alunos = alunoDao.listar();
+
+        for (var row : alunos) {
+            System.out.println(row.getNome() + " - " + row.getMatricula());
+        }
+
+        System.out.println("\nDeletando:");
+        alunoDao.remover(aluno);
+        alunos = alunoDao.listar();
+
+        for (var row : alunos) {
+            System.out.println(row.getNome() + " - " + row.getMatricula());
+        }
     }
 }
