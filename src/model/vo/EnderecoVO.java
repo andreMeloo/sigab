@@ -6,6 +6,15 @@ public class EnderecoVO {
 	private String rua;
 	private String cidade;
 	private String uf;
+
+	public EnderecoVO(String rua, String cidade, String uf) {
+		this.setRua(rua);
+		this.setCidade(cidade);
+		this.setUf(uf);
+	}
+
+	public EnderecoVO() {
+	}
 	
 	public long getId() {
 		return id;

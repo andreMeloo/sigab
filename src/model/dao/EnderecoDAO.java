@@ -14,8 +14,11 @@ public class EnderecoDAO extends BaseDAO{
     public long inserir(EnderecoVO enderecoVO){
 
         List<EnderecoVO> list = this.listar();
-        long lastId = list.get(list.size() - 1).getId();
-        long id = lastId + 1;
+        long id = 1;
+        if (list.size() > 0) {
+            long lastId = list.get(list.size() - 1).getId();
+            id = lastId + 1;
+        }
 
         connection = getConnection();
         String sql = "INSERT INTO Endereco (id, endereco, cidade, uf) VALUES (?,?,?,?)";
@@ -86,5 +89,31 @@ public class EnderecoDAO extends BaseDAO{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public EnderecoVO getById(long id) {
+        connection = getConnection();
+        String sql = "SELECT * FROM Endereco WHERE id=?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        EnderecoVO enderecoVO = new EnderecoVO();
+        
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+
+            resultSet.next();
+            enderecoVO.setId(resultSet.getLong("id"));
+            enderecoVO.setRua(resultSet.getString("endereco"));
+            enderecoVO.setCidade(resultSet.getString("cidade"));
+            enderecoVO.setUf(resultSet.getString("uf"));
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return enderecoVO;
     }
 }
