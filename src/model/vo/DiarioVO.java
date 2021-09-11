@@ -1,6 +1,6 @@
 package model.vo;
 
-class DiarioVO {
+public class DiarioVO {
 		
 	private long id;
 	private double nota1;

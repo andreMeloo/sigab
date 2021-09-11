@@ -2,7 +2,7 @@ package model.vo;
 
 import enums.NivelDeUsuario;
 
-class UsuarioVO {
+public class UsuarioVO {
 
 	private long id;
 	private String nome;
