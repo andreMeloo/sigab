@@ -38,13 +38,13 @@ public class EnderecoDAO extends BaseDAO{
         return id;
     }
 
-    public void removerById(EnderecoVO enderecoVO){
+    public void remover(long id){
         connection = getConnection();
         String sql = "DELETE FROM Endereco WHERE id = ?";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, enderecoVO.getId());
+            preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,5 +117,61 @@ public class EnderecoDAO extends BaseDAO{
         }
 
         return enderecoVO;
+    }
+
+    public EnderecoVO getByProfessorId(long id) {
+        connection = getConnection();
+        String sql = "SELECT Endereco.id, endereco, cidade, uf "
+                    + "FROM Endereco INNER JOIN Professor ON Endereco.id=Professor.endereco_id "
+                    + "WHERE Professor.id=?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        EnderecoVO endereco = new EnderecoVO();
+        
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+
+            resultSet.next();
+            endereco.setId(resultSet.getLong("id"));
+            endereco.setRua(resultSet.getString("endereco"));
+            endereco.setCidade(resultSet.getString("cidade"));
+            endereco.setUf(resultSet.getString("uf"));
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return endereco;
+    }
+
+    public EnderecoVO getByAlunoId(long id) {
+        connection = getConnection();
+        String sql = "SELECT Endereco.id, endereco, cidade, uf "
+                    + "FROM Endereco INNER JOIN Aluno ON Endereco.id=Aluno.endereco_id "
+                    + "WHERE Aluno.id=?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        EnderecoVO endereco = new EnderecoVO();
+        
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+
+            resultSet.next();
+            endereco.setId(resultSet.getLong("id"));
+            endereco.setRua(resultSet.getString("endereco"));
+            endereco.setCidade(resultSet.getString("cidade"));
+            endereco.setUf(resultSet.getString("uf"));
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return endereco;
     }
 }

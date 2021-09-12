@@ -37,20 +37,13 @@ public class AlunoDAO extends BaseDAO{
         return id;
     }
 
-    public void remover(AlunoVO alunoVO){
-        connection = getConnection();
-        String sql ="DELETE FROM Aluno WHERE id = ?";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, alunoVO.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+    public void remover(long id){
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        long enderecoId = enderecoDAO.getByAlunoId(id).getId();
+        
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        usuarioDAO.remover(alunoVO);
+        usuarioDAO.remover(id);
+        enderecoDAO.remover(enderecoId);
     }
 
     public List<AlunoVO> listar(){

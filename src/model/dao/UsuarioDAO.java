@@ -44,13 +44,13 @@ public class UsuarioDAO extends BaseDAO {
         return id;
     }
 
-    public void remover(UsuarioVO usuarioVO) {
+    public void remover(long id) {
         connection = getConnection();
         String sql = "DELETE FROM Usuario WHERE id = ?";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, usuarioVO.getId());
+            preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
