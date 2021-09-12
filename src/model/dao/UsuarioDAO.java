@@ -53,7 +53,6 @@ public class UsuarioDAO extends BaseDAO {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -80,7 +79,6 @@ public class UsuarioDAO extends BaseDAO {
                 usuarioVOs.add(usuarioVO);
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

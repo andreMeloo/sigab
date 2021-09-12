@@ -2,7 +2,6 @@ package model.vo;
 
 public class DiarioVO {
 		
-	private long id;
 	private double nota1;
 	private double nota2;
 	private double nota3;
@@ -11,14 +10,6 @@ public class DiarioVO {
 	private AlunoVO aluno;
 	private TurmaVO turma;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		if(id > 0)
-			this.id = id;
-	}
 
 	public double getNota1() {
 		return nota1;
