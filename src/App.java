@@ -3,9 +3,11 @@ import java.util.List;
 import model.dao.AlunoDAO;
 import model.dao.DisciplinaDAO;
 import model.dao.EnderecoDAO;
+import model.dao.ProfessorDAO;
 import model.vo.AlunoVO;
 import model.vo.DisciplinaVO;
 import model.vo.EnderecoVO;
+import model.vo.ProfessorVO;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -117,6 +119,44 @@ public class App {
             System.out.println(row.getNome() + " - " + row.getMatricula());
         }
 
+        // Professor
+        System.out.println("\nAluno\n");
+
+        ProfessorDAO professorDao = new ProfessorDAO();
+
+        System.out.println("Adicionando:");
+        ProfessorVO professor = new ProfessorVO();
+        professor.setEndereco(new EnderecoVO("Rua do Amigo", "Poços de Caldas", "MG"));
+        professor.setCpf("12398741242");
+        professor.setNome("Gurgel");
+        professor.setSenha("987654");
+        professor.setUsername("gugel506");
+
+        long professorId = professorDao.inserir(professor);
+        professor = professorDao.getById(professorId);
+        List<ProfessorVO> professores = professorDao.listar();
+
+        for (var row : professores) {
+            System.out.println(row.getNome() + " - " + row.getCpf());
+        }
+
+        System.out.println("\nEditando:");
+        professor.setNome("Linderbergson");
+        professor.setCpf("12345678900");
+        professorDao.editar(professor);
+        professores = professorDao.listar();
+
+        for (var row : professores) {
+            System.out.println(row.getNome() + " - " + row.getCpf());
+        }
+
+        System.out.println("\nDeletando:");
+        professorDao.remover(professor.getId());
+        professores = professorDao.listar();
+
+        for (var row : professores) {
+            System.out.println(row.getNome() + " - " + row.getCpf());
+        }
         
     }
 }

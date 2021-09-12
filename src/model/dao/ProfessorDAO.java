@@ -7,48 +7,49 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import enums.NivelDeUsuario;
 import model.vo.EnderecoVO;
 import model.vo.ProfessorVO;
 
 public class ProfessorDAO extends BaseDAO {
     
-    public void inserir(ProfessorVO professor) {
-        connection = getConnection();
-        String sql = "INSERT INTO Professor (nome, nivel, username, senha, cpf, endereco) VALUES (?,?,?,?,?,?)";
-        PreparedStatement preparedStatement;
+    public long inserir(ProfessorVO professor) {
 
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, professor.getNome());
-            preparedStatement.setObject(2, professor.getNivel());
-            preparedStatement.setString(3, professor.getUsername());
-            preparedStatement.setString(4, professor.getSenha());
-            preparedStatement.setString(5, professor.getCpf());
-            preparedStatement.setObject(6, professor.getEndereco());
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        long id = usuarioDAO.inserir(professor);
 
-    public void remover(Long id) {
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        long enderecoId = enderecoDAO.inserir(professor.getEndereco());
+
         connection = getConnection();
-        String sql = "DELETE FROM Professor WHERE id=?";
+        String sql = "INSERT INTO Professor (id, cpf, endereco_id) VALUES (?,?,?)";
         PreparedStatement preparedStatement;
 
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
-            preparedStatement.executeUpdate();
+            preparedStatement.setString(2, professor.getCpf());
+            preparedStatement.setObject(3, enderecoId);
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return id;
+    }
+
+    public void remover(Long id) {
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        long enderecoId = enderecoDAO.getByProfessorId(id).getId();
+        
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuarioDAO.remover(id);
+        enderecoDAO.remover(enderecoId);
     }
 
     public List<ProfessorVO> listar() {
         connection = getConnection();
-        String sql = "SELECT * FROM Professor";
+        String sql = "SELECT * FROM Professor INNER JOIN Usuario ON Professor.id=Usuario.id";
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
         List<ProfessorVO> result = new ArrayList<ProfessorVO>();
         
         try {
@@ -62,7 +63,7 @@ public class ProfessorDAO extends BaseDAO {
                 professor.setUsername(resultSet.getString("username"));
                 professor.setSenha(resultSet.getString("senha"));
                 professor.setCpf(resultSet.getString("cpf"));
-                professor.setEndereco((EnderecoVO) resultSet.getObject("endereco"));
+                professor.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
 
                 result.add(professor);
             }
@@ -74,23 +75,51 @@ public class ProfessorDAO extends BaseDAO {
     }
 
     public void editar(ProfessorVO professor){
+
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        usuarioDAO.editar(professor);
+
         connection = getConnection();
-        String sql = "UPDATE Professor SET nome=?, nivel=?, username=?, senha=?, cpf=?, endereco=? WHERE id=?";
+        String sql = "UPDATE Professor SET cpf=?, endereco_id=? WHERE id=?";
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, professor.getNome());
-            preparedStatement.setObject(2, professor.getNivel());
-            preparedStatement.setString(3, professor.getUsername());
-            preparedStatement.setString(4, professor.getSenha());
-            preparedStatement.setString(5, professor.getCpf());
-            preparedStatement.setObject(6, professor.getEndereco());
-            
-            preparedStatement.setObject(7, professor.getId());
+            preparedStatement.setString(1, professor.getCpf());
+            preparedStatement.setLong(2, professor.getEndereco().getId());
+            preparedStatement.setLong(3, professor.getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public ProfessorVO getById(long id) {
+        connection = getConnection();
+        String sql = "SELECT * FROM Professor INNER JOIN Usuario ON Professor.id=Usuario.id WHERE Professor.id=?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        ProfessorVO professor = new ProfessorVO();
+        
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+
+            resultSet.next();
+            professor.setId(resultSet.getLong("id"));
+            professor.setNome(resultSet.getString("nome"));
+            professor.setCpf(resultSet.getString("cpf"));
+            professor.setUsername(resultSet.getString("username"));
+            professor.setSenha(resultSet.getString("senha"));
+            professor.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return professor;
     }
 }
