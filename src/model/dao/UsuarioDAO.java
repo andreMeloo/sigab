@@ -17,31 +17,30 @@ public class UsuarioDAO extends BaseDAO {
     
     public long inserir(UsuarioVO usuarioVO) {
 
-        List<UsuarioVO> list = this.listar();
-        long id = 1;
-        if (list.size() > 0) {
-            long lastId = list.get(list.size() - 1).getId();
-            id = lastId + 1;
-        }
-
         connection = getConnection();
-        String sql = "insert into Usuario(id, nome, nivel, username, senha) values (?,?,?,?,?)";
+        String sql = "insert into Usuario(nome, nivel, username, senha) values (?,?,?,?)";
         PreparedStatement preparedStatement;
 
         try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
-            preparedStatement.setString(2, usuarioVO.getNome());
-            preparedStatement.setString(3, usuarioVO.getNivel().name());
-            preparedStatement.setString(4, usuarioVO.getUsername());
-            preparedStatement.setString(5, usuarioVO.getSenha());
-            preparedStatement.execute();
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, usuarioVO.getNome());
+            preparedStatement.setString(2, usuarioVO.getNivel().name());
+            preparedStatement.setString(3, usuarioVO.getUsername());
+            preparedStatement.setString(4, usuarioVO.getSenha());
+            preparedStatement.executeUpdate();
+
+            ResultSet keys = preparedStatement.getGeneratedKeys();
+
+            keys.next();
+            usuarioVO.setId(keys.getLong(1));
+        
+            return usuarioVO.getId();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return id;
+        return 0;
     }
 
     public void remover(long id) {

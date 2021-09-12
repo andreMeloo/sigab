@@ -13,29 +13,29 @@ public class EnderecoDAO extends BaseDAO{
 
     public long inserir(EnderecoVO enderecoVO){
 
-        List<EnderecoVO> list = this.listar();
-        long id = 1;
-        if (list.size() > 0) {
-            long lastId = list.get(list.size() - 1).getId();
-            id = lastId + 1;
-        }
-
         connection = getConnection();
-        String sql = "INSERT INTO Endereco (id, endereco, cidade, uf) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO Endereco (endereco, cidade, uf) VALUES (?,?,?)";
         PreparedStatement preparedStatement;
 
         try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
-            preparedStatement.setString(2, enderecoVO.getRua());
-            preparedStatement.setString(3, enderecoVO.getCidade());
-            preparedStatement.setString(4, enderecoVO.getUf());
-            preparedStatement.execute();
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, enderecoVO.getRua());
+            preparedStatement.setString(2, enderecoVO.getCidade());
+            preparedStatement.setString(3, enderecoVO.getUf());
+            preparedStatement.executeUpdate();
+
+            ResultSet keys = preparedStatement.getGeneratedKeys();
+
+            keys.next();
+            enderecoVO.setId(keys.getLong(1));
+        
+            return enderecoVO.getId();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return id;
+        return 0;
     }
 
     public void remover(long id){

@@ -57,7 +57,7 @@ public class App {
         endereco.setRua("Rua das Joaninhas");
         endereco.setUf("RN");
 
-        endereco.setId(enderecoDao.inserir(endereco));
+        enderecoDao.inserir(endereco);
         List<EnderecoVO> enderecos = enderecoDao.listar();
 
         for (var row : enderecos) {
@@ -120,7 +120,7 @@ public class App {
         }
 
         // Professor
-        System.out.println("\nAluno\n");
+        System.out.println("\nProfessor\n");
 
         ProfessorDAO professorDao = new ProfessorDAO();
 
