@@ -72,7 +72,7 @@ public class App {
         }
 
         System.out.println("\nDeletando:");
-        enderecoDao.removerById(endereco);
+        enderecoDao.remover(endereco.getId());
         enderecos = enderecoDao.listar();
 
         for (var row : enderecos) {
@@ -110,11 +110,13 @@ public class App {
         }
 
         System.out.println("\nDeletando:");
-        alunoDao.remover(aluno);
+        alunoDao.remover(aluno.getId());
         alunos = alunoDao.listar();
 
         for (var row : alunos) {
             System.out.println(row.getNome() + " - " + row.getMatricula());
         }
+
+        
     }
 }
