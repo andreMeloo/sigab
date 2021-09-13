@@ -124,4 +124,37 @@ public class AlunoDAO extends BaseDAO{
 
         return alunoVO;
     }
+
+    public List<AlunoVO> getAllByTurmaId(long id) {
+
+        connection = getConnection();
+        String sql = "SELECT * FROM Aluno INNER JOIN Usuario ON Aluno.id=Usuario.id "
+                    + "RIGHT JOIN Diario ON Aluno.id=Diario.aluno_id WHERE Diario.turma_id=?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        List<AlunoVO> alunos = new ArrayList<AlunoVO>();
+        
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+
+            while (resultSet.next()) {
+                AlunoVO aluno = new AlunoVO();
+                aluno.setId(resultSet.getLong("id"));
+                aluno.setNome(resultSet.getString("nome"));
+                aluno.setUsername(resultSet.getString("username"));
+                aluno.setSenha(resultSet.getString("senha"));
+                aluno.setMatricula(resultSet.getString("matricula"));
+                aluno.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
+
+                alunos.add(aluno);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return alunos;
+    }
 }
