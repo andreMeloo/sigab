@@ -71,4 +71,28 @@ public class DisciplinaDAO extends BaseDAO{
             e.printStackTrace();
         }
     }
+
+    public DisciplinaVO getByCodigo(long codigo) {
+        connection = getConnection();
+        String sql = "SELECT * FROM Disciplina WHERE codigo=?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        DisciplinaVO disciplina = new DisciplinaVO();
+        
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, codigo);
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+
+            resultSet.next();
+            disciplina.setCodigo(resultSet.getLong("codigo"));
+            disciplina.setNome(resultSet.getString("nome"));
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return disciplina;
+    }
 }

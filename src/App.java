@@ -4,10 +4,12 @@ import model.dao.AlunoDAO;
 import model.dao.DisciplinaDAO;
 import model.dao.EnderecoDAO;
 import model.dao.ProfessorDAO;
+import model.dao.TurmaDAO;
 import model.vo.AlunoVO;
 import model.vo.DisciplinaVO;
 import model.vo.EnderecoVO;
 import model.vo.ProfessorVO;
+import model.vo.TurmaVO;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -38,13 +40,13 @@ public class App {
             System.out.println(row.getCodigo() + " - " + row.getNome());
         }
         
-        System.out.println("\nDeletando:");
-        disciplinaDao.removerByCodigo(disciplina);
-        disciplinas = disciplinaDao.listar();
+        // System.out.println("\nDeletando:");
+        // disciplinaDao.removerByCodigo(disciplina);
+        // disciplinas = disciplinaDao.listar();
 
-        for (var row : disciplinas) {
-            System.out.println(row.getCodigo() + " - " + row.getNome());
-        }
+        // for (var row : disciplinas) {
+        //     System.out.println(row.getCodigo() + " - " + row.getNome());
+        // }
         
         // Endereco
         System.out.println("\nEndereco\n");
@@ -150,12 +152,48 @@ public class App {
             System.out.println(row.getNome() + " - " + row.getCpf());
         }
 
-        System.out.println("\nDeletando:");
-        professorDao.remover(professor.getId());
-        professores = professorDao.listar();
+        // System.out.println("\nDeletando:");
+        // professorDao.remover(professor.getId());
+        // professores = professorDao.listar();
 
-        for (var row : professores) {
-            System.out.println(row.getNome() + " - " + row.getCpf());
+        // for (var row : professores) {
+        //     System.out.println(row.getNome() + " - " + row.getCpf());
+        // }
+
+        // Turma
+        System.out.println("\nTurma\n");
+
+        TurmaDAO turmaDAO = new TurmaDAO();
+
+        System.out.println("Adicionando:");
+        TurmaVO turma = new TurmaVO();
+        turma.setDisciplina(disciplina);
+        turma.setHorario("12M34");
+        turma.setLocal("Remoto");
+        turma.setProfessor(professor);
+
+        turmaDAO.inserir(turma);
+        List<TurmaVO> turmas = turmaDAO.listar();
+
+        for (var row : turmas) {
+            System.out.println(row.getHorario() + " - " + row.getDisciplina().getNome() + " - " + row.getProfessor().getNome());
+        }
+
+        System.out.println("\nEditando:");
+        turma.setHorario("34T12");
+        turmaDAO.editar(turma);
+        turmas = turmaDAO.listar();
+
+        for (var row : turmas) {
+            System.out.println(row.getHorario() + " - " + row.getDisciplina().getNome() + " - " + row.getProfessor().getNome());
+        }
+
+        System.out.println("\nDeletando:");
+        turmaDAO.remover(turma.getId());
+        turmas = turmaDAO.listar();
+
+        for (var row : turmas) {
+            System.out.println(row.getHorario() + " - " + row.getDisciplina().getNome() + " - " + row.getProfessor().getNome());
         }
         
     }

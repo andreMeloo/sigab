@@ -56,7 +56,7 @@ public class TurmaVO {
     }
 
     public void setDisciplina(DisciplinaVO disciplina) {
-        if (professor != null) {
+        if (disciplina != null) {
             this.disciplina = disciplina;
         }
     }
