@@ -1,11 +1,13 @@
 import java.util.List;
 
 import model.dao.AlunoDAO;
+import model.dao.DiarioDAO;
 import model.dao.DisciplinaDAO;
 import model.dao.EnderecoDAO;
 import model.dao.ProfessorDAO;
 import model.dao.TurmaDAO;
 import model.vo.AlunoVO;
+import model.vo.DiarioVO;
 import model.vo.DisciplinaVO;
 import model.vo.EnderecoVO;
 import model.vo.ProfessorVO;
@@ -113,13 +115,13 @@ public class App {
             System.out.println(row.getNome() + " - " + row.getMatricula());
         }
 
-        System.out.println("\nDeletando:");
-        alunoDao.remover(aluno.getId());
-        alunos = alunoDao.listar();
+        // System.out.println("\nDeletando:");
+        // alunoDao.remover(aluno.getId());
+        // alunos = alunoDao.listar();
 
-        for (var row : alunos) {
-            System.out.println(row.getNome() + " - " + row.getMatricula());
-        }
+        // for (var row : alunos) {
+        //     System.out.println(row.getNome() + " - " + row.getMatricula());
+        // }
 
         // Professor
         System.out.println("\nProfessor\n");
@@ -188,13 +190,50 @@ public class App {
             System.out.println(row.getHorario() + " - " + row.getDisciplina().getNome() + " - " + row.getProfessor().getNome());
         }
 
-        System.out.println("\nDeletando:");
-        turmaDAO.remover(turma.getId());
-        turmas = turmaDAO.listar();
+        // System.out.println("\nDeletando:");
+        // turmaDAO.remover(turma.getId());
+        // turmas = turmaDAO.listar();
 
-        for (var row : turmas) {
-            System.out.println(row.getHorario() + " - " + row.getDisciplina().getNome() + " - " + row.getProfessor().getNome());
+        // for (var row : turmas) {
+        //     System.out.println(row.getHorario() + " - " + row.getDisciplina().getNome() + " - " + row.getProfessor().getNome());
+        // }
+
+        // Diario
+        System.out.println("\nTurma\n");
+
+        DiarioDAO diarioDao = new DiarioDAO();
+
+        System.out.println("Adicionando:");
+        DiarioVO diario = new DiarioVO();
+        diario.setNota1((double)5);
+        diario.setNota2(8.9);
+        diario.setNota3((double)10);
+        diario.setFrequencia(75);
+        diario.setAluno(aluno);
+        diario.setTurma(turma);
+
+        diarioDao.inserir(diario);
+        List<DiarioVO> diarios = diarioDao.listar();
+
+        for (var row : diarios) {
+            System.out.println(row.getAluno().getNome() + " - " + row.getTurma().getDisciplina().getNome() + " - " + row.getFrequencia());
         }
-        
+
+        System.out.println("\nEditando:");
+        diario.setFrequencia(100);
+        diarioDao.editar(diario);
+        diarios = diarioDao.listar();
+
+        for (var row : diarios) {
+            System.out.println(row.getAluno().getNome() + " - " + row.getTurma().getDisciplina().getNome() + " - " + row.getFrequencia());
+        }
+
+        System.out.println("\nDeletando:");
+        diarioDao.remover(diario.getAluno().getId(), diario.getTurma().getId());
+        diarios = diarioDao.listar();
+
+        for (var row : diarios) {
+            System.out.println(row.getAluno().getNome() + " - " + row.getTurma().getDisciplina().getNome() + " - " + row.getFrequencia());
+        }
     }
 }

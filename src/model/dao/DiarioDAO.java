@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.vo.AlunoVO;
 import model.vo.DiarioVO;
 
 
@@ -15,7 +14,7 @@ public class DiarioDAO extends BaseDAO {
 
     public void inserir(DiarioVO diarioVO) {
         connection = getConnection();
-        String sql = "INSERT INTO Diario(nota1, nota2, nota3, quarta_prova, frequencia, aluno_id, turma_id) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Diario (nota1, nota2, nota3, quarta_prova, frequencia, aluno_id, turma_id) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement;
 
         try {
@@ -34,13 +33,14 @@ public class DiarioDAO extends BaseDAO {
         }
     }
 
-    public void remover(DiarioVO diarioVO) {
+    public void remover(long alunoId, long turmaId) {
         connection = getConnection();
-        String sql = "DELETE FROM Diario WHERE id = ?";
+        String sql = "DELETE FROM Diario WHERE aluno_id=? AND turma_id=?";
         
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, diarioVO.getAluno().getId());
+            preparedStatement.setLong(1, alunoId);
+            preparedStatement.setLong(2, turmaId);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -74,8 +74,7 @@ public class DiarioDAO extends BaseDAO {
                 diarioVOs.add(diarioVO);
             }
 
-        } catch (SQLException e) {
-         
+        } catch (SQLException e) {   
             e.printStackTrace();
         }
 
@@ -84,7 +83,7 @@ public class DiarioDAO extends BaseDAO {
 
     public void editar(DiarioVO diarioVO) {
         connection = getConnection();
-        String sql = "UPDATE Diario SET nota1 = ?, nota2 = ?, nota3 = ?, quarta_prova = ?, frequencia = ? WHERE id = ?";
+        String sql = "UPDATE Diario SET nota1 = ?, nota2 = ?, nota3 = ?, quarta_prova = ?, frequencia = ? WHERE aluno_id=? AND turma_id=?";
         PreparedStatement preparedStatement;
 
         try {
@@ -95,6 +94,7 @@ public class DiarioDAO extends BaseDAO {
             preparedStatement.setDouble(4, diarioVO.getQuartaProva());
             preparedStatement.setInt(5, diarioVO.getFrequencia());
             preparedStatement.setLong(6, diarioVO.getAluno().getId());
+            preparedStatement.setLong(7, diarioVO.getTurma().getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

@@ -1,12 +1,13 @@
 package model.vo;
 
 public class DiarioVO {
-		
-	private double nota1;
-	private double nota2;
-	private double nota3;
-	private double quartaProva;
-	private int frequencia;
+
+	// O -1 diferencia valores "nulos" de zeros reais. Não é definitivo, pode mudar.
+	private double nota1 = -1;
+	private double nota2 = -1;
+	private double nota3 = -1;
+	private double quartaProva = -1;
+	private int frequencia = -1;
 	private AlunoVO aluno;
 	private TurmaVO turma;
 
