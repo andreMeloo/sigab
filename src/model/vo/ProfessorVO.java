@@ -27,7 +27,7 @@ public class ProfessorVO extends UsuarioVO {
 
     public void setEndereco(EnderecoVO endereco) {
         if (endereco != null) {
-            if (!endereco.getRua().isBlank() && !endereco.getCidade().isBlank() && !endereco.getUf().isBlank()) {
+            if (!endereco.getEndereco().isBlank() && !endereco.getCidade().isBlank() && !endereco.getUf().isBlank()) {
                 this.endereco = endereco;
             }
         }

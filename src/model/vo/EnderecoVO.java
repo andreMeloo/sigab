@@ -3,12 +3,12 @@ package model.vo;
 public class EnderecoVO {
 	
 	private long id;
-	private String rua;
+	private String endereco;
 	private String cidade;
 	private String uf;
 
-	public EnderecoVO(String rua, String cidade, String uf) {
-		this.setRua(rua);
+	public EnderecoVO(String endereco, String cidade, String uf) {
+		this.setEndereco(endereco);
 		this.setCidade(cidade);
 		this.setUf(uf);
 	}
@@ -25,13 +25,13 @@ public class EnderecoVO {
 			this.id = id;
 	}
 
-	public String getRua() {
-		return rua;
+	public String getEndereco() {
+		return endereco;
 	}
 
-	public void setRua(String rua) {
-		if(rua != null && !rua.equals(""))
-			this.rua = rua;
+	public void setEndereco(String endereco) {
+		if(endereco != null && !endereco.equals(""))
+			this.endereco = endereco;
 	}
 
 	public String getCidade() {

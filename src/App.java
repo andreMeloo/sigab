@@ -58,14 +58,14 @@ public class App {
         System.out.println("Adicionando:");
         EnderecoVO endereco = new EnderecoVO();
         endereco.setCidade("Natal");
-        endereco.setRua("Rua das Joaninhas");
+        endereco.setEndereco("R. das Joaninhas");
         endereco.setUf("RN");
 
         enderecoDao.inserir(endereco);
         List<EnderecoVO> enderecos = enderecoDao.listar();
 
         for (var row : enderecos) {
-            System.out.println(row.getId() + " - " + row.getRua() + ". " + row.getCidade() + ", " + row.getUf());
+            System.out.println(row.getId() + " - " + row.getEndereco() + ". " + row.getCidade() + ", " + row.getUf());
         }
 
         System.out.println("\nEditando:");
@@ -74,7 +74,7 @@ public class App {
         enderecos = enderecoDao.listar();
 
         for (var row : enderecos) {
-            System.out.println(row.getId() + " - " + row.getRua() + ". " + row.getCidade() + ", " + row.getUf());
+            System.out.println(row.getId() + " - " + row.getEndereco() + ". " + row.getCidade() + ", " + row.getUf());
         }
 
         System.out.println("\nDeletando:");
@@ -82,7 +82,7 @@ public class App {
         enderecos = enderecoDao.listar();
 
         for (var row : enderecos) {
-            System.out.println(row.getId() + " - " + row.getRua() + ". " + row.getCidade() + ", " + row.getUf());
+            System.out.println(row.getId() + " - " + row.getEndereco() + ". " + row.getCidade() + ", " + row.getUf());
         }
 
         // Aluno
@@ -92,7 +92,7 @@ public class App {
 
         System.out.println("Adicionando:");
         AlunoVO aluno = new AlunoVO();
-        aluno.setEndereco(new EnderecoVO("Rua Aleatoria", "Natal", "RN"));
+        aluno.setEndereco(new EnderecoVO("R. Aleatoria", "Natal", "RN"));
         aluno.setMatricula("2021010256");
         aluno.setNome("Joaozinho");
         aluno.setSenha("123456");
@@ -130,7 +130,7 @@ public class App {
 
         System.out.println("Adicionando:");
         ProfessorVO professor = new ProfessorVO();
-        professor.setEndereco(new EnderecoVO("Rua do Amigo", "Poços de Caldas", "MG"));
+        professor.setEndereco(new EnderecoVO("R. do Amigo", "Poços de Caldas", "MG"));
         professor.setCpf("12398741242");
         professor.setNome("Gurgel");
         professor.setSenha("987654");

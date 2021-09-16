@@ -19,7 +19,7 @@ public class EnderecoDAO extends BaseDAO{
 
         try {
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, enderecoVO.getRua());
+            preparedStatement.setString(1, enderecoVO.getEndereco());
             preparedStatement.setString(2, enderecoVO.getCidade());
             preparedStatement.setString(3, enderecoVO.getUf());
             preparedStatement.executeUpdate();
@@ -64,7 +64,7 @@ public class EnderecoDAO extends BaseDAO{
             while (resultSet.next()) {
                 EnderecoVO enderecoVO = new EnderecoVO();
                 enderecoVO.setId(resultSet.getLong("id"));
-                enderecoVO.setRua(resultSet.getString("endereco"));
+                enderecoVO.setEndereco(resultSet.getString("endereco"));
 
                 enderecoVO.setCidade(resultSet.getString("cidade"));
                 enderecoVO.setUf(resultSet.getString("uf"));
@@ -82,7 +82,7 @@ public class EnderecoDAO extends BaseDAO{
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, enderecoVO.getRua());
+            preparedStatement.setString(1, enderecoVO.getEndereco());
             preparedStatement.setString(2, enderecoVO.getCidade());
             preparedStatement.setString(3, enderecoVO.getUf());
             preparedStatement.setLong(4, enderecoVO.getId());
@@ -108,7 +108,7 @@ public class EnderecoDAO extends BaseDAO{
 
             resultSet.next();
             enderecoVO.setId(resultSet.getLong("id"));
-            enderecoVO.setRua(resultSet.getString("endereco"));
+            enderecoVO.setEndereco(resultSet.getString("endereco"));
             enderecoVO.setCidade(resultSet.getString("cidade"));
             enderecoVO.setUf(resultSet.getString("uf"));
         
@@ -136,7 +136,7 @@ public class EnderecoDAO extends BaseDAO{
 
             resultSet.next();
             endereco.setId(resultSet.getLong("id"));
-            endereco.setRua(resultSet.getString("endereco"));
+            endereco.setEndereco(resultSet.getString("endereco"));
             endereco.setCidade(resultSet.getString("cidade"));
             endereco.setUf(resultSet.getString("uf"));
         
@@ -164,7 +164,7 @@ public class EnderecoDAO extends BaseDAO{
 
             resultSet.next();
             endereco.setId(resultSet.getLong("id"));
-            endereco.setRua(resultSet.getString("endereco"));
+            endereco.setEndereco(resultSet.getString("endereco"));
             endereco.setCidade(resultSet.getString("cidade"));
             endereco.setUf(resultSet.getString("uf"));
         
