@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.vo.EnderecoVO;
 import model.vo.ProfessorVO;
 
 public class ProfessorDAO extends BaseDAO {
