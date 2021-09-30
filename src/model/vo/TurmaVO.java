@@ -4,7 +4,7 @@ import java.util.List;
 
 public class TurmaVO {
     
-    private long id;
+    private Long id;
     private String horario;
     private String local;
     private boolean aberta = true;
@@ -13,11 +13,11 @@ public class TurmaVO {
     private List<AlunoVO> alunos;
     private ProfessorVO professor;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         if (id > 0) {
             this.id = id;
         }

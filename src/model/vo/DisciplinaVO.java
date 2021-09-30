@@ -1,6 +1,8 @@
 package model.vo;
 
 public class DisciplinaVO {
+
+	private Long id;
 	private long codigo;
 	private String nome;
 	
@@ -13,6 +15,12 @@ public class DisciplinaVO {
 	}
 	public String getNome() {
 		return nome;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public void setNome(String nome) {
 		if(nome != null && !nome.equals(""))

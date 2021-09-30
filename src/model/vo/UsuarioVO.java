@@ -4,7 +4,7 @@ import enums.NivelDeUsuario;
 
 public class UsuarioVO {
 
-	private long id;
+	private Long id;
 	private String nome;
 	private NivelDeUsuario nivel;
 	private String username;
@@ -14,11 +14,11 @@ public class UsuarioVO {
 		this.setNivel(NivelDeUsuario.ADMIN);
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		if(id > 0)
 			this.id = id;
 	}

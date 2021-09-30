@@ -2,7 +2,7 @@ package model.vo;
 
 public class EnderecoVO {
 	
-	private long id;
+	private Long id;
 	private String endereco;
 	private String cidade;
 	private String uf;
@@ -16,11 +16,11 @@ public class EnderecoVO {
 	public EnderecoVO() {
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		if(id > 0)
 			this.id = id;
 	}
