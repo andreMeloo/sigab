@@ -10,7 +10,7 @@ import java.util.List;
 import model.vo.DiarioVO;
 
 
-public class DiarioDAO extends BaseDAO {
+public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
 
     public void inserir(DiarioVO diarioVO) {
         connection = getConnection();
