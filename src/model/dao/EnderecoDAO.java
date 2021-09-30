@@ -9,9 +9,9 @@ import java.util.List;
 
 import model.vo.EnderecoVO;
 
-public class EnderecoDAO extends BaseDAO{
+public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoVO> {
 
-    public long inserir(EnderecoVO enderecoVO){
+    public void inserir(EnderecoVO enderecoVO){
 
         connection = getConnection();
         String sql = "INSERT INTO Endereco (endereco, cidade, uf) VALUES (?,?,?)";
@@ -28,23 +28,19 @@ public class EnderecoDAO extends BaseDAO{
 
             keys.next();
             enderecoVO.setId(keys.getLong(1));
-        
-            return enderecoVO.getId();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return 0;
     }
 
-    public void remover(long id){
+    public void remover(EnderecoVO endereco){
         connection = getConnection();
         String sql = "DELETE FROM Endereco WHERE id = ?";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, endereco.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,7 +89,7 @@ public class EnderecoDAO extends BaseDAO{
         }
     }
 
-    public EnderecoVO getById(long id) {
+    public EnderecoVO getById(Long id) {
         connection = getConnection();
         String sql = "SELECT * FROM Endereco WHERE id=?";
         PreparedStatement preparedStatement;

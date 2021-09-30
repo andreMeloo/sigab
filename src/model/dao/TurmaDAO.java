@@ -9,12 +9,12 @@ import java.util.List;
 
 import model.vo.TurmaVO;
 
-public class TurmaDAO extends BaseDAO {
+public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
-    public long inserir(TurmaVO turma) {
+    public void inserir(TurmaVO turma) {
         
         connection = getConnection();
-        String sql = "INSERT INTO Turma (horario, local, aberta, disciplina_codigo, professor_id) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO Turma (horario, local, aberta, disciplina_id, professor_id) VALUES (?,?,?,?,?)";
         PreparedStatement preparedStatement;
 
         try {
@@ -22,7 +22,7 @@ public class TurmaDAO extends BaseDAO {
             preparedStatement.setString(1, turma.getHorario());
             preparedStatement.setString(2, turma.getLocal());
             preparedStatement.setBoolean(3, turma.isAberta());
-            preparedStatement.setLong(4, turma.getDisciplina().getCodigo());
+            preparedStatement.setLong(4, turma.getDisciplina().getId());
             preparedStatement.setLong(5, turma.getProfessor().getId());
             preparedStatement.executeUpdate();
 
@@ -30,24 +30,20 @@ public class TurmaDAO extends BaseDAO {
 
             keys.next();
             turma.setId(keys.getLong(1));
-        
-            return turma.getId();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return 0;
     }
 
-    public void remover(long id) {
+    public void remover(TurmaVO turma) {
         connection = getConnection();
         String sql = "DELETE FROM Turma WHERE id=?";
         PreparedStatement preparedStatement;
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, turma.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,9 +57,9 @@ public class TurmaDAO extends BaseDAO {
         AlunoDAO alunoDAO = new AlunoDAO();
 
         connection = getConnection();
-        String sql = "SELECT Turma.id, disciplina_codigo, professor_id, horario, local, aberta FROM Turma "
+        String sql = "SELECT Turma.id, disciplina_id, professor_id, horario, local, aberta FROM Turma "
                     + "JOIN Professor ON Turma.professor_id=Professor.id "
-                    + "JOIN Disciplina ON Turma.disciplina_codigo=Disciplina.codigo";
+                    + "JOIN Disciplina ON Turma.disciplina_id=Disciplina.id";
         List<TurmaVO> result = new ArrayList<TurmaVO>();
         
         try {
@@ -77,7 +73,7 @@ public class TurmaDAO extends BaseDAO {
                 turma.setLocal(resultSet.getString("local"));
                 turma.setAberta(resultSet.getBoolean("aberta"));
                 turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
-                turma.setDisciplina(disciplinaDAO.getByCodigo(resultSet.getLong("disciplina_codigo")));
+                turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
                 turma.setAlunos(alunoDAO.getAllByTurmaId(resultSet.getLong("id")));
 
                 result.add(turma);
@@ -91,14 +87,14 @@ public class TurmaDAO extends BaseDAO {
 
     public void editar(TurmaVO turma){
         connection = getConnection();
-        String sql = "UPDATE Turma SET horario=?, local=?, aberta=?, disciplina_codigo=?, professor_id=? WHERE id=?";
+        String sql = "UPDATE Turma SET horario=?, local=?, aberta=?, disciplina_id=?, professor_id=? WHERE id=?";
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, turma.getHorario());
             preparedStatement.setString(2, turma.getLocal());
             preparedStatement.setBoolean(3, turma.isAberta());
-            preparedStatement.setLong(4, turma.getDisciplina().getCodigo());
+            preparedStatement.setLong(4, turma.getDisciplina().getId());
             preparedStatement.setLong(5, turma.getProfessor().getId());
             preparedStatement.setLong(6, turma.getId());
             preparedStatement.executeUpdate();
@@ -108,15 +104,15 @@ public class TurmaDAO extends BaseDAO {
         }
     }
 
-    public TurmaVO getById(long id) {
+    public TurmaVO getById(Long id) {
 
         ProfessorDAO professorDAO = new ProfessorDAO();
         DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 
         connection = getConnection();
-        String sql = "SELECT Turma.id, disciplina_codigo, professor_id, horario, local, aberta FROM Turma "
+        String sql = "SELECT Turma.id, disciplina_id, professor_id, horario, local, aberta FROM Turma "
                     + "JOIN Professor ON Turma.professor_id=Professor.id "
-                    + "JOIN Disciplina ON Turma.disciplina_codigo=Disciplina.codigo "
+                    + "JOIN Disciplina ON Turma.disciplina_id=Disciplina.id "
                     + "WHERE Turma.id=?";
         TurmaVO turma = new TurmaVO();
         
@@ -132,7 +128,7 @@ public class TurmaDAO extends BaseDAO {
             turma.setLocal(resultSet.getString("local"));
             turma.setAberta(resultSet.getBoolean("aberta"));
             turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
-            turma.setDisciplina(disciplinaDAO.getByCodigo(resultSet.getLong("disciplina_codigo")));
+            turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -147,9 +143,9 @@ public class TurmaDAO extends BaseDAO {
         DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 
         connection = getConnection();
-        String sql = "SELECT Turma.id, disciplina_codigo, professor_id, horario, local, aberta FROM Turma "
+        String sql = "SELECT Turma.id, disciplina_id, professor_id, horario, local, aberta FROM Turma "
                     + "JOIN Professor ON Turma.professor_id=Professor.id "
-                    + "JOIN Disciplina ON Turma.disciplina_codigo=Disciplina.codigo "
+                    + "JOIN Disciplina ON Turma.disciplina_id=Disciplina.id "
                     + "RIGHT JOIN Diario ON Turma.id=Diario.turma_id "
                     + "WHERE aluno_id=?";
         TurmaVO turma = new TurmaVO();
@@ -167,7 +163,7 @@ public class TurmaDAO extends BaseDAO {
                 turma.setLocal(resultSet.getString("local"));
                 turma.setAberta(resultSet.getBoolean("aberta"));
                 turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
-                turma.setDisciplina(disciplinaDAO.getByCodigo(resultSet.getLong("disciplina_codigo")));
+                turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
 
                 result.add(turma);
             }

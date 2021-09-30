@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface EntityDAOInterface <ClassVO> {
     public void inserir(ClassVO objectVO);
-    public void remover();
+    public void remover(ClassVO objectVO);
     public List<ClassVO> listar();
-    public void editar();
-    public ClassVO getById();
+    public void editar(ClassVO objectVO);
+    public ClassVO getById(Long id);
 }

@@ -33,14 +33,14 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
         }
     }
 
-    public void remover(long alunoId, long turmaId) {
+    public void remover(DiarioVO diarioVO) {
         connection = getConnection();
         String sql = "DELETE FROM Diario WHERE aluno_id=? AND turma_id=?";
         
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, alunoId);
-            preparedStatement.setLong(2, turmaId);
+            preparedStatement.setLong(1, diarioVO.getAluno().getId());
+            preparedStatement.setLong(2, diarioVO.getTurma().getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -100,6 +100,11 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public DiarioVO getById(Long id) {
+        // Diario não possui ID
+        return null;
     }
 
 }
