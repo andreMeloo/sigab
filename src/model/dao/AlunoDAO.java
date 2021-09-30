@@ -9,41 +9,47 @@ import java.util.List;
 
 import model.vo.AlunoVO;
 
-public class AlunoDAO extends BaseDAO{
+public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
     
-    public long inserir(AlunoVO alunoVO){
+    public void inserir(AlunoVO alunoVO){
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        long id = usuarioDAO.inserir(alunoVO);
+        usuarioDAO.inserir(alunoVO);
+        
+        long id = alunoVO.getId();
 
         EnderecoDAO enderecoDAO = new EnderecoDAO();
-        long enderecoId = enderecoDAO.inserir(alunoVO.getEndereco());
+        enderecoDAO.inserir(alunoVO.getEndereco());
+
+        long enderecoId = enderecoDAO.getByAlunoId(id).getId();
 
         connection = getConnection();
         String sql = "INSERT INTO Aluno (id, matricula, endereco_id) VALUES (?,?,?)";
         PreparedStatement preparedStatement;
 
         try {
-            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setLong(1, id);
             preparedStatement.setString(2, alunoVO.getMatricula());
             preparedStatement.setLong(3, enderecoId);
             preparedStatement.execute();
+
+            ResultSet keys = preparedStatement.getGeneratedKeys();
+
+            keys.next();
+            alunoVO.setId(keys.getLong(1));
+
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-        return id;
     }
 
-    public void remover(long id){
+    public void remover(AlunoVO alunoVO){
         EnderecoDAO enderecoDAO = new EnderecoDAO();
-        long enderecoId = enderecoDAO.getByAlunoId(id).getId();
-        
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        usuarioDAO.remover(id);
-        enderecoDAO.remover(enderecoId);
+        
+        usuarioDAO.remover(usuarioDAO.getById(alunoVO.getId()));
+        enderecoDAO.remover(enderecoDAO.getByAlunoId(alunoVO.getId()));
     }
 
     public List<AlunoVO> listar(){
@@ -69,7 +75,6 @@ public class AlunoDAO extends BaseDAO{
                 alunoVOs.add(alunoVO);
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return alunoVOs;
@@ -96,7 +101,7 @@ public class AlunoDAO extends BaseDAO{
 
     }
 
-    public AlunoVO getById(long id) {
+    public AlunoVO getById(Long id) {
         connection = getConnection();
         String sql = "SELECT * FROM Aluno INNER JOIN Usuario ON Aluno.id=Usuario.id WHERE Aluno.id=?";
         PreparedStatement preparedStatement;
@@ -158,3 +163,5 @@ public class AlunoDAO extends BaseDAO{
         return alunos;
     }
 }
+
+    

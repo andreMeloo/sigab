@@ -13,9 +13,9 @@ import model.vo.UsuarioVO;
 
 
 
-public class UsuarioDAO extends BaseDAO {
+public class UsuarioDAO extends BaseDAO implements EntityDAOInterface<UsuarioVO>  {
     
-    public long inserir(UsuarioVO usuarioVO) {
+    public void inserir(UsuarioVO usuarioVO) {
 
         connection = getConnection();
         String sql = "insert into Usuario(nome, nivel, username, senha) values (?,?,?,?)";
@@ -33,14 +33,10 @@ public class UsuarioDAO extends BaseDAO {
 
             keys.next();
             usuarioVO.setId(keys.getLong(1));
-        
-            return usuarioVO.getId();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return 0;
     }
 
     public void remover(long id) {

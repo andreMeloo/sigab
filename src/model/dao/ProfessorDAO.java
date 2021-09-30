@@ -9,15 +9,19 @@ import java.util.List;
 
 import model.vo.ProfessorVO;
 
-public class ProfessorDAO extends BaseDAO {
+public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <ProfessorVO> {
     
-    public long inserir(ProfessorVO professor) {
+    public void inserir(ProfessorVO professorVO) {
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        long id = usuarioDAO.inserir(professor);
+        usuarioDAO.inserir(professorVO);
+        
+        long id = professorVO.getId();
 
         EnderecoDAO enderecoDAO = new EnderecoDAO();
-        long enderecoId = enderecoDAO.inserir(professor.getEndereco());
+        enderecoDAO.inserir(professorVO.getEndereco());
+
+        long enderecoId = enderecoDAO.getByAlunoId(id).getId();
 
         connection = getConnection();
         String sql = "INSERT INTO Professor (id, cpf, endereco_id) VALUES (?,?,?)";
@@ -26,23 +30,21 @@ public class ProfessorDAO extends BaseDAO {
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
-            preparedStatement.setString(2, professor.getCpf());
+            preparedStatement.setString(2, professorVO.getCpf());
             preparedStatement.setObject(3, enderecoId);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return id;
     }
 
-    public void remover(Long id) {
+    public void remover(ProfessorVO professorVO) {
         EnderecoDAO enderecoDAO = new EnderecoDAO();
-        long enderecoId = enderecoDAO.getByProfessorId(id).getId();
-        
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        usuarioDAO.remover(id);
-        enderecoDAO.remover(enderecoId);
+
+        usuarioDAO.remover(usuarioDAO.getById(professorVO.getId()));
+        enderecoDAO.remover(enderecoDAO.getByProfessorId(professorVO.getId()));
     }
 
     public List<ProfessorVO> listar() {
@@ -93,7 +95,7 @@ public class ProfessorDAO extends BaseDAO {
         }
     }
 
-    public ProfessorVO getById(long id) {
+    public ProfessorVO getById(Long id) {
         connection = getConnection();
         String sql = "SELECT * FROM Professor INNER JOIN Usuario ON Professor.id=Usuario.id WHERE Professor.id=?";
         PreparedStatement preparedStatement;
