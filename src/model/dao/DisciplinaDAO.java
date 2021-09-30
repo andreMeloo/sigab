@@ -9,7 +9,7 @@ import java.util.List;
 
 import model.vo.DisciplinaVO;
 
-public class DisciplinaDAO extends BaseDAO{
+public class DisciplinaDAO extends BaseDAO implements EntityDAOInterface<DisciplinaVO> {
     public void inserir(DisciplinaVO disciplinaVO){
         connection = getConnection();
         String sql = "INSERT INTO Disciplina (codigo, nome) VALUES (?,?)";
@@ -23,12 +23,12 @@ public class DisciplinaDAO extends BaseDAO{
         }
     }
 
-    public void removerByCodigo(DisciplinaVO disciplinaVO){
+    public void remover(DisciplinaVO disciplinaVO){
         connection = getConnection();
-        String sql = "DELETE FROM Disciplina WHERE codigo = ?";
+        String sql = "DELETE FROM Disciplina WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, disciplinaVO.getCodigo());
+            preparedStatement.setLong(1, disciplinaVO.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,6 +49,7 @@ public class DisciplinaDAO extends BaseDAO{
                 DisciplinaVO disciplinaVO = new DisciplinaVO();
                 disciplinaVO.setCodigo(resultSet.getLong("codigo"));
                 disciplinaVO.setNome(resultSet.getString("nome"));
+                disciplinaVO.setId(resultSet.getLong("id"));
                 disciplinaVOs.add(disciplinaVO);
             }
         } catch (SQLException e) {
@@ -59,12 +60,12 @@ public class DisciplinaDAO extends BaseDAO{
 
     public void editar(DisciplinaVO disciplinaVO){
         connection = getConnection();
-        String sql = "UPDATE Disciplina SET nome = ? WHERE codigo = ?";
+        String sql = "UPDATE Disciplina SET nome = ? WHERE id = ?";
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, disciplinaVO.getNome());
-            preparedStatement.setLong(2, disciplinaVO.getCodigo());
+            preparedStatement.setLong(2, disciplinaVO.getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -72,22 +73,23 @@ public class DisciplinaDAO extends BaseDAO{
         }
     }
 
-    public DisciplinaVO getByCodigo(long codigo) {
+    public DisciplinaVO getById(Long id) {
         connection = getConnection();
-        String sql = "SELECT * FROM Disciplina WHERE codigo=?";
+        String sql = "SELECT * FROM Disciplina WHERE id=?";
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         DisciplinaVO disciplina = new DisciplinaVO();
         
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, codigo);
+            preparedStatement.setLong(1, id);
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 
             resultSet.next();
             disciplina.setCodigo(resultSet.getLong("codigo"));
             disciplina.setNome(resultSet.getString("nome"));
+            disciplina.setId(resultSet.getLong("id"));
         
         } catch (SQLException e) {
             e.printStackTrace();
