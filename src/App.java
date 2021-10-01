@@ -17,223 +17,223 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // Disciplina
-        System.out.println("\nDisciplina\n");
+        // System.out.println("\nDisciplina\n");
 
-        DisciplinaDAO disciplinaDao = new DisciplinaDAO();
+        // DisciplinaDAO disciplinaDao = new DisciplinaDAO();
 
-        System.out.println("Adicionando:");
-        DisciplinaVO disciplina = new DisciplinaVO();
-        disciplina.setCodigo(167);
-        disciplina.setNome("POO");
+        // System.out.println("Adicionando:");
+        // DisciplinaVO disciplina = new DisciplinaVO();
+        // disciplina.setCodigo(167);
+        // disciplina.setNome("POO");
 
-        disciplinaDao.inserir(disciplina);
-        List<DisciplinaVO> disciplinas = disciplinaDao.listar();
+        // disciplinaDao.inserir(disciplina);
+        // List<DisciplinaVO> disciplinas = disciplinaDao.listar();
 
-        for (var row : disciplinas) {
-            System.out.println(row.getCodigo() + " - " + row.getNome());
-        }
+        // for (var row : disciplinas) {
+        //     System.out.println(row.getCodigo() + " - " + row.getNome());
+        // }
 
-        System.out.println("\nEditando:");
-        disciplina.setNome("BD");
-        disciplinaDao.editar(disciplina);
-        disciplinas = disciplinaDao.listar();
-
-        for (var row : disciplinas) {
-            System.out.println(row.getCodigo() + " - " + row.getNome());
-        }
-        
-        // System.out.println("\nDeletando:");
-        // disciplinaDao.removerByCodigo(disciplina);
+        // System.out.println("\nEditando:");
+        // disciplina.setNome("BD");
+        // disciplinaDao.editar(disciplina);
         // disciplinas = disciplinaDao.listar();
 
         // for (var row : disciplinas) {
         //     System.out.println(row.getCodigo() + " - " + row.getNome());
         // }
         
-        // Endereco
-        System.out.println("\nEndereco\n");
+        // // System.out.println("\nDeletando:");
+        // // disciplinaDao.removerByCodigo(disciplina);
+        // // disciplinas = disciplinaDao.listar();
 
-        EnderecoDAO enderecoDao = new EnderecoDAO();
+        // // for (var row : disciplinas) {
+        // //     System.out.println(row.getCodigo() + " - " + row.getNome());
+        // // }
+        
+        // // Endereco
+        // System.out.println("\nEndereco\n");
 
-        System.out.println("Adicionando:");
-        EnderecoVO endereco = new EnderecoVO();
-        endereco.setCidade("Natal");
-        endereco.setEndereco("R. das Joaninhas");
-        endereco.setUf("RN");
+        // EnderecoDAO enderecoDao = new EnderecoDAO();
 
-        enderecoDao.inserir(endereco);
-        List<EnderecoVO> enderecos = enderecoDao.listar();
+        // System.out.println("Adicionando:");
+        // EnderecoVO endereco = new EnderecoVO();
+        // endereco.setCidade("Natal");
+        // endereco.setEndereco("R. das Joaninhas");
+        // endereco.setUf("RN");
 
-        for (var row : enderecos) {
-            System.out.println(row.getId() + " - " + row.getEndereco() + ". " + row.getCidade() + ", " + row.getUf());
-        }
+        // enderecoDao.inserir(endereco);
+        // List<EnderecoVO> enderecos = enderecoDao.listar();
 
-        System.out.println("\nEditando:");
-        endereco.setCidade("Areia Branca");
-        enderecoDao.editar(endereco);
-        enderecos = enderecoDao.listar();
+        // for (var row : enderecos) {
+        //     System.out.println(row.getId() + " - " + row.getEndereco() + ". " + row.getCidade() + ", " + row.getUf());
+        // }
 
-        for (var row : enderecos) {
-            System.out.println(row.getId() + " - " + row.getEndereco() + ". " + row.getCidade() + ", " + row.getUf());
-        }
+        // System.out.println("\nEditando:");
+        // endereco.setCidade("Areia Branca");
+        // enderecoDao.editar(endereco);
+        // enderecos = enderecoDao.listar();
 
-        System.out.println("\nDeletando:");
-        enderecoDao.remover(endereco.getId());
-        enderecos = enderecoDao.listar();
-
-        for (var row : enderecos) {
-            System.out.println(row.getId() + " - " + row.getEndereco() + ". " + row.getCidade() + ", " + row.getUf());
-        }
-
-        // Aluno
-        System.out.println("\nAluno\n");
-
-        AlunoDAO alunoDao = new AlunoDAO();
-
-        System.out.println("Adicionando:");
-        AlunoVO aluno = new AlunoVO();
-        aluno.setEndereco(new EnderecoVO("R. Aleatoria", "Natal", "RN"));
-        aluno.setMatricula("2021010256");
-        aluno.setNome("Joaozinho");
-        aluno.setSenha("123456");
-        aluno.setUsername("jaozin");
-
-        long alunoId = alunoDao.inserir(aluno);
-        aluno = alunoDao.getById(alunoId);
-        List<AlunoVO> alunos = alunoDao.listar();
-
-        for (var row : alunos) {
-            System.out.println(row.getNome() + " - " + row.getMatricula());
-        }
-
-        System.out.println("\nEditando:");
-        aluno.setNome("João da Silva");
-        alunoDao.editar(aluno);
-        alunos = alunoDao.listar();
-
-        for (var row : alunos) {
-            System.out.println(row.getNome() + " - " + row.getMatricula());
-        }
+        // for (var row : enderecos) {
+        //     System.out.println(row.getId() + " - " + row.getEndereco() + ". " + row.getCidade() + ", " + row.getUf());
+        // }
 
         // System.out.println("\nDeletando:");
-        // alunoDao.remover(aluno.getId());
+        // enderecoDao.remover(endereco.getId());
+        // enderecos = enderecoDao.listar();
+
+        // for (var row : enderecos) {
+        //     System.out.println(row.getId() + " - " + row.getEndereco() + ". " + row.getCidade() + ", " + row.getUf());
+        // }
+
+        // // Aluno
+        // System.out.println("\nAluno\n");
+
+        // AlunoDAO alunoDao = new AlunoDAO();
+
+        // System.out.println("Adicionando:");
+        // AlunoVO aluno = new AlunoVO();
+        // aluno.setEndereco(new EnderecoVO("R. Aleatoria", "Natal", "RN"));
+        // aluno.setMatricula("2021010256");
+        // aluno.setNome("Joaozinho");
+        // aluno.setSenha("123456");
+        // aluno.setUsername("jaozin");
+
+        // long alunoId = alunoDao.inserir(aluno);
+        // aluno = alunoDao.getById(alunoId);
+        // List<AlunoVO> alunos = alunoDao.listar();
+
+        // for (var row : alunos) {
+        //     System.out.println(row.getNome() + " - " + row.getMatricula());
+        // }
+
+        // System.out.println("\nEditando:");
+        // aluno.setNome("João da Silva");
+        // alunoDao.editar(aluno);
         // alunos = alunoDao.listar();
 
         // for (var row : alunos) {
         //     System.out.println(row.getNome() + " - " + row.getMatricula());
         // }
 
-        // Professor
-        System.out.println("\nProfessor\n");
+        // // System.out.println("\nDeletando:");
+        // // alunoDao.remover(aluno.getId());
+        // // alunos = alunoDao.listar();
 
-        ProfessorDAO professorDao = new ProfessorDAO();
+        // // for (var row : alunos) {
+        // //     System.out.println(row.getNome() + " - " + row.getMatricula());
+        // // }
 
-        System.out.println("Adicionando:");
-        ProfessorVO professor = new ProfessorVO();
-        professor.setEndereco(new EnderecoVO("R. do Amigo", "Poços de Caldas", "MG"));
-        professor.setCpf("12398741242");
-        professor.setNome("Gurgel");
-        professor.setSenha("987654");
-        professor.setUsername("gugel506");
+        // // Professor
+        // System.out.println("\nProfessor\n");
 
-        long professorId = professorDao.inserir(professor);
-        professor = professorDao.getById(professorId);
-        List<ProfessorVO> professores = professorDao.listar();
+        // ProfessorDAO professorDao = new ProfessorDAO();
 
-        for (var row : professores) {
-            System.out.println(row.getNome() + " - " + row.getCpf());
-        }
+        // System.out.println("Adicionando:");
+        // ProfessorVO professor = new ProfessorVO();
+        // professor.setEndereco(new EnderecoVO("R. do Amigo", "Poços de Caldas", "MG"));
+        // professor.setCpf("12398741242");
+        // professor.setNome("Gurgel");
+        // professor.setSenha("987654");
+        // professor.setUsername("gugel506");
 
-        System.out.println("\nEditando:");
-        professor.setNome("Linderbergson");
-        professor.setCpf("12345678900");
-        professorDao.editar(professor);
-        professores = professorDao.listar();
+        // long professorId = professorDao.inserir(professor);
+        // professor = professorDao.getById(professorId);
+        // List<ProfessorVO> professores = professorDao.listar();
 
-        for (var row : professores) {
-            System.out.println(row.getNome() + " - " + row.getCpf());
-        }
+        // for (var row : professores) {
+        //     System.out.println(row.getNome() + " - " + row.getCpf());
+        // }
 
-        // System.out.println("\nDeletando:");
-        // professorDao.remover(professor.getId());
+        // System.out.println("\nEditando:");
+        // professor.setNome("Linderbergson");
+        // professor.setCpf("12345678900");
+        // professorDao.editar(professor);
         // professores = professorDao.listar();
 
         // for (var row : professores) {
         //     System.out.println(row.getNome() + " - " + row.getCpf());
         // }
 
-        // Turma
-        System.out.println("\nTurma\n");
+        // // System.out.println("\nDeletando:");
+        // // professorDao.remover(professor.getId());
+        // // professores = professorDao.listar();
 
-        TurmaDAO turmaDAO = new TurmaDAO();
+        // // for (var row : professores) {
+        // //     System.out.println(row.getNome() + " - " + row.getCpf());
+        // // }
 
-        System.out.println("Adicionando:");
-        TurmaVO turma = new TurmaVO();
-        turma.setDisciplina(disciplina);
-        turma.setHorario("12M34");
-        turma.setLocal("Remoto");
-        turma.setProfessor(professor);
+        // // Turma
+        // System.out.println("\nTurma\n");
 
-        turmaDAO.inserir(turma);
-        List<TurmaVO> turmas = turmaDAO.listar();
+        // TurmaDAO turmaDAO = new TurmaDAO();
 
-        for (var row : turmas) {
-            System.out.println(row.getHorario() + " - " + row.getDisciplina().getNome() + " - " + row.getProfessor().getNome());
-        }
+        // System.out.println("Adicionando:");
+        // TurmaVO turma = new TurmaVO();
+        // turma.setDisciplina(disciplina);
+        // turma.setHorario("12M34");
+        // turma.setLocal("Remoto");
+        // turma.setProfessor(professor);
 
-        System.out.println("\nEditando:");
-        turma.setHorario("34T12");
-        turmaDAO.editar(turma);
-        turmas = turmaDAO.listar();
+        // turmaDAO.inserir(turma);
+        // List<TurmaVO> turmas = turmaDAO.listar();
 
-        for (var row : turmas) {
-            System.out.println(row.getHorario() + " - " + row.getDisciplina().getNome() + " - " + row.getProfessor().getNome());
-        }
+        // for (var row : turmas) {
+        //     System.out.println(row.getHorario() + " - " + row.getDisciplina().getNome() + " - " + row.getProfessor().getNome());
+        // }
 
-        // System.out.println("\nDeletando:");
-        // turmaDAO.remover(turma.getId());
+        // System.out.println("\nEditando:");
+        // turma.setHorario("34T12");
+        // turmaDAO.editar(turma);
         // turmas = turmaDAO.listar();
 
         // for (var row : turmas) {
         //     System.out.println(row.getHorario() + " - " + row.getDisciplina().getNome() + " - " + row.getProfessor().getNome());
         // }
 
-        // Diario
-        System.out.println("\nTurma\n");
+        // // System.out.println("\nDeletando:");
+        // // turmaDAO.remover(turma.getId());
+        // // turmas = turmaDAO.listar();
 
-        DiarioDAO diarioDao = new DiarioDAO();
+        // // for (var row : turmas) {
+        // //     System.out.println(row.getHorario() + " - " + row.getDisciplina().getNome() + " - " + row.getProfessor().getNome());
+        // // }
 
-        System.out.println("Adicionando:");
-        DiarioVO diario = new DiarioVO();
-        diario.setNota1((double)5);
-        diario.setNota2(8.9);
-        diario.setNota3((double)10);
-        diario.setFrequencia(75);
-        diario.setAluno(aluno);
-        diario.setTurma(turma);
+        // // Diario
+        // System.out.println("\nTurma\n");
 
-        diarioDao.inserir(diario);
-        List<DiarioVO> diarios = diarioDao.listar();
+        // DiarioDAO diarioDao = new DiarioDAO();
 
-        for (var row : diarios) {
-            System.out.println(row.getAluno().getNome() + " - " + row.getTurma().getDisciplina().getNome() + " - " + row.getFrequencia());
-        }
+        // System.out.println("Adicionando:");
+        // DiarioVO diario = new DiarioVO();
+        // diario.setNota1((double)5);
+        // diario.setNota2(8.9);
+        // diario.setNota3((double)10);
+        // diario.setFrequencia(75);
+        // diario.setAluno(aluno);
+        // diario.setTurma(turma);
 
-        System.out.println("\nEditando:");
-        diario.setFrequencia(100);
-        diarioDao.editar(diario);
-        diarios = diarioDao.listar();
+        // diarioDao.inserir(diario);
+        // List<DiarioVO> diarios = diarioDao.listar();
 
-        for (var row : diarios) {
-            System.out.println(row.getAluno().getNome() + " - " + row.getTurma().getDisciplina().getNome() + " - " + row.getFrequencia());
-        }
+        // for (var row : diarios) {
+        //     System.out.println(row.getAluno().getNome() + " - " + row.getTurma().getDisciplina().getNome() + " - " + row.getFrequencia());
+        // }
 
-        System.out.println("\nDeletando:");
-        diarioDao.remover(diario.getAluno().getId(), diario.getTurma().getId());
-        diarios = diarioDao.listar();
+        // System.out.println("\nEditando:");
+        // diario.setFrequencia(100);
+        // diarioDao.editar(diario);
+        // diarios = diarioDao.listar();
 
-        for (var row : diarios) {
-            System.out.println(row.getAluno().getNome() + " - " + row.getTurma().getDisciplina().getNome() + " - " + row.getFrequencia());
-        }
+        // for (var row : diarios) {
+        //     System.out.println(row.getAluno().getNome() + " - " + row.getTurma().getDisciplina().getNome() + " - " + row.getFrequencia());
+        // }
+
+        // System.out.println("\nDeletando:");
+        // diarioDao.remover(diario.getAluno().getId(), diario.getTurma().getId());
+        // diarios = diarioDao.listar();
+
+        // for (var row : diarios) {
+        //     System.out.println(row.getAluno().getNome() + " - " + row.getTurma().getDisciplina().getNome() + " - " + row.getFrequencia());
+        // }
     }
 }
