@@ -39,13 +39,13 @@ public class UsuarioDAO extends BaseDAO implements EntityDAOInterface<UsuarioVO>
         }
     }
 
-    public void remover(long id) {
+    public void remover(UsuarioVO usuario) {
         connection = getConnection();
         String sql = "DELETE FROM Usuario WHERE id = ?";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, usuario.getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -96,6 +96,33 @@ public class UsuarioDAO extends BaseDAO implements EntityDAOInterface<UsuarioVO>
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public UsuarioVO getById(Long id) {
+        connection = getConnection();
+        String sql = "SELECT * FROM Usuario WHERE id=?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        UsuarioVO usuario = new UsuarioVO();
+        
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+
+            resultSet.next();
+            usuario.setId(resultSet.getLong("id"));
+            usuario.setNivel(NivelDeUsuario.valueOf(resultSet.getString("nivel")));
+            usuario.setNome(resultSet.getString("nome"));
+            usuario.setUsername(resultSet.getString("username"));
+            usuario.setSenha(resultSet.getString("senha"));
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuario;
     }
 
 }
