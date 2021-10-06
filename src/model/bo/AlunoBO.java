@@ -16,8 +16,7 @@ public class AlunoBO implements EntityBOInterface<AlunoVO>{
     @Override
     public List<AlunoVO> listar() {
         AlunoDAO alunoDAO = new AlunoDAO();
-        alunoDAO.listar();
-        return null;
+        return  alunoDAO.listar();
     }
 
     @Override
