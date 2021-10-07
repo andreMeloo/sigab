@@ -40,4 +40,10 @@ public class UsuarioBO implements EntityBOInterface<UsuarioVO>{
             e.printStackTrace();
         }
     }
+
+    @Override
+    public UsuarioVO getById(Long id) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        return usuarioDAO.getById(id);
+    }
 }

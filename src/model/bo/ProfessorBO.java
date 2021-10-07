@@ -40,5 +40,11 @@ public class ProfessorBO implements EntityBOInterface<ProfessorVO>{
             e.printStackTrace();
         }
     }
+
+    @Override
+    public ProfessorVO getById(Long id) {
+        ProfessorDAO professorDAO = new ProfessorDAO();
+        return professorDAO.getById(id);
+    }
     
 }

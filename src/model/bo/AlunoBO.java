@@ -41,5 +41,11 @@ public class AlunoBO implements EntityBOInterface<AlunoVO>{
             e.printStackTrace();
         }
     }
+
+    @Override
+    public AlunoVO getById(Long id) {
+        AlunoDAO alunoDAO = new AlunoDAO();
+        return alunoDAO.getById(id);
+    }
     
 }

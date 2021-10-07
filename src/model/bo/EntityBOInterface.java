@@ -7,4 +7,5 @@ public interface EntityBOInterface<ClassVO> {
     public List<ClassVO> listar();
     public void remover(ClassVO classVO);
     public void editar(ClassVO classVO);
+    public ClassVO getById(Long id);
 }
