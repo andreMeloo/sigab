@@ -15,13 +15,11 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         usuarioDAO.inserir(professorVO);
-        
-        long id = professorVO.getId();
 
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         enderecoDAO.inserir(professorVO.getEndereco());
 
-        long enderecoId = enderecoDAO.getByAlunoId(id).getId();
+        Long enderecoId = enderecoDAO.getByProfessor(professorVO).getId();
 
         connection = getConnection();
         String sql = "INSERT INTO Professor (id, cpf, endereco_id) VALUES (?,?,?)";
@@ -29,7 +27,7 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, professorVO.getId());
             preparedStatement.setString(2, professorVO.getCpf());
             preparedStatement.setObject(3, enderecoId);
             preparedStatement.execute();
@@ -44,7 +42,7 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
         UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         usuarioDAO.remover(usuarioDAO.getById(professorVO.getId()));
-        enderecoDAO.remover(enderecoDAO.getByProfessorId(professorVO.getId()));
+        enderecoDAO.remover(enderecoDAO.getByProfessor(professorVO));
     }
 
     public List<ProfessorVO> listar() {

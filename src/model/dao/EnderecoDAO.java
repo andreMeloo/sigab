@@ -7,7 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.vo.AlunoVO;
 import model.vo.EnderecoVO;
+import model.vo.ProfessorVO;
 
 public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoVO> {
 
@@ -115,7 +117,7 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
         return enderecoVO;
     }
 
-    public EnderecoVO getByProfessorId(long id) {
+    public EnderecoVO getByProfessor(ProfessorVO professor) {
         connection = getConnection();
         String sql = "SELECT Endereco.id, endereco, cidade, uf "
                     + "FROM Endereco INNER JOIN Professor ON Endereco.id=Professor.endereco_id "
@@ -126,7 +128,7 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
         
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, professor.getId());
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 
@@ -143,7 +145,7 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
         return endereco;
     }
 
-    public EnderecoVO getByAlunoId(long id) {
+    public EnderecoVO getByAluno(AlunoVO aluno) {
         connection = getConnection();
         String sql = "SELECT Endereco.id, endereco, cidade, uf "
                     + "FROM Endereco INNER JOIN Aluno ON Endereco.id=Aluno.endereco_id "
@@ -154,7 +156,7 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
         
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, aluno.getId());
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 
