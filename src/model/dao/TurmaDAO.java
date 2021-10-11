@@ -8,7 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.vo.TurmaVO;
-
+/* atenção aos requisitos do projeto de vocês
+b) Buscar: alunos, professores e disciplinas (por nome). Buscar turmas (por professor). Buscar
+alunos (por turma). Mostrar disciplinas concluídas por aluno.
+c) Finalizar disciplina: Lançar notas (p1,p2 e p3) e frequência dos alunos (%presença) e calcular
+cadê o métodos para buscar turmas por professor, por exemplo??? faltam alguns ainda.
+*/
 public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
     public void inserir(TurmaVO turma) {
