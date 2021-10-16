@@ -1,4 +1,4 @@
-package view;
+package view.Login;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,12 +9,12 @@ import javafx.stage.Stage;
 public class TelaLogin extends Application {
 
 	public static void main(String[] args) {
-		launch();
+		launch(args);
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("ve/TelaLogin.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("TelaLogin.fxml"));
 		
 		Scene cena = new Scene(root);
 		primaryStage.setTitle("SIGAB");
