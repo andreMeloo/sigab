@@ -53,7 +53,11 @@
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Button layoutX="650.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: transparent;" text="Nome" textFill="WHITE" />
+            <Button fx:id="username" layoutX="650.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: transparent;" text="Nome" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
             <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="623.0" layoutY="8.0">
                <image>
                   <Image url="@VE/account.png" />
@@ -67,25 +71,34 @@
          <children>
             <Pane prefHeight="440.0" prefWidth="100.0">
                <children>
-                  <BottomNavigationButton alignment="CENTER" contentDisplay="TOP" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #62879C; -fx-border-color: none;" text="Turmas" textFill="WHITE">
+                  <BottomNavigationButton fx:id="turmasBtn" alignment="CENTER" contentDisplay="TOP" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #62879C; -fx-border-color: none;" text="Turmas" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </BottomNavigationButton>
-                  <BottomNavigationButton alignment="CENTER" contentDisplay="TOP" layoutY="30.0" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: none; -fx-border-color: none;" text="Professores" textFill="WHITE">
+                  <BottomNavigationButton fx:id="professoresBtn" alignment="CENTER" contentDisplay="TOP" layoutY="30.0" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: none; -fx-border-color: none;" text="Professores" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </BottomNavigationButton>
-                  <BottomNavigationButton alignment="CENTER" contentDisplay="TOP" layoutY="60.0" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: none; -fx-border-color: none;" text="Alunos" textFill="WHITE">
+                  <BottomNavigationButton fx:id="alunosBtn" alignment="CENTER" contentDisplay="TOP" layoutY="60.0" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: none; -fx-border-color: none;" text="Alunos" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </BottomNavigationButton>
-                  <BottomNavigationButton alignment="CENTER" contentDisplay="TOP" layoutY="90.0" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: none; -fx-border-color: none;" text="Disciplinas" textFill="WHITE">
+                  <BottomNavigationButton fx:id="disciplinasBtn" alignment="CENTER" contentDisplay="TOP" layoutY="90.0" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: none; -fx-border-color: none;" text="Disciplinas" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </BottomNavigationButton>
                </children>
             </Pane>
@@ -94,7 +107,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <children>
-                  <BottomNavigationButton alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="20.0" layoutY="-14.0" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: none; -fx-border-color: none;" text="SAIR" textFill="WHITE">
+                  <BottomNavigationButton fx:id="logoutBtn" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="20.0" layoutY="-14.0" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: none; -fx-border-color: none;" text="SAIR" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
