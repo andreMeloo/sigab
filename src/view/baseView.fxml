@@ -87,7 +87,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <children>
-                  <BottomNavigationButton alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="18.0" layoutY="3.0" prefHeight="48.0" prefWidth="64.0" style="-fx-background-color: none; -fx-border-color: none;" text="SAIR" textFill="WHITE">
+                  <BottomNavigationButton alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="20.0" layoutY="-14.0" prefHeight="60.0" prefWidth="60.0" style="-fx-background-color: none; -fx-border-color: none;" text="SAIR" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
