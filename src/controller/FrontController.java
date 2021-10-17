@@ -17,7 +17,7 @@ public class FrontController {
 
     UsuarioBO usuBO = new UsuarioBO();
 
-    public void autenticar(ActionEvent event) {
+    public void autenticar(ActionEvent event) throws Exception {
         UsuarioVO vo = new UsuarioVO();
         vo.setUsername(login.getText());
         vo.setSenha(senha.getText());
@@ -28,15 +28,13 @@ public class FrontController {
             UsuarioVO autenticado = usuBO.autenticar(vo);
             switch (autenticado.getNivel()) {
                 case ALUNO:
-                    // chama tela aluno
+                    // Abre janelas de Aluno
                     break;
                 case PROFESSOR:
-                    // chama tela professor
+                    // Abre Janelas de professor
                     break;
                 case ADMIN:
-                    // chama tela do admin
-                    break;
-                default:
+                    // Abre Janelas do administrador
                     break;
             }
 
