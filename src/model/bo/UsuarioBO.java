@@ -1,12 +1,15 @@
 package model.bo;
 
+
 import java.util.List;
 
+import enums.NivelDeUsuario;
 import exception.AuthenticationException;
-
-
+import model.dao.AlunoDAO;
+import model.dao.ProfessorDAO;
 import model.dao.UsuarioDAO;
-
+import model.vo.AlunoVO;
+import model.vo.ProfessorVO;
 import model.vo.UsuarioVO;
 
 public class UsuarioBO implements EntityBOInterface<UsuarioVO>{
@@ -53,16 +56,28 @@ public class UsuarioBO implements EntityBOInterface<UsuarioVO>{
 
 
     private static UsuarioDAO usuDAO = new UsuarioDAO();
+    private static AlunoDAO alunoDAO = new AlunoDAO();
+    private static ProfessorDAO profDAO = new ProfessorDAO();
 
     public UsuarioVO autenticar (UsuarioVO vo) throws AuthenticationException {
-    UsuarioVO usuVO = new UsuarioVO();
+    UsuarioVO usuVO = usuDAO.getByUsername(vo);
 
     try {
-        usuDAO.getByUsernameAndSenha(vo);
+        // usuário encontrado
+        if (usuVO.getSenha().equals(vo.getSenha()) && usuVO.getNivel() == NivelDeUsuario.ALUNO) {
+            // existe e senha ok. Descobrir se é Aluno, Professor ou Admin
+            AlunoVO alunoVO = alunoDAO.getById(usuVO.getId());
+            return alunoVO;
+        } else if(usuVO.getSenha().equals(vo.getSenha()) && usuVO.getNivel() == NivelDeUsuario.PROFESSOR) {
+            ProfessorVO profVO = profDAO.getById(usuVO.getId());
+            return profVO;
+        } else {
+            return usuVO;
+        }
     } catch (Exception e) {
         e.printStackTrace();
+        throw new AuthenticationException();
     }
-
-    return usuVO;
+    
     }
 }
