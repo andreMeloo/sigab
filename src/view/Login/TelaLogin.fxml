@@ -52,7 +52,10 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </PasswordField>
-            <Label fx:id="erroAut" layoutX="208.0" layoutY="51.0" text="Label" visible="false" />
+            <Label fx:id="erroAut" layoutX="208.0" layoutY="51.0" text="Label" textFill="#d70f0f" visible="false">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
          </children>
       </Pane>
       <Pane maxHeight="466.0" prefHeight="466.0" prefWidth="455.0" style="-fx-background-color: white;">
