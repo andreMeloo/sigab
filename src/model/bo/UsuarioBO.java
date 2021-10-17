@@ -2,7 +2,11 @@ package model.bo;
 
 import java.util.List;
 
+import exception.AuthenticationException;
+
+
 import model.dao.UsuarioDAO;
+
 import model.vo.UsuarioVO;
 
 public class UsuarioBO implements EntityBOInterface<UsuarioVO>{
@@ -42,8 +46,23 @@ public class UsuarioBO implements EntityBOInterface<UsuarioVO>{
     }
 
     @Override
-    public UsuarioVO getById(Long id) {
+    public UsuarioVO getById(Long id){
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         return usuarioDAO.getById(id);
+    }
+
+
+    private static UsuarioDAO usuDAO = new UsuarioDAO();
+
+    public UsuarioVO autenticar (UsuarioVO vo) throws AuthenticationException {
+    UsuarioVO usuVO = new UsuarioVO();
+
+    try {
+        usuDAO.getByUsernameAndSenha(vo);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return usuVO;
     }
 }
