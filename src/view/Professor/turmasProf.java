@@ -16,7 +16,7 @@ public class turmasProf extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("./turmasProf.fxml"));
         Scene cena = new Scene(root);
 
-        primaryStage.setTitle("Perfil");
+        primaryStage.setTitle("turmas");
         primaryStage.setScene(cena);
         primaryStage.show();
     }

@@ -16,7 +16,7 @@ public class turmas extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("./turmas.fxml"));
         Scene cena = new Scene(root);
 
-        primaryStage.setTitle("Diário");
+        primaryStage.setTitle("turmas");
         primaryStage.setScene(cena);
         primaryStage.show();
     }

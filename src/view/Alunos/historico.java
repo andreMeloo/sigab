@@ -16,7 +16,7 @@ public class historico extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("./historico.fxml"));
         Scene cena = new Scene(root);
 
-        primaryStage.setTitle("Diário");
+        primaryStage.setTitle("historico");
         primaryStage.setScene(cena);
         primaryStage.show();
     }

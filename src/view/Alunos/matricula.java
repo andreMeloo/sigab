@@ -16,7 +16,7 @@ public class matricula extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("./matricula.fxml"));
         Scene cena = new Scene(root);
 
-        primaryStage.setTitle("Diário");
+        primaryStage.setTitle("matricula");
         primaryStage.setScene(cena);
         primaryStage.show();
     }

@@ -16,7 +16,7 @@ public class perfil extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("./perfil.fxml"));
         Scene cena = new Scene(root);
 
-        primaryStage.setTitle("Diário");
+        primaryStage.setTitle("perfil");
         primaryStage.setScene(cena);
         primaryStage.show();
     }
