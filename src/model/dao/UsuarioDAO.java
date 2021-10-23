@@ -125,12 +125,12 @@ public class UsuarioDAO extends BaseDAO implements EntityDAOInterface<UsuarioVO>
         return usuario;
     }
 
-    public UsuarioVO getByUsername(UsuarioVO usuario) {
+    public UsuarioVO getByUsername(String username) {
         connection = getConnection();
         String sql = "SELECT * FROM Usuario WHERE username=?";
         PreparedStatement preparedStatement;
         ResultSet resultSet;
-        String username = usuario.getUsername();
+        UsuarioVO usuario = new UsuarioVO();
         
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -138,12 +138,13 @@ public class UsuarioDAO extends BaseDAO implements EntityDAOInterface<UsuarioVO>
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 
-            resultSet.next();
+            if(resultSet.next()) {
             usuario.setId(resultSet.getLong("id"));
             usuario.setNivel(NivelDeUsuario.valueOf(resultSet.getString("nivel")));
             usuario.setNome(resultSet.getString("nome"));
             usuario.setUsername(resultSet.getString("username"));
             usuario.setSenha(resultSet.getString("senha"));
+            }
         
         } catch (SQLException e) {
             e.printStackTrace();
