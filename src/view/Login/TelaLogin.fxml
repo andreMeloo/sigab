@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -23,7 +24,7 @@
          <children>
             <Button fx:id="loginBtn" layoutX="61.0" layoutY="322.0" mnemonicParsing="false" onAction="#autenticar" prefHeight="52.0" prefWidth="349.0" style="-fx-background-color: #60BEF0;" text="Entrar" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font name="Arial Bold" size="24.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -31,7 +32,7 @@
             </Button>
             <Label layoutX="61.0" layoutY="93.0" text="Username:" textFill="WHITE">
                <font>
-                  <Font name="Arial" size="18.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
             <TextField fx:id="usuario" layoutX="61.0" layoutY="122.0" prefHeight="41.0" prefWidth="349.0">
@@ -44,7 +45,7 @@
             </TextField>
             <Label layoutX="61.0" layoutY="196.0" text="Senha:" textFill="WHITE">
                <font>
-                  <Font name="Arial" size="18.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
             <PasswordField fx:id="senha" layoutX="61.0" layoutY="226.0" prefHeight="41.0" prefWidth="349.0">
@@ -52,7 +53,7 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </PasswordField>
-            <Label fx:id="erroAut" layoutX="61.0" layoutY="54.0" text="Label" textFill="#d70f0f" visible="false">
+            <Label fx:id="erroAut" layoutX="122.0" layoutY="54.0" text="Label" textFill="RED" visible="false">
                <font>
                   <Font name="Arial" size="18.0" />
                </font></Label>
