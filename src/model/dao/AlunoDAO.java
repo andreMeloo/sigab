@@ -15,13 +15,11 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         usuarioDAO.inserir(alunoVO);
-        
-        long id = alunoVO.getId();
 
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         enderecoDAO.inserir(alunoVO.getEndereco());
 
-        long enderecoId = enderecoDAO.getByAlunoId(id).getId();
+        long enderecoId = enderecoDAO.getByAluno(alunoVO).getId();
 
         connection = getConnection();
         String sql = "INSERT INTO Aluno (id, matricula, endereco_id) VALUES (?,?,?)";
@@ -29,7 +27,7 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
 
         try {
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, alunoVO.getId());
             preparedStatement.setString(2, alunoVO.getMatricula());
             preparedStatement.setLong(3, enderecoId);
             preparedStatement.execute();
@@ -49,7 +47,7 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         
         usuarioDAO.remover(usuarioDAO.getById(alunoVO.getId()));
-        enderecoDAO.remover(enderecoDAO.getByAlunoId(alunoVO.getId()));
+        enderecoDAO.remover(enderecoDAO.getByAluno(alunoVO));
     }
 
     public List<AlunoVO> listar(){
