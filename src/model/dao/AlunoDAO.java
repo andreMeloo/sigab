@@ -22,14 +22,13 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
         long enderecoId = enderecoDAO.getByAluno(alunoVO).getId();
 
         connection = getConnection();
-        String sql = "INSERT INTO Aluno (id, matricula, endereco_id) VALUES (?,?,?)";
+        String sql = "INSERT INTO Aluno (matricula, endereco_id) VALUES (?,?)";
         PreparedStatement preparedStatement;
 
         try {
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setLong(1, alunoVO.getId());
-            preparedStatement.setString(2, alunoVO.getMatricula());
-            preparedStatement.setLong(3, enderecoId);
+            preparedStatement.setString(1, alunoVO.getMatricula());
+            preparedStatement.setLong(2, enderecoId);
             preparedStatement.execute();
 
             ResultSet keys = preparedStatement.getGeneratedKeys();
