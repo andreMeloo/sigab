@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.embed.swing.*?>
 <?import javafx.scene.paint.*?>
 <?import java.lang.*?>
 <?import javafx.scene.*?>
@@ -22,7 +24,7 @@
    <children>
       <Pane maxHeight="466.0" maxWidth="900.0" minHeight="466.0" minWidth="470.0" prefHeight="466.0" prefWidth="455.0" style="-fx-background-color: #3C4D57;">
          <children>
-            <Button fx:id="loginBtn" layoutX="61.0" layoutY="322.0" mnemonicParsing="false" onAction="#autenticar" prefHeight="52.0" prefWidth="349.0" style="-fx-background-color: #60BEF0;" text="Entrar" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="loginBtn" layoutX="61.0" layoutY="276.0" mnemonicParsing="false" onAction="#autenticar" prefHeight="52.0" prefWidth="349.0" style="-fx-background-color: #60BEF0;" text="Entrar" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -30,12 +32,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label layoutX="61.0" layoutY="93.0" text="Username:" textFill="WHITE">
+            <Label layoutX="61.0" layoutY="47.0" text="Username:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="usuario" layoutX="61.0" layoutY="122.0" prefHeight="41.0" prefWidth="349.0">
+            <TextField fx:id="usuario" layoutX="61.0" layoutY="76.0" prefHeight="41.0" prefWidth="349.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
@@ -43,20 +45,36 @@
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </TextField>
-            <Label layoutX="61.0" layoutY="196.0" text="Senha:" textFill="WHITE">
+            <Label layoutX="61.0" layoutY="150.0" text="Senha:" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <PasswordField fx:id="senha" layoutX="61.0" layoutY="226.0" prefHeight="41.0" prefWidth="349.0">
+            <PasswordField fx:id="senha" layoutX="61.0" layoutY="180.0" prefHeight="41.0" prefWidth="349.0">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor>
             </PasswordField>
-            <Label fx:id="erroAut" layoutX="122.0" layoutY="54.0" text="Label" textFill="RED" visible="false">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font></Label>
+            <Pane fx:id="painelErro" disable="true" layoutX="103.0" layoutY="366.0" prefHeight="41.0" prefWidth="280.0" visible="false">
+               <children>
+                  <Label fx:id="erroAut" layoutX="13.0" layoutY="14.0" prefHeight="27.0" prefWidth="241.0" style="-fx-background-color: #eeb8ac; -fx-background-radius: 5; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-color: e52f05;" text="Usuario ou Senha Invalidos!" textFill="#e52f05">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <padding>
+                        <Insets left="7.0" />
+                     </padding>
+                  </Label>
+                  <ImageView fx:id="fechaErro" fitHeight="11.0" fitWidth="12.0" layoutX="249.0" layoutY="9.0" onMouseClicked="#fechaMsgErro" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../VE/fecharLabel.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </Pane>
       <Pane maxHeight="466.0" prefHeight="466.0" prefWidth="455.0" style="-fx-background-color: white;">

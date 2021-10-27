@@ -1,19 +1,25 @@
 package controller;
 
+
+
 import exception.AuthenticationException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import model.bo.UsuarioBO;
 import model.vo.UsuarioVO;
+import view.Telas;
 
 public class FrontController {
 
     @FXML private TextField usuario;
     @FXML private PasswordField senha;
     @FXML private Label erroAut;
+    @FXML private Pane painelErro;
+
 
     UsuarioBO usuBO = new UsuarioBO();
 
@@ -29,25 +35,28 @@ public class FrontController {
             switch (autenticado.getNivel()) {
                 case ALUNO:
                     // Abre janelas de Aluno
-                    erroAut.setText("Usuario Aluno Logado");
-                    erroAut.setVisible(true);
+                    Telas.telaAluno();
                     break;
                 case PROFESSOR:
                     // Abre Janelas de professor
-                    erroAut.setText("Usuario Professor Logado");
-                    erroAut.setVisible(true);
+                    Telas.telaProfessor();
                     break;
                 case ADMIN:
                     // Abre Janelas do administrador
-                    erroAut.setText("Usuario Admin Logado");
-                    erroAut.setVisible(true);
+                    Telas.telaAdmin();
                     break;
             }
 
         } 
         catch (AuthenticationException e) {
-            erroAut.setText("Usuario ou Senha invalidos!");
-            erroAut.setVisible(true);
+            painelErro.setDisable(false);
+            painelErro.setVisible(true);
         }
     }
+
+    public void fechaMsgErro() {
+        painelErro.setDisable(true);
+        painelErro.setVisible(false);
+    }
+
 }
