@@ -19,16 +19,17 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
     public void inserir(TurmaVO turma) {
         
         connection = getConnection();
-        String sql = "INSERT INTO Turma (horario, local, aberta, disciplina_id, professor_id) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO Turma (codigo, horario, local, aberta, disciplina_id, professor_id) VALUES (?,?,?,?,?,?)";
         PreparedStatement preparedStatement;
 
         try {
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, turma.getHorario());
-            preparedStatement.setString(2, turma.getLocal());
-            preparedStatement.setBoolean(3, turma.isAberta());
-            preparedStatement.setLong(4, turma.getDisciplina().getId());
-            preparedStatement.setLong(5, turma.getProfessor().getId());
+            preparedStatement.setString(1, "T" + turma.getCodigo());
+            preparedStatement.setString(2, turma.getHorario());
+            preparedStatement.setString(3, turma.getLocal());
+            preparedStatement.setBoolean(4, turma.isAberta());
+            preparedStatement.setLong(5, turma.getDisciplina().getId());
+            preparedStatement.setLong(6, turma.getProfessor().getId());
             preparedStatement.executeUpdate();
 
             ResultSet keys = preparedStatement.getGeneratedKeys();
@@ -62,7 +63,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
         AlunoDAO alunoDAO = new AlunoDAO();
 
         connection = getConnection();
-        String sql = "SELECT Turma.id, disciplina_id, professor_id, horario, local, aberta FROM Turma "
+        String sql = "SELECT Turma.id, disciplina_id, professor_id, Turma.codigo, horario, local, aberta FROM Turma "
                     + "JOIN Professor ON Turma.professor_id=Professor.id "
                     + "JOIN Disciplina ON Turma.disciplina_id=Disciplina.id";
         List<TurmaVO> result = new ArrayList<TurmaVO>();
@@ -74,6 +75,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
             while (resultSet.next()) {
                 TurmaVO turma = new TurmaVO();
                 turma.setId(resultSet.getLong("id"));
+                turma.setCodigo(resultSet.getString("codigo"));
                 turma.setHorario(resultSet.getString("horario"));
                 turma.setLocal(resultSet.getString("local"));
                 turma.setAberta(resultSet.getBoolean("aberta"));
@@ -92,16 +94,17 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
     public void editar(TurmaVO turma){
         connection = getConnection();
-        String sql = "UPDATE Turma SET horario=?, local=?, aberta=?, disciplina_id=?, professor_id=? WHERE id=?";
+        String sql = "UPDATE Turma SET codigo=?, horario=?, local=?, aberta=?, disciplina_id=?, professor_id=? WHERE id=?";
         PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, turma.getHorario());
-            preparedStatement.setString(2, turma.getLocal());
-            preparedStatement.setBoolean(3, turma.isAberta());
-            preparedStatement.setLong(4, turma.getDisciplina().getId());
-            preparedStatement.setLong(5, turma.getProfessor().getId());
-            preparedStatement.setLong(6, turma.getId());
+            preparedStatement.setString(1, turma.getCodigo());
+            preparedStatement.setString(2, turma.getHorario());
+            preparedStatement.setString(3, turma.getLocal());
+            preparedStatement.setBoolean(4, turma.isAberta());
+            preparedStatement.setLong(5, turma.getDisciplina().getId());
+            preparedStatement.setLong(6, turma.getProfessor().getId());
+            preparedStatement.setLong(7, turma.getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -115,7 +118,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
         DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 
         connection = getConnection();
-        String sql = "SELECT Turma.id, disciplina_id, professor_id, horario, local, aberta FROM Turma "
+        String sql = "SELECT Turma.id, disciplina_id, professor_id, Turma.codigo, horario, local, aberta FROM Turma "
                     + "JOIN Professor ON Turma.professor_id=Professor.id "
                     + "JOIN Disciplina ON Turma.disciplina_id=Disciplina.id "
                     + "WHERE Turma.id=?";
@@ -129,6 +132,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
             
             resultSet.next();
             turma.setId(resultSet.getLong("id"));
+            turma.setCodigo(resultSet.getString("codigo"));
             turma.setHorario(resultSet.getString("horario"));
             turma.setLocal(resultSet.getString("local"));
             turma.setAberta(resultSet.getBoolean("aberta"));
@@ -148,7 +152,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
         DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 
         connection = getConnection();
-        String sql = "SELECT Turma.id, disciplina_id, professor_id, horario, local, aberta FROM Turma "
+        String sql = "SELECT Turma.id, disciplina_id, professor_id, Turma.codigo, horario, local, aberta FROM Turma "
                     + "JOIN Professor ON Turma.professor_id=Professor.id "
                     + "JOIN Disciplina ON Turma.disciplina_id=Disciplina.id "
                     + "RIGHT JOIN Diario ON Turma.id=Diario.turma_id "
@@ -164,6 +168,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
             
             while (resultSet.next()) {
                 turma.setId(resultSet.getLong("id"));
+                turma.setCodigo(resultSet.getString("codigo"));
                 turma.setHorario(resultSet.getString("horario"));
                 turma.setLocal(resultSet.getString("local"));
                 turma.setAberta(resultSet.getBoolean("aberta"));

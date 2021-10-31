@@ -84,17 +84,18 @@ CREATE TABLE Turma (
 	id SERIAL PRIMARY KEY,
 	disciplina_id BIGINT REFERENCES Disciplina(id) ON UPDATE CASCADE NOT NULL,
 	professor_id INT REFERENCES Professor(id) ON UPDATE CASCADE NOT NULL,
+	codigo VARCHAR(3) NOT NULL,
 	horario VARCHAR(5) NOT NULL,
 	local VARCHAR(128) NOT NULL,
 	aberta BOOLEAN DEFAULT true,
 	created_at DATE DEFAULT now()
 );
  
-INSERT INTO Turma (disciplina_id, professor_id, horario, local, aberta)
+INSERT INTO Turma (disciplina_id, professor_id, codigo, horario, local, aberta)
 VALUES
-	(1, 4, '24M12', 'remoto', true),
-	(2, 5, '35T45', 'lab01', true),
-	(3, 6, '12N35', 'remoto', true);
+	(1, 4, T01, '24M12', 'remoto', true),
+	(2, 5, T02, '35T45', 'lab01', true),
+	(3, 6, T03, '12N35', 'remoto', true);
 
 CREATE TABLE Diario (
 	nota1 NUMERIC(3,1),
