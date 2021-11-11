@@ -27,7 +27,7 @@ public class Telas extends Application {
 
     }
 
-
+    // ==> Tela de Login (Principal)
     public static void telaLogin() throws Exception {
         Parent root = FXMLLoader.load(Telas.class.getResource("login/TelaLogin.fxml"));
 
@@ -35,24 +35,33 @@ public class Telas extends Application {
         primaryStage.setScene(cena);
     }
 
-    public static void telaAluno() throws Exception {
-        Parent root = FXMLLoader.load(Telas.class.getResource("Alunos/turmas.fxml"));
+
+
+    // ==> Telas do usuário Aluno
+    public static void telaAlunoPrincipal() throws Exception {
+        Parent root = FXMLLoader.load(Telas.class.getResource("Alunos/principalAlunoTurmas.fxml"));
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Aluno");
         primaryStage.setScene(cena);
     }
 
-    public static void telaProfessor() throws Exception {
-        Parent root = FXMLLoader.load(Telas.class.getResource("Professor/turmasProf.fxml"));
+
+
+    // ==> Telas do usuário Professor
+    public static void telaProfessorPrincipal() throws Exception {
+        Parent root = FXMLLoader.load(Telas.class.getResource("Professor/principalProfTurmas.fxml"));
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Professor");
         primaryStage.setScene(cena);
     }
 
-    public static void telaAdmin() throws Exception {
-        Parent root = FXMLLoader.load(Telas.class.getResource("Admin/turmas.fxml"));
+
+
+    // ==> Telas do usuário Admin
+    public static void telaAdminPrincipal() throws Exception {
+        Parent root = FXMLLoader.load(Telas.class.getResource("Admin/principalAdminTurmas.fxml"));
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Administrador");

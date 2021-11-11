@@ -33,15 +33,15 @@ public class FrontController {
             switch (autenticado.getNivel()) {
                 case ALUNO:
                     // Abre janelas de Aluno
-                    Telas.telaAluno();
+                    Telas.telaAlunoPrincipal();
                     break;
                 case PROFESSOR:
                     // Abre Janelas de professor
-                    Telas.telaProfessor();
+                    Telas.telaProfessorPrincipal();
                     break;
                 case ADMIN:
                     // Abre Janelas do administrador
-                    Telas.telaAdmin();
+                    Telas.telaAdminPrincipal();
                     break;
             }
 
