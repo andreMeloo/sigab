@@ -60,33 +60,33 @@ public class UsuarioBO implements EntityBOInterface<UsuarioVO>{
     private static ProfessorDAO profDAO = new ProfessorDAO();
 
     public UsuarioVO autenticar (UsuarioVO vo) throws AuthenticationException {
-    UsuarioVO usuVO = usuDAO.getByUsername(vo.getUsername());
-    AlunoVO alunoVO = new AlunoVO();
-    ProfessorVO profVO = new ProfessorVO();
+        UsuarioVO usuVO = usuDAO.getByUsername(vo.getUsername());
+        AlunoVO alunoVO = new AlunoVO();
+        ProfessorVO profVO = new ProfessorVO();
 
-    try {
-        // usuário encontrado
-        if(usuVO.getSenha().equals(vo.getSenha())) {
-            switch (usuVO.getNivel()) {
-                case ALUNO: {
-                    alunoVO = alunoDAO.getById(usuVO.getId());
-                    return alunoVO;
+        try {
+            // usuário encontrado
+            if(usuVO.getSenha().equals(vo.getSenha())) {
+                switch (usuVO.getNivel()) {
+                    case ALUNO: {
+                        alunoVO = alunoDAO.getById(usuVO.getId());
+                        return alunoVO;
+                    }
+                    case PROFESSOR: {
+                        profVO = profDAO.getById(usuVO.getId());
+                        return profVO;
+                    }
+                    case ADMIN: return usuVO;
+                    
+                    default: throw new AuthenticationException();
                 }
-                case PROFESSOR: {
-                    profVO = profDAO.getById(usuVO.getId());
-                    return profVO;
-                }
-                case ADMIN: return usuVO;
-                
-                default: throw new AuthenticationException();
+            } else {
+                throw new AuthenticationException();
             }
-        } else {
+        }
+            catch (Exception e) {
+            e.printStackTrace();
             throw new AuthenticationException();
+            }
         }
-    }
-        catch (Exception e) {
-        e.printStackTrace();
-        throw new AuthenticationException();
-        }
-    }
 }
