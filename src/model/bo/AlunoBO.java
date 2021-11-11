@@ -1,5 +1,6 @@
 package model.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.dao.AlunoDAO;
@@ -48,4 +49,26 @@ public class AlunoBO implements EntityBOInterface<AlunoVO>{
         return alunoDAO.getById(id);
     }
     
+    public List<AlunoVO> buscarPorNome(String nome) {
+        
+        AlunoDAO usuarioDAO = new AlunoDAO();
+        List<AlunoVO> listaPorNome = new ArrayList<AlunoVO>();
+        
+        listaPorNome = usuarioDAO.listar();
+        listaPorNome.removeIf(s -> !s.getNome().contains(nome));
+
+        return listaPorNome;
+    }
+
+    public List<AlunoVO> buscarPorTurma(String codigo) {
+
+        AlunoDAO usuarioDAO = new AlunoDAO();
+        List<AlunoVO> listaPorTurma = new ArrayList<AlunoVO>();
+        
+        listaPorTurma = usuarioDAO.listar();
+        listaPorTurma.removeIf(s -> !s.getNome().contains(codigo));
+
+        return listaPorTurma;
+    }
+
 }

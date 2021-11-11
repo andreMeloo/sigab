@@ -55,11 +55,13 @@ public class UsuarioBO implements EntityBOInterface<UsuarioVO>{
     }
 
 
-    private static UsuarioDAO usuDAO = new UsuarioDAO();
-    private static AlunoDAO alunoDAO = new AlunoDAO();
-    private static ProfessorDAO profDAO = new ProfessorDAO();
-
+    
     public UsuarioVO autenticar (UsuarioVO vo) throws AuthenticationException {
+        
+        UsuarioDAO usuDAO = new UsuarioDAO();
+        AlunoDAO alunoDAO = new AlunoDAO();
+        ProfessorDAO profDAO = new ProfessorDAO();
+        
         UsuarioVO usuVO = usuDAO.getByUsername(vo.getUsername());
         AlunoVO alunoVO = new AlunoVO();
         ProfessorVO profVO = new ProfessorVO();
@@ -85,8 +87,8 @@ public class UsuarioBO implements EntityBOInterface<UsuarioVO>{
             }
         }
             catch (Exception e) {
-            e.printStackTrace();
-            throw new AuthenticationException();
+                e.printStackTrace();
+                throw new AuthenticationException();
             }
-        }
+    }
 }
