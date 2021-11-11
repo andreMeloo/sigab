@@ -15,23 +15,20 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         usuarioDAO.inserir(alunoVO);
-        
-        long id = alunoVO.getId();
 
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         enderecoDAO.inserir(alunoVO.getEndereco());
 
-        long enderecoId = enderecoDAO.getByAlunoId(id).getId();
+        long enderecoId = enderecoDAO.getByAluno(alunoVO).getId();
 
         connection = getConnection();
-        String sql = "INSERT INTO Aluno (id, matricula, endereco_id) VALUES (?,?,?)";
+        String sql = "INSERT INTO Aluno (matricula, endereco_id) VALUES (?,?)";
         PreparedStatement preparedStatement;
 
         try {
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setLong(1, id);
-            preparedStatement.setString(2, alunoVO.getMatricula());
-            preparedStatement.setLong(3, enderecoId);
+            preparedStatement.setString(1, alunoVO.getMatricula());
+            preparedStatement.setLong(2, enderecoId);
             preparedStatement.execute();
 
             ResultSet keys = preparedStatement.getGeneratedKeys();
@@ -49,7 +46,7 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         
         usuarioDAO.remover(usuarioDAO.getById(alunoVO.getId()));
-        enderecoDAO.remover(enderecoDAO.getByAlunoId(alunoVO.getId()));
+        enderecoDAO.remover(enderecoDAO.getByAluno(alunoVO));
     }
 
     public List<AlunoVO> listar(){

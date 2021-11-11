@@ -5,6 +5,7 @@ import java.util.List;
 public class TurmaVO {
     
     private Long id;
+    private String codigo;
     private String horario;
     private String local;
     private boolean aberta = true;
@@ -22,6 +23,17 @@ public class TurmaVO {
             this.id = id;
         }
     }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        if (codigo != null && !codigo.equals("")) {
+            this.codigo = codigo;
+        }
+    }
+
 
     public String getHorario() {
         return horario;

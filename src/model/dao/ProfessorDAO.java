@@ -15,24 +15,26 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         usuarioDAO.inserir(professorVO);
-        
-        long id = professorVO.getId();
 
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         enderecoDAO.inserir(professorVO.getEndereco());
 
-        long enderecoId = enderecoDAO.getByAlunoId(id).getId();
+        Long enderecoId = enderecoDAO.getByProfessor(professorVO).getId();
 
         connection = getConnection();
-        String sql = "INSERT INTO Professor (id, cpf, endereco_id) VALUES (?,?,?)";
+        String sql = "INSERT INTO Professor (cpf, endereco_id) VALUES (?,?)";
         PreparedStatement preparedStatement;
 
         try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
-            preparedStatement.setString(2, professorVO.getCpf());
-            preparedStatement.setObject(3, enderecoId);
-            preparedStatement.execute();
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, professorVO.getCpf());
+            preparedStatement.setObject(2, enderecoId);
+            preparedStatement.executeUpdate();
+
+            ResultSet keys = preparedStatement.getGeneratedKeys();
+            keys.next();
+            professorVO.setId(keys.getLong(1));
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,7 +46,7 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
         UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         usuarioDAO.remover(usuarioDAO.getById(professorVO.getId()));
-        enderecoDAO.remover(enderecoDAO.getByProfessorId(professorVO.getId()));
+        enderecoDAO.remover(enderecoDAO.getByProfessor(professorVO));
     }
 
     public List<ProfessorVO> listar() {
