@@ -19,14 +19,15 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         enderecoDAO.inserir(professorVO.getEndereco());
 
-        Long enderecoId = enderecoDAO.getByProfessor(professorVO).getId();
+        Long enderecoId = professorVO.getEndereco().getId();
 
         connection = getConnection();
-        String sql = "INSERT INTO Professor (cpf, endereco_id) VALUES (?,?)";
+        String sql = "INSERT INTO Professor (id, cpf, endereco_id) VALUES (?,?,?)";
         PreparedStatement preparedStatement;
 
         try {
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setLong(1, professorVO.getId());
             preparedStatement.setString(1, professorVO.getCpf());
             preparedStatement.setObject(2, enderecoId);
             preparedStatement.executeUpdate();
