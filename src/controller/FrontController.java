@@ -26,22 +26,22 @@ public class FrontController {
         vo.setUsername(usuario.getText());
         vo.setSenha(senha.getText());
 
-        
         try 
         {
             UsuarioVO autenticado = usuBO.autenticar(vo);
             switch (autenticado.getNivel()) {
                 case ALUNO:
                     // Abre janelas de Aluno
-                    Telas.telaAlunoPrincipal();
+                    Telas.telaAlunoPrincipal(autenticado);
+                    
                     break;
                 case PROFESSOR:
                     // Abre Janelas de professor
-                    Telas.telaProfessorPrincipal();
+                    Telas.telaProfessorPrincipal(autenticado);
                     break;
                 case ADMIN:
                     // Abre Janelas do administrador
-                    Telas.telaAdminPrincipal();
+                    Telas.telaAdminPrincipal(autenticado);
                     break;
             }
 

@@ -1,11 +1,13 @@
 package view;
 
+import controller.ProfessorController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import model.vo.UsuarioVO;
 
 public class Telas extends Application {
     private static Stage primaryStage;
@@ -38,8 +40,10 @@ public class Telas extends Application {
 
 
     // ==> Telas do usuário Aluno
-    public static void telaAlunoPrincipal() throws Exception {
-        Parent root = FXMLLoader.load(Telas.class.getResource("Alunos/principalAlunoTurmas.fxml"));
+    public static void telaAlunoPrincipal(UsuarioVO aluno) throws Exception {
+        FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Alunos/principalAlunoTurmas.fxml"));
+        Parent root = (Parent) floader.load();
+        
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Aluno");
@@ -49,18 +53,22 @@ public class Telas extends Application {
 
 
     // ==> Telas do usuário Professor
-    public static void telaProfessorPrincipal() throws Exception {
-        Parent root = FXMLLoader.load(Telas.class.getResource("Professor/principalProfTurmas.fxml"));
+    public static void telaProfessorPrincipal(UsuarioVO professor) throws Exception {
+        FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Professor/principalProfTurmas.fxml"));
+        Parent root = (Parent) floader.load();
+        ProfessorController controller = floader.<ProfessorController>getController();
+        controller.inicializaController(professor);
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Professor");
         primaryStage.setScene(cena);
+        
     }
 
 
 
     // ==> Telas do usuário Admin
-    public static void telaAdminPrincipal() throws Exception {
+    public static void telaAdminPrincipal(UsuarioVO admin) throws Exception {
         Parent root = FXMLLoader.load(Telas.class.getResource("Admin/principalAdminTurmas.fxml"));
 
         Scene cena = new Scene(root);

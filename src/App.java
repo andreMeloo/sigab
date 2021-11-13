@@ -94,13 +94,10 @@ public class App {
         // AlunoVO aluno = new AlunoVO();
         // aluno.setEndereco(new EnderecoVO("R. Aleatoria", "Natal", "RN"));
         // aluno.setMatricula("2021010256");
-        // aluno.setNome("Joaozinho");
+        // aluno.setNome("Andre");
         // aluno.setSenha("123456");
-        // aluno.setUsername("jaozin");
-
-        // long alunoId = alunoDao.inserir(aluno);
-        // aluno = alunoDao.getById(alunoId);
-        // List<AlunoVO> alunos = alunoDao.listar();
+        // aluno.setUsername("andre");
+        // alunoDao.inserir(aluno);
 
         // for (var row : alunos) {
         //     System.out.println(row.getNome() + " - " + row.getMatricula());
@@ -132,11 +129,11 @@ public class App {
         // ProfessorVO professor = new ProfessorVO();
         // professor.setEndereco(new EnderecoVO("R. do Amigo", "Poços de Caldas", "MG"));
         // professor.setCpf("12398741242");
-        // professor.setNome("Gurgel");
-        // professor.setSenha("987654");
-        // professor.setUsername("gugel506");
+        // professor.setNome("Davi");
+        // professor.setSenha("1234567");
+        // professor.setUsername("davi");
 
-        // long professorId = professorDao.inserir(professor);
+        // professorDao.inserir(professor);
         // professor = professorDao.getById(professorId);
         // List<ProfessorVO> professores = professorDao.listar();
 

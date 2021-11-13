@@ -63,8 +63,9 @@ public class UsuarioBO implements EntityBOInterface<UsuarioVO>{
         ProfessorDAO profDAO = new ProfessorDAO();
         
         UsuarioVO usuVO = usuDAO.getByUsername(vo.getUsername());
-        AlunoVO alunoVO = new AlunoVO();
-        ProfessorVO profVO = new ProfessorVO();
+        UsuarioVO alunoVO = new AlunoVO();
+        UsuarioVO profVO = new ProfessorVO();
+        
 
         try {
             // usuário encontrado
