@@ -1,10 +1,10 @@
--- DROP TABLE Diario;
--- DROP TABLE Turma;
--- DROP TABLE Disciplina;
--- DROP TABLE Aluno;
--- DROP TABLE Professor;
--- DROP TABLE Endereco;
--- DROP TABLE Usuario;
+DROP TABLE Diario;
+DROP TABLE Turma;
+DROP TABLE Disciplina;
+DROP TABLE Aluno;
+DROP TABLE Professor;
+DROP TABLE Endereco;
+DROP TABLE Usuario;
 
 CREATE TABLE Usuario (
 	id SERIAL PRIMARY KEY,
@@ -93,9 +93,9 @@ CREATE TABLE Turma (
  
 INSERT INTO Turma (disciplina_id, professor_id, codigo, horario, local, aberta)
 VALUES
-	(1, 4, T01, '24M12', 'remoto', true),
-	(2, 5, T02, '35T45', 'lab01', true),
-	(3, 6, T03, '12N35', 'remoto', true);
+	(1, 4, 'T01', '24M12', 'remoto', true),
+	(2, 5, 'T02', '35T45', 'lab01', true),
+	(3, 6, 'T03', '12N35', 'remoto', true);
 
 CREATE TABLE Diario (
 	nota1 NUMERIC(3,1),
@@ -114,3 +114,11 @@ VALUES
 	(1, 1, 9.5, 6.7, 5.3, NULL, 79),
 	(2, 1, 4.8, 8.4, 10.0, NULL, 100),
 	(3, 2, 3.6, 2.5, 4.0, 9.8, 95);
+
+	SELECT * FROM aluno;
+	SELECT * FROM diario;
+	SELECT * FROM disciplina;
+	SELECT * FROM endereco;
+	SELECT * FROM professor
+	SELECT * FROM turma;
+	SELECT * FROM usuario;
