@@ -33,7 +33,8 @@ VALUES
 	('Professor3', 'PROFESSOR', 'Professor3', '123456'),
     ('Professor4', 'PROFESSOR', 'Professor4', '123456'),
 	('Professor5', 'PROFESSOR', 'Professor5', '123456'),
-	('Professor6', 'PROFESSOR', 'Professor6', '123456');
+	('Professor6', 'PROFESSOR', 'Professor6', '123456'),
+	('admin', 'ADMIN', 'admin', 'admin');
 
 CREATE TABLE Endereco (
 	id SERIAL PRIMARY KEY,
