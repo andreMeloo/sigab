@@ -19,9 +19,21 @@ VALUES
 	('Paulo', 'ALUNO', 'paulin106', '123456'),
 	('Pedro', 'ALUNO', 'ehopedrin', 'abcdef'),
 	('Lucas', 'ALUNO', 'lukinha32', '015jut'),
+	('Aluno1', 'ALUNO', 'Aluno1', '123456'),
+	('Aluno2', 'ALUNO', 'Aluno2', '123456'),
+	('Aluno3', 'ALUNO', 'Aluno3', '123456'),
+	('Aluno4', 'ALUNO', 'Aluno4', '123456'),
+	('Aluno5', 'ALUNO', 'Aluno5', '123456'),
+	('Aluno6', 'ALUNO', 'Aluno6', '123456'),
     ('João', 'PROFESSOR', 'jao123', '000000'),
 	('Cesar', 'PROFESSOR', 'cesarminoti', '145asb'),
-	('Irineu', 'PROFESSOR', 'irineu', 'vcnsabenemeu');
+	('Irineu', 'PROFESSOR', 'irineu', 'vcnsabenemeu'),
+    ('Professor1', 'PROFESSOR', 'Professor1', '123456'),
+	('Professor2', 'PROFESSOR', 'Professor2', '123456'),
+	('Professor3', 'PROFESSOR', 'Professor3', '123456'),
+    ('Professor4', 'PROFESSOR', 'Professor4', '123456'),
+	('Professor5', 'PROFESSOR', 'Professor5', '123456'),
+	('Professor6', 'PROFESSOR', 'Professor6', '123456');
 
 CREATE TABLE Endereco (
 	id SERIAL PRIMARY KEY,
@@ -37,7 +49,19 @@ VALUES
 	('Fortaleza', 'CE', 'Rua Tal, 33'),
     ('João Pessoa', 'PB', 'Rua do Amigo, 37'),
 	('São Paulo', 'SP', 'Rua Cebolinha, 954'),
-	('Macau', 'RN', 'Rua Beco, 66');
+	('Macau', 'RN', 'Rua Beco, 66'),
+	('Cidade1', 'RN', 'Rua das Véa, 123'),
+	('Cidade2', 'RN', 'Rua Acolá, 965'),
+	('Cidade3', 'CE', 'Rua Tal, 33'),
+    ('Cidade4', 'PB', 'Rua do Amigo, 37'),
+	('Cidade5', 'SP', 'Rua Cebolinha, 954'),
+	('Cidade6', 'RN', 'Rua Beco, 66'),
+	('Cidade7', 'RN', 'Rua das Véa, 123'),
+	('Cidade8', 'RN', 'Rua Acolá, 965'),
+	('Cidade9', 'CE', 'Rua Tal, 33'),
+    ('Cidade10', 'PB', 'Rua do Amigo, 37'),
+	('Cidade11', 'SP', 'Rua Cebolinha, 954'),
+	('Cidade12', 'RN', 'Rua Beco, 66');
 
 CREATE TABLE Aluno (
     id BIGINT PRIMARY KEY,
@@ -50,7 +74,13 @@ INSERT INTO Aluno (id, matricula, endereco_id)
 VALUES
 	(1, '2020010207', 1),
 	(2, '2020010208', 2),
-	(3, '2020010209', 3);
+	(3, '2020010209', 3),
+	(4, '2020010207', 4),
+	(5, '2020010208', 5),
+	(6, '2020010209', 6),
+	(7, '2020010207', 7),
+	(8, '2020010208', 8),
+	(9, '2020010209', 9);
 
 
 
@@ -63,9 +93,15 @@ CREATE TABLE Professor (
  
 INSERT INTO Professor (id, cpf, endereco_id)
 VALUES
-	(4, '12345678912', 4),
-	(5, '34592839242', 5),
-	(6, '92384743829', 6);
+	(10, '12345678912', 10),
+	(11, '34592839242', 11),
+	(12, '92384743829', 12),
+	(13, '12345678912', 13),
+	(14, '34592839242', 14),
+	(15, '92384743829', 15),
+	(16, '12345678912', 16),
+	(17, '34592839242', 17),
+	(18, '92384743829', 18);
 
 CREATE TABLE Disciplina (
     id SERIAL PRIMARY KEY,
@@ -77,7 +113,13 @@ INSERT INTO Disciplina (codigo, nome)
 VALUES
     (123, 'Matematica'),
     (456, 'Filosofia'),
-    (789, 'Historia');
+    (789, 'Historia'),
+	(123, 'Disciplina1'),
+    (456, 'Disciplina2'),
+    (789, 'Disciplina3'),
+	(123, 'Disciplina4'),
+    (456, 'Disciplina5'),
+    (789, 'Disciplina6');
 
 
 CREATE TABLE Turma (
@@ -93,9 +135,15 @@ CREATE TABLE Turma (
  
 INSERT INTO Turma (disciplina_id, professor_id, codigo, horario, local, aberta)
 VALUES
-	(1, 4, 'T01', '24M12', 'remoto', true),
-	(2, 5, 'T02', '35T45', 'lab01', true),
-	(3, 6, 'T03', '12N35', 'remoto', true);
+	(1, 10, 'T01', '24M12', 'remoto', true),
+	(2, 11, 'T02', '35T45', 'lab01', true),
+	(3, 12, 'T03', '12N35', 'remoto', true),
+	(4, 13, 'T04', '24M12', 'remoto', true),
+	(5, 14, 'T05', '35T45', 'lab01', true),
+	(6, 15, 'T06', '12N35', 'remoto', false),
+	(7, 16, 'T07', '24M12', 'remoto', false),
+	(8, 17, 'T08', '35T45', 'lab01', false),
+	(9, 18, 'T09', '12N35', 'remoto', false);
 
 CREATE TABLE Diario (
 	nota1 NUMERIC(3,1),
