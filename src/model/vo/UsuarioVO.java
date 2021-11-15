@@ -28,7 +28,7 @@ public class UsuarioVO {
 	}
 
 	public void setNome(String nome) {
-		if(nome != null)
+		if(nome != null && !nome.equals(""))
 			this.nome = nome;
 	}
 

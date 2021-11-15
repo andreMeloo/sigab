@@ -56,12 +56,13 @@ public class Telas extends Application {
     public static void telaInicialProfessor(UsuarioVO professor) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Professor/ProfTurmas.fxml"));
         Parent root = (Parent) floader.load();
+        ProfessorController controller = floader.<ProfessorController>getController();
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Professor");
         primaryStage.setScene(cena);
         
-        ProfessorController controller = floader.<ProfessorController>getController();
+        
         controller.inicializaController(professor);
     }
 
@@ -71,48 +72,52 @@ public class Telas extends Application {
     public static void telaInicialAdmin(UsuarioVO admin) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Admin/turmas.fxml"));
         Parent root = (Parent) floader.load();
+        AdminController controller = floader.<AdminController>getController();
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Administrador");
         primaryStage.setScene(cena);
 
-        AdminController controller = floader.<AdminController>getController();
+        
         controller.setUser(admin);
     }
 
     public static void telaProfessores(UsuarioVO admin) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Admin/professores.fxml"));
         Parent root = (Parent) floader.load();
+        AdminController controller = floader.<AdminController>getController();
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Administrador");
         primaryStage.setScene(cena);
 
-        AdminController controller = floader.<AdminController>getController();
+        
         controller.setUser(admin);
     }
 
     public static void telaDisciplinas(UsuarioVO admin) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Admin/disciplinas.fxml"));
         Parent root = (Parent) floader.load();
+        AdminController controller = floader.<AdminController>getController();
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Administrador");
         primaryStage.setScene(cena);
 
-        AdminController controller = floader.<AdminController>getController();
+        
         controller.setUser(admin);
     }
 
     public static void telaAlunos(UsuarioVO admin) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Admin/alunos.fxml"));
         Parent root = (Parent) floader.load();
+        AdminController controller = floader.<AdminController>getController();
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Administrador");
         primaryStage.setScene(cena);
 
-        AdminController controller = floader.<AdminController>getController();
+        
         controller.setUser(admin);
     }
 
@@ -120,48 +125,54 @@ public class Telas extends Application {
     public static void telaAdicionaTurma(UsuarioVO admin) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Admin/adicionarTurma.fxml"));
         Parent root = (Parent) floader.load();
+        AdminController controller = floader.<AdminController>getController();
+        
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Administrador");
         primaryStage.setScene(cena);
 
-        AdminController controller = floader.<AdminController>getController();
+        controller.carregaChoiceBox();
         controller.setUser(admin);
     }
 
     public static void telaAdicionaAluno(UsuarioVO admin) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Admin/adicionarAluno.fxml"));
         Parent root = (Parent) floader.load();
+        AdminController controller = floader.<AdminController>getController();
+        controller.matricula();
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Administrador");
         primaryStage.setScene(cena);
 
-        AdminController controller = floader.<AdminController>getController();
+        
         controller.setUser(admin);
     }
 
     public static void telaAdicionaProfessor(UsuarioVO admin) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Admin/adicionarProfessor.fxml"));
         Parent root = (Parent) floader.load();
+        AdminController controller = floader.<AdminController>getController();
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Administrador");
         primaryStage.setScene(cena);
 
-        AdminController controller = floader.<AdminController>getController();
+        
         controller.setUser(admin);
     }
 
     public static void telaAdicionaDisciplina(UsuarioVO admin) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Admin/adicionarDisciplina.fxml"));
         Parent root = (Parent) floader.load();
+        AdminController controller = floader.<AdminController>getController();
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Administrador");
         primaryStage.setScene(cena);
 
-        AdminController controller = floader.<AdminController>getController();
+        
         controller.setUser(admin);
     }
 

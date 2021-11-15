@@ -10,7 +10,7 @@ public class DisciplinaVO {
 		return codigo;
 	}
 	public void setCodigo(String codigo) {
-		if(!codigo.isBlank())
+		if(nome != null && !nome.equals(""))
 			this.codigo = codigo;
 	}
 	public String getNome() {
