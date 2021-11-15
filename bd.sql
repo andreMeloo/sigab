@@ -112,15 +112,15 @@ CREATE TABLE Disciplina (
  
 INSERT INTO Disciplina (codigo, nome)
 VALUES
-    (123, 'Matematica'),
-    (456, 'Filosofia'),
-    (789, 'Historia'),
-	(123, 'Disciplina1'),
-    (456, 'Disciplina2'),
-    (789, 'Disciplina3'),
-	(123, 'Disciplina4'),
-    (456, 'Disciplina5'),
-    (789, 'Disciplina6');
+    ('123', 'Matematica'),
+    ('456', 'Filosofia'),
+    ('789', 'Historia'),
+	('123', 'Disciplina1'),
+    ('456', 'Disciplina2'),
+    ('789', 'Disciplina3'),
+	('123', 'Disciplina4'),
+    ('456', 'Disciplina5'),
+    ('789', 'Disciplina6');
 
 
 CREATE TABLE Turma (
