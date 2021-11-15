@@ -55,21 +55,28 @@
    <top>
       <Pane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #274D63;" BorderPane.alignment="CENTER">
          <children>
+            <Pane fx:id="panePerfil" layoutX="600.0" layoutY="8.0" onMouseClicked="#perfilProf">
+               <children>
+                  <ImageView fitHeight="28.0" fitWidth="28.0" layoutY="2.0">
+                     <image>
+                        <Image url="@../VE/account.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="lblNomePerfil" layoutX="38.0" layoutY="7.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
             <Label layoutX="14.0" layoutY="8.0" text="SIGAB" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Button fx:id="btnPerfilProfessor" layoutX="643.0" layoutY="10.0" mnemonicParsing="false" onAction="#perfilProf" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: transparent;" text="Nome" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="608.0" layoutY="8.0">
-               <image>
-                  <Image url="@../VE/account.png" />
-               </image>
-            </ImageView>
          </children>
       </Pane>
    </top>
@@ -78,7 +85,7 @@
          <children>
             <Pane prefHeight="440.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="btnTurmas" mnemonicParsing="false" onMouseEntered="#acenderBtnTurmas" onMouseExited="#apagarBtnTurmas" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(240,240,240,1); -fx-background-radius: 5px 0px 0px 5px;" text="Turmas" textFill="#274d63">
+                  <Button fx:id="btnTurmas" mnemonicParsing="false" onAction="#telaTurmas" onMouseEntered="#acenderBtnTurmas" onMouseExited="#apagarBtnTurmas" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(240,240,240,1); -fx-background-radius: 5px 0px 0px 5px;" text="Turmas" textFill="#274d63">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -120,15 +127,15 @@
                         <Image url="@../VE/magnify.png" />
                      </image>
                   </ImageView>
-                  <TableView layoutX="19.0" layoutY="54.0" prefHeight="297.0" prefWidth="571.0">
+                  <TableView fx:id="tblTurmas" layoutX="19.0" layoutY="54.0" prefHeight="297.0" prefWidth="571.0">
                      <columns>
-                        <TableColumn prefWidth="75.0" text="Código" />
-                        <TableColumn prefWidth="75.0" text="Disciplina" />
-                        <TableColumn prefWidth="75.0" text="Horário" />
-                        <TableColumn prefWidth="75.0" text="Alunos" />
-                        <TableColumn prefWidth="75.0" text="Status" />
-                        <TableColumn prefWidth="75.0" text="Local" />
-                        <TableColumn prefWidth="75.0" text="Diario" />
+                        <TableColumn fx:id="collumnCodigoTurma" prefWidth="75.0" text="Código" />
+                        <TableColumn fx:id="collumnDisciplina" prefWidth="75.0" text="Disciplina" />
+                        <TableColumn fx:id="collumnHorario" prefWidth="75.0" text="Horário" />
+                        <TableColumn fx:id="collumnAlunos" prefWidth="75.0" text="Alunos" />
+                        <TableColumn fx:id="collumnStatus" prefWidth="75.0" text="Status" />
+                        <TableColumn fx:id="collumnLocal" prefWidth="75.0" text="Local" />
+                        <TableColumn fx:id="collumnDiario" prefWidth="75.0" text="Diario" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -136,6 +143,7 @@
                   </TableView>
                </children>
             </Pane>
-         </children></Pane>
+         </children>
+      </Pane>
    </center>
 </BorderPane>

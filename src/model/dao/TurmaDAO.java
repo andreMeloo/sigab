@@ -184,4 +184,44 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
         return result;
     }
+
+
+    public List<TurmaVO> getByProfessorId(long id) {
+
+        ProfessorDAO professorDAO = new ProfessorDAO();
+        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+
+        connection = getConnection();
+        String sql = "SELECT Turma.id, disciplina_id, professor_id, Turma.codigo, horario, local, aberta FROM Turma "
+                    + "JOIN Professor ON Turma.professor_id=Professor.id "
+                    + "JOIN Disciplina ON Turma.disciplina_codigo=Disciplina.id "
+                    + "RIGHT JOIN Diario ON Turma.id=Diario.turma_id "
+                    + "WHERE professor_id=?";
+        TurmaVO turma = new TurmaVO();
+        List<TurmaVO> result = new ArrayList<TurmaVO>();
+        
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            
+            while (resultSet.next()) {
+                turma.setId(resultSet.getLong("id"));
+                turma.setCodigo(resultSet.getString("codigo"));
+                turma.setHorario(resultSet.getString("horario"));
+                turma.setLocal(resultSet.getString("local"));
+                turma.setAberta(resultSet.getBoolean("aberta"));
+                turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
+                turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
+
+                result.add(turma);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }

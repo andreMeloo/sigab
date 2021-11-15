@@ -32,6 +32,12 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -43,9 +49,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="530.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="530.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
    <top>
-      <Pane prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #274D63;" BorderPane.alignment="CENTER">
+      <Pane fx:id="topPane" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #274D63;" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="14.0" layoutY="8.0" text="SIGAB" textFill="WHITE">
                <font>
@@ -56,29 +62,41 @@
       </Pane>
    </top>
    <left>
-      <VBox alignment="BOTTOM_CENTER" prefHeight="480.0" prefWidth="100.0" style="-fx-background-color: #274D63E5;" BorderPane.alignment="CENTER">
+      <VBox fx:id="leftPane" alignment="BOTTOM_CENTER" prefHeight="480.0" prefWidth="100.0" style="-fx-background-color: #274D63E5;" BorderPane.alignment="CENTER">
          <children>
             <Pane prefHeight="440.0" prefWidth="100.0">
                <children>
-                  <Button layoutY="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Turmas" textFill="WHITE">
+                  <Button fx:id="btnDisciplinas" layoutY="90.0" mnemonicParsing="false" onAction="#carregaTelaDisciplinas" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(39,77,99,0.7); -fx-background-radius: 0px 0px 0px 50px;" text="Disciplinas" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
                   </Button>
-                  <Button layoutY="89.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Disciplinas" textFill="WHITE">
+                  <Button fx:id="btnAlunos" layoutY="60.0" mnemonicParsing="false" onAction="#carregaTelaAlunos" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(39,77,99,0.7); -fx-background-radius: 0px 0px 0px 50px;" text="Alunos" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
                   </Button>
-                  <Button layoutY="59.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Alunos" textFill="WHITE">
+                  <Button fx:id="btnProfessores" layoutY="30.0" mnemonicParsing="false" onAction="#carregaTelaProfessores" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(240,240,240,1); -fx-background-radius: 0px 0px 0px 50px;" text="Professores" textFill="#274d63">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
                   </Button>
-                  <Button layoutY="29.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #62879C;" text="Professores" textFill="WHITE">
+                  <Button fx:id="btnTurmas" mnemonicParsing="false" onAction="#carregaTelaTurmas" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(39,77,99,0.7); -fx-background-radius: 0px 0px 0px 50px;" text="Turmas" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
                   </Button>
                </children>
             </Pane>
@@ -92,7 +110,7 @@
                         <Image url="@../VE/logout.png" />
                      </image>
                   </ImageView>
-                  <Button layoutY="16.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: transparent;" text="Sair" textFill="WHITE" />
+                  <Button fx:id="btnSair" layoutY="16.0" mnemonicParsing="false" onAction="#logoff" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: transparent;" text="Sair" textFill="WHITE" />
                </children>
             </Pane>
          </children>
@@ -101,25 +119,66 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: F0F0F0;" BorderPane.alignment="CENTER">
          <children>
-            <Pane layoutX="44.0" layoutY="40.0" prefHeight="400.0" prefWidth="610.0" style="-fx-background-color: white;">
+            <Pane fx:id="centerPane" layoutX="44.0" layoutY="40.0" prefHeight="400.0" prefWidth="610.0" style="-fx-background-color: white;">
                <children>
-                  <Label layoutX="23.0" layoutY="14.0" text="Adicionar Professor">
+                  <Label fx:id="lblTituloCadastro" layoutX="105.0" layoutY="14.0" text="Professor">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button layoutX="530.0" layoutY="356.0" mnemonicParsing="false" text="Salvar" />
-                  <Button layoutX="458.0" layoutY="356.0" mnemonicParsing="false" text="Voltar" />
-                  <Label layoutX="80.0" layoutY="65.0" text="Nome" />
-                  <Label layoutX="95.0" layoutY="103.0" text="Cpf" />
-                  <TextField layoutX="138.0" layoutY="99.0" prefHeight="26.0" prefWidth="415.0" />
-                  <Label layoutX="47.0" layoutY="140.0" text="Logradouro" />
-                  <TextField layoutX="138.0" layoutY="136.0" prefHeight="26.0" prefWidth="415.0" />
-                  <TextField layoutX="138.0" layoutY="61.0" prefHeight="26.0" prefWidth="415.0" />
-                  <Label layoutX="80.0" layoutY="176.0" text="Bairro" />
-                  <TextField layoutX="138.0" layoutY="172.0" prefHeight="26.0" prefWidth="415.0" />
-                  <Label layoutX="75.0" layoutY="213.0" text="Cidade" />
-                  <TextField layoutX="138.0" layoutY="209.0" prefHeight="26.0" prefWidth="415.0" />
+                  <Label layoutX="23.0" layoutY="14.0" text="Adicionar">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="60.0" layoutY="60.0" text="Nome" />
+                  <Label layoutX="60.0" layoutY="100.0" text="Cpf" />
+                  <TextField layoutX="136.0" layoutY="96.0" prefHeight="26.0" prefWidth="415.0" />
+                  <Label layoutX="60.0" layoutY="140.0" text="Logradouro" />
+                  <TextField layoutX="136.0" layoutY="136.0" prefHeight="26.0" prefWidth="415.0" />
+                  <TextField layoutX="136.0" layoutY="56.0" prefHeight="26.0" prefWidth="415.0" />
+                  <Label layoutX="60.0" layoutY="180.0" text="Bairro" />
+                  <TextField layoutX="136.0" layoutY="176.0" prefHeight="26.0" prefWidth="415.0" />
+                  <Label layoutX="60.0" layoutY="220.0" text="Cidade" />
+                  <TextField layoutX="136.0" layoutY="216.0" prefHeight="26.0" prefWidth="415.0" />
+                  <Button fx:id="btnSalvarTurma" layoutX="422.0" layoutY="350.0" mnemonicParsing="false" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Salvar" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnVoltar" layoutX="60.0" layoutY="350.0" mnemonicParsing="false" onAction="#cancelaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Voltar" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="exitPane" disable="true" layoutX="220.0" layoutY="150.0" prefHeight="136.0" prefWidth="215.0" style="-fx-background-color: F0F0F0; -fx-border-style: solid; -fx-border-radius: 5px; -fx-border-width: 5px; -fx-border-color: #274D63;" visible="false">
+               <children>
+                  <Button fx:id="btnNao" layoutX="130.0" layoutY="90.0" mnemonicParsing="false" onAction="#desativaExitPane" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #274D63;" text="NÃO" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnSim" layoutX="23.0" layoutY="90.0" mnemonicParsing="false" onAction="#voltaTelaLogin" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #274D63;" text="SIM" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Label alignment="CENTER" contentDisplay="TOP" layoutX="23.0" layoutY="34.0" prefHeight="21.0" prefWidth="170.0" text="Deseja Realmente sair?">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
          </children></Pane>

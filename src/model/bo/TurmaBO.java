@@ -46,5 +46,16 @@ public class TurmaBO implements EntityBOInterface<TurmaVO>{
         TurmaDAO turmaDAO = new TurmaDAO();
         return turmaDAO.getById(id);
     }
+
+    public List<TurmaVO> getTurmasDoProfessor(Long id) throws Exception  {
+        try {
+            TurmaDAO turmaDAO = new TurmaDAO();
+            List<TurmaVO> turmas = turmaDAO.getByProfessorId(id);
+            return turmas;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     
 }
