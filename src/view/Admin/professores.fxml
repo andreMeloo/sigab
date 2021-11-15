@@ -122,7 +122,7 @@
                         <Image url="@../VE/logout.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnSair" layoutY="16.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: transparent;" text="Sair" textFill="WHITE" />
+                  <Button fx:id="btnSair" layoutY="16.0" mnemonicParsing="false" onAction="#logoff" prefHeight="30.0" prefWidth="86.0" style="-fx-background-color: transparent;" text="Sair" textFill="WHITE" />
                </children>
             </Pane>
          </children>

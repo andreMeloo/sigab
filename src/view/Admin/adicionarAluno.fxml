@@ -122,20 +122,20 @@
          <children>
             <Pane fx:id="centerPane" layoutX="44.0" layoutY="40.0" prefHeight="400.0" prefWidth="610.0" style="-fx-background-color: white;">
                <children>
-                  <Label layoutX="23.0" layoutY="14.0" text="Adicionar Aluno">
+                  <Label layoutX="23.0" layoutY="14.0" text="Adicionar">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="60.0" layoutY="60.0" text="Nome" />
-                  <Label layoutX="60.0" layoutY="100.0" text="Logradouro" />
-                  <TextField layoutX="136.0" layoutY="96.0" prefHeight="26.0" prefWidth="415.0" />
-                  <TextField layoutX="136.0" layoutY="56.0" prefHeight="26.0" prefWidth="415.0" />
-                  <Label layoutX="60.0" layoutY="140.0" text="Bairro" />
-                  <TextField layoutX="136.0" layoutY="136.0" prefHeight="26.0" prefWidth="415.0" />
-                  <Label layoutX="60.0" layoutY="180.0" text="Cidade" />
-                  <TextField layoutX="136.0" layoutY="176.0" prefHeight="26.0" prefWidth="415.0" />
-                  <Button fx:id="btnSalvarTurma" layoutX="421.0" layoutY="350.0" mnemonicParsing="false" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Salvar" textFill="WHITE">
+                  <Label layoutX="60.0" layoutY="100.0" text="Nome *" />
+                  <Label layoutX="60.0" layoutY="140.0" text="Logradouro *" />
+                  <TextField fx:id="input3" layoutX="136.0" layoutY="136.0" prefHeight="26.0" prefWidth="415.0" promptText="Ex.: Rua, número" />
+                  <TextField fx:id="input2" layoutX="136.0" layoutY="96.0" prefHeight="26.0" prefWidth="415.0" promptText="Nome Completo" />
+                  <Label layoutX="60.0" layoutY="180.0" text="Bairro *" />
+                  <TextField fx:id="input4" layoutX="136.0" layoutY="176.0" prefHeight="26.0" prefWidth="415.0" promptText="Bairro" />
+                  <Label layoutX="60.0" layoutY="220.0" text="Cidade *" />
+                  <TextField fx:id="input5" layoutX="136.0" layoutY="216.0" prefHeight="26.0" prefWidth="415.0" promptText="Cidade" />
+                  <Button fx:id="btnSalvarTurma" layoutX="421.0" layoutY="350.0" mnemonicParsing="false" onAction="#salvaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Salvar" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -143,7 +143,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnVoltar" layoutX="60.0" layoutY="350.0" mnemonicParsing="false" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Voltar" textFill="WHITE">
+                  <Button fx:id="btnVoltar" layoutX="60.0" layoutY="350.0" mnemonicParsing="false" onAction="#cancelaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Voltar" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -151,6 +151,49 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
+                  <Label fx:id="lblTituloCadastro" layoutX="110.0" layoutY="14.0" text="Aluno">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="input1" editable="false" layoutX="136.0" layoutY="56.0" prefHeight="26.0" prefWidth="160.0" promptText="matrícula" />
+                  <Label layoutX="60.0" layoutY="60.0" text="Matrícula" />
+                  <TextField fx:id="input6" layoutX="136.0" layoutY="256.0" prefHeight="25.0" prefWidth="60.0" promptText="Estado" />
+                  <Label layoutX="60.0" layoutY="260.0" text="UF *" />
+                  <Pane fx:id="painelErro" disable="true" layoutX="216.0" layoutY="281.0" prefHeight="41.0" prefWidth="178.0" visible="false">
+                     <children>
+                        <Label fx:id="erroAut" layoutX="13.0" layoutY="14.0" prefHeight="27.0" prefWidth="148.0" style="-fx-background-color: #eeb8ac; -fx-background-radius: 5; -fx-border-style: solid; -fx-border-radius: 5; -fx-border-color: e52f05;" text="* Campos Obrigatorios!" textFill="#d32300">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets left="7.0" />
+                           </padding>
+                        </Label>
+                        <ImageView fx:id="fechaErro" fitHeight="11.0" fitWidth="12.0" layoutX="156.0" layoutY="9.0" onMouseClicked="#fechaMsgErro" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../VE/fecharLabel.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="concluidoPane" disable="true" layoutX="157.0" layoutY="49.0" prefHeight="74.0" prefWidth="238.0" style="-fx-background-color: F0F0F0; -fx-border-style: solid; -fx-border-color: #274D63; -fx-border-width: 3px;" visible="false">
+                     <children>
+                        <Label layoutX="9.0" layoutY="4.0" text="Cadastro Realizado Com Sucesso!" textFill="#35b21c">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnOk" layoutX="94.0" layoutY="37.0" mnemonicParsing="false" onAction="#cancelaCadastro" prefHeight="25.0" prefWidth="50.0" style="-fx-background-color: #274D63;" text="Ok" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </Pane>
                </children>
             </Pane>
             <Pane fx:id="exitPane" disable="true" layoutX="220.0" layoutY="150.0" prefHeight="136.0" prefWidth="215.0" style="-fx-background-color: F0F0F0; -fx-border-style: solid; -fx-border-radius: 5px; -fx-border-width: 5px; -fx-border-color: #274D63;" visible="false">

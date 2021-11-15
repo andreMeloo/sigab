@@ -21,7 +21,10 @@ public class AlunoVO extends UsuarioVO {
 		return endereco;
 	}
 	public void setEndereco(EnderecoVO endereco) {
-		if(endereco != null)
-		this.endereco = endereco;
+		if (endereco != null) {
+            if (!endereco.getEndereco().isBlank() && !endereco.getCidade().isBlank() && !endereco.getUf().isBlank()) {
+                this.endereco = endereco;
+            }
+        }
 	}
 }

@@ -1,7 +1,9 @@
 package model.bo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import model.dao.AlunoDAO;
 import model.vo.AlunoVO;
@@ -69,6 +71,47 @@ public class AlunoBO implements EntityBOInterface<AlunoVO>{
         listaPorTurma.removeIf(s -> !s.getNome().contains(codigo));
 
         return listaPorTurma;
+    }
+
+    public String gerarMatricula() {
+        String matricula = "";
+        String finalMatricula = "";
+        String inicioMatricula = "";
+        // gerando parte inicial da matricula
+
+        int ano = Calendar.getInstance().get(Calendar.YEAR);
+        int periodo = Calendar.getInstance().get(Calendar.MONTH);
+
+        if (periodo <= 6) {
+            periodo = 1;
+        } else {
+            periodo = 2;
+        }
+        
+        inicioMatricula += + ano + "0" + periodo;
+
+        // gerando parte final da matricula
+
+        try {
+            List<AlunoVO> alunos = this.listar();
+            Random r = new Random();
+            while (finalMatricula.equals("")) {
+                finalMatricula += r.nextInt(10000);
+
+                for (AlunoVO aluno : alunos) {
+                    if (aluno.getMatricula().equals(inicioMatricula + finalMatricula)) {
+                       finalMatricula = "";
+                    }
+                }
+            }
+            matricula = inicioMatricula + finalMatricula;
+
+            return matricula;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+        
     }
 
 }
