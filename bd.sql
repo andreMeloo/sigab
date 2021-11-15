@@ -38,9 +38,9 @@ VALUES
 
 CREATE TABLE Endereco (
 	id SERIAL PRIMARY KEY,
-	cidade VARCHAR(128),
-	uf VARCHAR(2),
-	endereco VARCHAR(128)
+	cidade VARCHAR(128) NOT NULL,
+	uf VARCHAR(2) NOT NULL,
+	endereco VARCHAR(128) NOT NULL
 );
  
 INSERT INTO Endereco (cidade, uf, endereco)
@@ -151,12 +151,14 @@ CREATE TABLE Diario (
 	nota2 NUMERIC(3,1),
 	nota3 NUMERIC(3,1),
 	quarta_prova NUMERIC(3,1),
+	media NUMERIC(3,1),
 	frequencia NUMERIC(3,0),
 	aluno_id BIGINT REFERENCES Aluno(id) ON DELETE CASCADE NOT NULL,
 	turma_id BIGINT REFERENCES Turma(id) ON DELETE CASCADE NOT NULL,
     created_at DATE DEFAULT now(),
 	PRIMARY KEY(aluno_id, turma_id)
 );
+
 ALTER TABLE Diario ADD CONSTRAINT check_nota1 CHECK (nota1>=0 AND nota1<=10);
 ALTER TABLE Diario ADD CONSTRAINT check_nota2 CHECK (nota2>=0 AND nota2<=10);
 ALTER TABLE Diario ADD CONSTRAINT check_nota3 CHECK (nota3>=0 AND nota3<=10);
@@ -168,10 +170,23 @@ VALUES
 	(2, 1, 4.8, 8.4, 10.0, NULL, 100),
 	(3, 2, 3.6, 2.5, 4.0, 9.8, 95);
 
-	SELECT * FROM aluno;
-	SELECT * FROM diario;
-	SELECT * FROM disciplina;
-	SELECT * FROM endereco;
-	SELECT * FROM professor
-	SELECT * FROM turma;
-	SELECT * FROM usuario;
+CREATE VIEW boletim AS
+SELECT aluno_id, turma_id, nota1, nota2, nota3, quarta_prova
+FROM Diario;
+
+CREATE OR REPLACE FUNCTION public.update_media()
+RETURNS trigger AS $media_trigger$
+BEGIN
+	IF (NEW <> OLD AND NEW.quarta_prova IS NULL) THEN
+		UPDATE Diario SET media = (COALESCE(nota1, 0) + COALESCE(nota2, 0) + COALESCE(nota3, 0)) / 3 WHERE aluno_id = NEW.aluno_id;
+		RETURN NEW;
+	ELSIF (NEW <> OLD AND NEW.quarta_prova IS NOT NULL) THEN
+		UPDATE Diario SET media = ((((COALESCE(nota1, 0) + COALESCE(nota2, 0) + COALESCE(nota3, 0)) / 3) * 6) + NEW.quarta_prova * 4) / 10 WHERE aluno_id = NEW.aluno_id;
+		RETURN NEW;
+	END IF;
+	RETURN NULL;
+END;
+$media_trigger$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER media_calc_tg AFTER UPDATE ON Diario FOR EACH ROW EXECUTE PROCEDURE
+update_media();
