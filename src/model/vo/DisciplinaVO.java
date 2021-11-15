@@ -3,14 +3,14 @@ package model.vo;
 public class DisciplinaVO {
 
 	private Long id;
-	private long codigo;
+	private String codigo;
 	private String nome;
 	
-	public long getCodigo() {
+	public String getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(long codigo) {
-		if(codigo > 0)
+	public void setCodigo(String codigo) {
+		if(!codigo.isBlank())
 			this.codigo = codigo;
 	}
 	public String getNome() {

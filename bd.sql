@@ -106,7 +106,7 @@ VALUES
 
 CREATE TABLE Disciplina (
     id SERIAL PRIMARY KEY,
-	codigo BIGINT NOT NULL,
+	codigo VARCHAR(128) NOT NULL,
 	nome VARCHAR(128) NOT NULL
 );
  
@@ -157,6 +157,10 @@ CREATE TABLE Diario (
     created_at DATE DEFAULT now(),
 	PRIMARY KEY(aluno_id, turma_id)
 );
+ALTER TABLE Diario ADD CONSTRAINT check_nota1 CHECK (nota1>=0 AND nota1<=10);
+ALTER TABLE Diario ADD CONSTRAINT check_nota2 CHECK (nota2>=0 AND nota2<=10);
+ALTER TABLE Diario ADD CONSTRAINT check_nota3 CHECK (nota3>=0 AND nota3<=10);
+ALTER TABLE Diario ADD CONSTRAINT check_q_prova CHECK (quarta_prova>=0 AND quarta_prova<=10);
  
 INSERT INTO Diario (aluno_id, turma_id, nota1, nota2, nota3, quarta_prova, frequencia)
 VALUES
