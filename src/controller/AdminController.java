@@ -12,7 +12,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import model.bo.AlunoBO;
@@ -52,7 +56,7 @@ public class AdminController {
     @FXML private Button btnAlunos;
     @FXML private Button btnSim;
     @FXML private Button btnNao;
-    @FXML private Pane painelErro;
+    
 
     // Panes
     @FXML private Pane centerPane;
@@ -60,6 +64,7 @@ public class AdminController {
     @FXML private Pane leftPane;
     @FXML private Pane exitPane;
     @FXML private Pane concluidoPane;
+    @FXML private Pane painelErro;
 
     // Labels
     @FXML private Label lblTituloTela;
@@ -68,6 +73,17 @@ public class AdminController {
     // ChoiceBox
     @FXML private ChoiceBox<DisciplinaVO> cbDisciplina;
     @FXML private ChoiceBox<ProfessorVO> cbProfessor;
+
+    // TableViews e Collums
+
+    @FXML private TableView<modelAdmin> tblGeral;
+    @FXML private TableColumn<modelAdmin, String> colunm1;
+    @FXML private TableColumn<modelAdmin, String> colunm2;
+    @FXML private TableColumn<modelAdmin, String> colunm3;
+    @FXML private TableColumn<modelAdmin, String> colunm4;
+    @FXML private TableColumn<modelAdmin, String> colunm5;
+    @FXML private TableColumn<modelAdmin, String> colunm6;
+    @FXML private TableColumn<modelAdmin, Boolean> colunmAction;
 
 
     // ==> Inicialização das Telas <==
@@ -94,6 +110,26 @@ public class AdminController {
         ObservableList<ProfessorVO> obsProfessores = FXCollections.observableArrayList(professores);
 
         cbProfessor.setItems(obsProfessores);
+    }
+
+    public void carregaTabelas() {
+        List<AlunoVO> alunosVO = new ArrayList<AlunoVO>();
+        AlunoBO alunoBO = new AlunoBO();
+
+        alunosVO = alunoBO.listar();
+
+        colunmAction.setCellFactory(CheckBoxTableCell.forTableColumn(colunmAction));
+        colunm1.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna1"));
+        colunm2.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna2"));
+        colunm3.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna3"));
+
+        ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
+
+        for (AlunoVO aluno : alunosVO) {
+            obsTest.add(new modelAdmin(aluno.getNome(), aluno.getMatricula(), aluno.getEndereco().getEndereco() + ", " + aluno.getEndereco().getCidade() + ", " + aluno.getEndereco().getUf()));
+        }
+
+        tblGeral.setItems(obsTest);
     }
 
         // metodos para preenchimento automatico
@@ -128,13 +164,17 @@ public class AdminController {
                 AlunoBO aluno = new AlunoBO();
 
                 try {
-                    cadastroAluno.setMatricula(input1.getText());
-                    cadastroAluno.setNome(input2.getText());
 
-                    cadastroEndereco.setEndereco(input3.getText() + ", " + input4.getText());
-                    cadastroEndereco.setCidade(input5.getText());
-                    cadastroEndereco.setUf(input6.getText());
-
+                    if (!input1.getText().isBlank() && !input2.getText().isBlank() && !input3.getText().isBlank() && !input4.getText().isBlank() && !input5.getText().isBlank() && !input6.getText().isBlank()) {
+                        cadastroAluno.setMatricula(input1.getText());
+                        cadastroAluno.setNome(input2.getText());
+                        cadastroEndereco.setEndereco(input3.getText() + ", " + input4.getText());
+                        cadastroEndereco.setCidade(input5.getText());
+                        cadastroEndereco.setUf(input6.getText());
+                    } else {
+                        throw new Exception();
+                    }
+            
                     cadastroAluno.setEndereco(cadastroEndereco);
                     cadastroAluno.setUsername(cadastroAluno.getMatricula());
                     cadastroAluno.setSenha(String.valueOf(geraSenha()));
@@ -143,13 +183,14 @@ public class AdminController {
 
                     concluidoPane.setDisable(false);
                     concluidoPane.setVisible(true);
-                    break;
+                    
                 } catch (Exception e) {
                     e.printStackTrace();
                     painelErro.setDisable(false);
                     painelErro.setVisible(true);
-                    break;
+                    
                 }
+                break;
             }
                  
             case "Professor": {
@@ -158,12 +199,15 @@ public class AdminController {
                 ProfessorBO professor = new ProfessorBO();
 
                 try {
-                    cadastroProfessor.setCpf(input1.getText());
-                    cadastroProfessor.setNome(input2.getText());
-
-                    cadastroEndereco.setEndereco(input3.getText() + ", " + input4.getText());
-                    cadastroEndereco.setCidade(input5.getText());
-                    cadastroEndereco.setUf(input6.getText());
+                    if (!input1.getText().isBlank() && !input2.getText().isBlank() && !input3.getText().isBlank() && !input4.getText().isBlank() && !input5.getText().isBlank() && !input6.getText().isBlank()) {
+                        cadastroProfessor.setCpf(input1.getText());
+                        cadastroProfessor.setNome(input2.getText());
+                        cadastroEndereco.setEndereco(input3.getText() + ", " + input4.getText());
+                        cadastroEndereco.setCidade(input5.getText());
+                        cadastroEndereco.setUf(input6.getText());
+                    } else {
+                        throw new Exception();
+                    }
 
                     cadastroProfessor.setEndereco(cadastroEndereco);
                     cadastroProfessor.setUsername(cadastroProfessor.getCpf());
@@ -173,27 +217,25 @@ public class AdminController {
 
                     concluidoPane.setDisable(false);
                     concluidoPane.setVisible(true);
-                    break;
                 } catch (Exception e) {
                     e.printStackTrace();
                     painelErro.setDisable(false);
                     painelErro.setVisible(true);
-                    break;
                 }
-                
+                break;
             }
                 
             case "Disciplina": {
                 DisciplinaVO cadastroDisciplina = new DisciplinaVO();
                 DisciplinaBO disciplina = new DisciplinaBO();
                 try {
+                    cadastroDisciplina.setCodigo(input2.getText());
+
                     if (!input1.getText().isBlank()) {
                         cadastroDisciplina.setNome(input1.getText());
                     } else {
                         throw new Exception();
                     }
-                    
-                    cadastroDisciplina.setCodigo(input2.getText());
 
                     disciplina.salvar(cadastroDisciplina);
 
@@ -213,7 +255,18 @@ public class AdminController {
                 TurmaVO cadastroTurma = new TurmaVO();
                 TurmaBO turma = new TurmaBO();
                 try {
+                    cadastroTurma.setDisciplina(cbDisciplina.getValue());
+                    cadastroTurma.setProfessor(cbProfessor.getValue());
+                    cadastroTurma.setCodigo(input1.getText());
+                    if (!input1.getText().isBlank() && !input2.getText().isBlank() && !input3.getText().isBlank()) {
+                        cadastroTurma.setHorario(input2.getText());
+                        cadastroTurma.setLocal(input3.getText());
+                        cadastroTurma.setAberta(true);
+                    } else {
+                        throw new Exception();
+                    }
                     
+                    turma.salvar(cadastroTurma);
 
                     concluidoPane.setDisable(false);
                     concluidoPane.setVisible(true);

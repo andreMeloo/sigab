@@ -123,25 +123,41 @@
          <children>
             <Pane fx:id="centerPane" layoutX="44.0" layoutY="40.0" prefHeight="400.0" prefWidth="610.0" style="-fx-background-color: white;">
                <children>
-                  <Label fx:id="lblTituloTela" layoutX="23.0" layoutY="14.0" text="Disciplinas">
+                  <Label fx:id="lblTituloTela" layoutX="97.0" layoutY="15.0" text="Disciplinas" textFill="#274d63">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="332.0" layoutY="15.0" prefHeight="26.0" prefWidth="225.0" promptText="Pesquisa" />
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="557.0" layoutY="16.0">
+                  <TextField layoutX="255.0" layoutY="16.0" prefHeight="26.0" prefWidth="225.0" promptText="Pesquisa" />
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="488.0" layoutY="17.0">
                      <image>
                         <Image url="@../VE/magnify.png" />
                      </image>
                   </ImageView>
-                  <TableView layoutX="19.0" layoutY="54.0" prefHeight="297.0" prefWidth="571.0">
+                  <TableView fx:id="tblGeral" editable="true" layoutX="97.0" layoutY="52.0" prefHeight="297.0" prefWidth="416.0">
                      <columns>
-                        <TableColumn prefWidth="153.0" text="Codigo" />
-                        <TableColumn prefWidth="335.0000305175781" text="Nome" />
-                        <TableColumn minWidth="2.0" prefWidth="83.0" text="Ações" />
+                        <TableColumn fx:id="colunmAction" maxWidth="33.0" prefWidth="33.0" resizable="false" />
+                        <TableColumn fx:id="colunm1" maxWidth="80.0" prefWidth="70.0" resizable="false" text="Codigo" />
+                        <TableColumn fx:id="colunm2" maxWidth="315.0" prefWidth="315.0" text="Nome" />
                      </columns>
                   </TableView>
-                  <Button fx:id="btnAdicionar" layoutX="240.0" layoutY="360.0" mnemonicParsing="false" onAction="#telaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Adicionar" textFill="WHITE">
+                  <Button fx:id="btnAdicionar" layoutX="423.0" layoutY="362.0" mnemonicParsing="false" onAction="#telaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #274D63;" text="Adicionar" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnRemover" layoutX="97.0" layoutY="362.0" mnemonicParsing="false" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #274D63;" text="Remover -" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEditar" layoutX="260.0" layoutY="362.0" mnemonicParsing="false" onAction="#telaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #274D63;" text="Editar ./" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

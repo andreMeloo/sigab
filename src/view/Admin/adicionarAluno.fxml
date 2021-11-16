@@ -135,7 +135,7 @@
                   <TextField fx:id="input4" layoutX="136.0" layoutY="176.0" prefHeight="26.0" prefWidth="415.0" promptText="Bairro" />
                   <Label layoutX="60.0" layoutY="220.0" text="Cidade *" />
                   <TextField fx:id="input5" layoutX="136.0" layoutY="216.0" prefHeight="26.0" prefWidth="415.0" promptText="Cidade" />
-                  <Button fx:id="btnSalvarTurma" layoutX="421.0" layoutY="350.0" mnemonicParsing="false" onAction="#salvaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Salvar" textFill="WHITE">
+                  <Button fx:id="btnSalvarCadastro" layoutX="421.0" layoutY="350.0" mnemonicParsing="false" onAction="#salvaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Salvar" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
