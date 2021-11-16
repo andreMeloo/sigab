@@ -33,4 +33,8 @@ public class ProfessorVO extends UsuarioVO {
         }
     }
 
+    public String toString() {
+        return getNome();
+    }
+
 }

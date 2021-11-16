@@ -1,6 +1,8 @@
 package model.bo;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import model.dao.TurmaDAO;
 import model.vo.TurmaVO;
@@ -55,6 +57,32 @@ public class TurmaBO implements EntityBOInterface<TurmaVO>{
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public String geraCodigoTurma() throws Exception {
+        String codigo = "";
+        List<TurmaVO> turmas = new ArrayList<TurmaVO>();
+        TurmaDAO turmaDAO = new TurmaDAO();
+        Random r = new Random();
+
+        try {
+            turmas = turmaDAO.listar();
+
+            while (codigo.equals("")) {
+                codigo = String.valueOf(r.nextInt(100));
+                for (TurmaVO turmaVO : turmas) {
+                    if (turmaVO.getCodigo().equals(codigo)) {
+                        codigo = "";
+                    }
+                }
+            }
+
+            return codigo;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
         }
     }
     

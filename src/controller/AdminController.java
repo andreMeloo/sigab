@@ -1,5 +1,6 @@
 package controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,10 +18,12 @@ import javafx.scene.layout.Pane;
 import model.bo.AlunoBO;
 import model.bo.DisciplinaBO;
 import model.bo.ProfessorBO;
+import model.bo.TurmaBO;
 import model.vo.AlunoVO;
 import model.vo.DisciplinaVO;
 import model.vo.EnderecoVO;
 import model.vo.ProfessorVO;
+import model.vo.TurmaVO;
 import model.vo.UsuarioVO;
 import view.Telas;
 
@@ -82,6 +85,15 @@ public class AdminController {
         ObservableList<DisciplinaVO> obsDisciplinas = FXCollections.observableArrayList(disciplinas);
 
         cbDisciplina.setItems(obsDisciplinas);
+
+        List<ProfessorVO> professores = new ArrayList<ProfessorVO>();
+        ProfessorBO professorBO = new ProfessorBO();
+
+        professores = professorBO.listar();
+
+        ObservableList<ProfessorVO> obsProfessores = FXCollections.observableArrayList(professores);
+
+        cbProfessor.setItems(obsProfessores);
     }
 
         // metodos para preenchimento automatico
@@ -89,6 +101,16 @@ public class AdminController {
     public void matricula() {
         AlunoBO aluno = new AlunoBO();
         input1.setText(aluno.gerarMatricula());
+    }
+
+    public void codigoDiscilpina() throws Exception {
+        DisciplinaBO disciplinaBO = new DisciplinaBO();
+        input2.setText(disciplinaBO.geraCodigoDisciplina());
+    }
+
+    public void codigoTurma() throws Exception {
+        TurmaBO turmaBO = new TurmaBO();
+        input1.setText(turmaBO.geraCodigoTurma());
     }
 
     public String geraSenha() {
@@ -164,26 +186,44 @@ public class AdminController {
             case "Disciplina": {
                 DisciplinaVO cadastroDisciplina = new DisciplinaVO();
                 DisciplinaBO disciplina = new DisciplinaBO();
-
                 try {
-                    cadastroDisciplina.setNome(input1.getText());
+                    if (!input1.getText().isBlank()) {
+                        cadastroDisciplina.setNome(input1.getText());
+                    } else {
+                        throw new Exception();
+                    }
                     
-                    cadastroDisciplina.setCodigo(disciplina.geraCodigoDisciplina());
+                    cadastroDisciplina.setCodigo(input2.getText());
 
                     disciplina.salvar(cadastroDisciplina);
 
                     concluidoPane.setDisable(false);
                     concluidoPane.setVisible(true);
-                    break;
+                    
                 } catch (Exception e) {
                     e.printStackTrace();
                     painelErro.setDisable(false);
                     painelErro.setVisible(true);
-                    break;
                 }
+
+                break;
             }
 
             case "Turma": {   
+                TurmaVO cadastroTurma = new TurmaVO();
+                TurmaBO turma = new TurmaBO();
+                try {
+                    
+
+                    concluidoPane.setDisable(false);
+                    concluidoPane.setVisible(true);
+                    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    painelErro.setDisable(false);
+                    painelErro.setVisible(true);
+                }
+
                 break;
             }
             
