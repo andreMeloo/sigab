@@ -160,11 +160,12 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 
-            resultSet.next();
-            endereco.setId(resultSet.getLong("id"));
-            endereco.setEndereco(resultSet.getString("endereco"));
-            endereco.setCidade(resultSet.getString("cidade"));
-            endereco.setUf(resultSet.getString("uf"));
+            if (resultSet.next()) {
+                endereco.setId(resultSet.getLong("id"));
+                endereco.setEndereco(resultSet.getString("endereco"));
+                endereco.setCidade(resultSet.getString("cidade"));
+                endereco.setUf(resultSet.getString("uf"));
+            }
         
         } catch (SQLException e) {
             e.printStackTrace();

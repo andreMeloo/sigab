@@ -1,3 +1,4 @@
+DROP VIEW boletim;
 DROP TABLE Diario;
 DROP TABLE Turma;
 DROP TABLE Disciplina;
@@ -171,7 +172,7 @@ VALUES
 	(3, 2, 3.6, 2.5, 4.0, 9.8, 95);
 
 CREATE VIEW boletim AS
-SELECT aluno_id, turma_id, nota1, nota2, nota3, quarta_prova
+SELECT aluno_id, turma_id, nota1, nota2, nota3, quarta_prova, media
 FROM Diario;
 
 CREATE OR REPLACE FUNCTION public.update_media()
@@ -190,3 +191,16 @@ $media_trigger$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE TRIGGER media_calc_tg AFTER UPDATE ON Diario FOR EACH ROW EXECUTE PROCEDURE
 update_media();
+
+INSERT INTO Diario (aluno_id, turma_id)
+VALUES
+	(1, 2),
+	(1, 3),
+	(1, 4),
+	(1, 5),
+	(1, 6),
+	(1, 7),
+	(1, 8),
+	(1, 9);
+
+UPDATE Diario SET nota1=10, nota2=10, nota3=10 WHERE aluno_id=1;

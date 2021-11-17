@@ -3,6 +3,7 @@ package model.bo;
 import java.util.List;
 
 import model.dao.DiarioDAO;
+import model.vo.AlunoVO;
 import model.vo.DiarioVO;
 
 public class DiarioBO implements EntityBOInterface<DiarioVO> {
@@ -36,5 +37,9 @@ public class DiarioBO implements EntityBOInterface<DiarioVO> {
         // Diario não possui id
         return null;
     }
-    
+
+    public List<DiarioVO> getAllBoletimByAluno(AlunoVO aluno) {
+        DiarioDAO diarioDAO = new DiarioDAO();
+        return diarioDAO.findAllBoletimByAluno(aluno);
+    }
 }
