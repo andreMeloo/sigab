@@ -191,3 +191,16 @@ $media_trigger$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE TRIGGER media_calc_tg AFTER UPDATE ON Diario FOR EACH ROW EXECUTE PROCEDURE
 update_media();
+
+INSERT INTO Diario (aluno_id, turma_id)
+VALUES
+	(1, 2),
+	(1, 3),
+	(1, 4),
+	(1, 5),
+	(1, 6),
+	(1, 7),
+	(1, 8),
+	(1, 9);
+
+UPDATE Diario SET nota1=10, nota2=10, nota3=10 WHERE aluno_id=1;
