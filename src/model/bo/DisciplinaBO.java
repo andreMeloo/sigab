@@ -75,5 +75,13 @@ public class DisciplinaBO implements EntityBOInterface<DisciplinaVO>{
         }
 
     }
+
+    public DisciplinaVO buscarDisciplinaPorCod(String cod){
+        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+        DisciplinaVO disciplinaVO = new DisciplinaVO();
+
+        disciplinaVO  = disciplinaDAO.getByCod(cod);
+        return disciplinaVO;
+    }
     
 }

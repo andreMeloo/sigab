@@ -122,4 +122,24 @@ public class DisciplinaDAO extends BaseDAO implements EntityDAOInterface<Discipl
         }
         return disciplinaVOs;
     }
+
+    public DisciplinaVO getByCod(String cod) {
+        connection = getConnection();
+        String sql = "SELECT * FROM Disciplina WHERE codigo=?";
+        DisciplinaVO disciplinaVO = new DisciplinaVO();
+        
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, cod);
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            disciplinaVO.setCodigo(resultSet.getString("codigo"));
+            disciplinaVO.setNome(resultSet.getString("nome"));
+            disciplinaVO.setId(resultSet.getLong("id"));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return disciplinaVO;
+    }
 }
