@@ -28,14 +28,13 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
         try {
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setLong(1, professorVO.getId());
-            preparedStatement.setString(1, professorVO.getCpf());
-            preparedStatement.setObject(2, enderecoId);
+            preparedStatement.setString(2, professorVO.getCpf());
+            preparedStatement.setObject(3, enderecoId);
             preparedStatement.executeUpdate();
 
             ResultSet keys = preparedStatement.getGeneratedKeys();
             keys.next();
             professorVO.setId(keys.getLong(1));
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

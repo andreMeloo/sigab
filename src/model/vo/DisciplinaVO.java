@@ -10,21 +10,28 @@ public class DisciplinaVO {
 		return codigo;
 	}
 	public void setCodigo(String codigo) {
-		if(nome != null && !nome.equals(""))
+		if(codigo != null && !codigo.equals(""))
 			this.codigo = codigo;
 	}
 	public String getNome() {
 		return nome;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+
 	public void setNome(String nome) {
 		if(nome != null && !nome.equals(""))
 			this.nome = nome;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String toString() {
+		return getCodigo() + " - " + getNome();
 	}
 	
 }

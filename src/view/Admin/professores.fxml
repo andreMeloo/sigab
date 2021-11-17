@@ -60,16 +60,6 @@
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Button fx:id="username" layoutX="650.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: transparent;" text="Nome" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="623.0" layoutY="8.0">
-               <image>
-                  <Image url="@../VE/account.png" />
-               </image>
-            </ImageView>
          </children>
       </Pane>
    </top>
@@ -133,7 +123,7 @@
          <children>
             <Pane fx:id="centerPane" layoutX="44.0" layoutY="40.0" prefHeight="400.0" prefWidth="610.0" style="-fx-background-color: white;">
                <children>
-                  <Label fx:id="lblTituloTela" layoutX="23.0" layoutY="14.0" text="Professores">
+                  <Label fx:id="lblTituloTela" layoutX="23.0" layoutY="14.0" text="Professores" textFill="#274d63">
                      <font>
                         <Font size="18.0" />
                      </font>

@@ -10,13 +10,9 @@ import model.vo.DisciplinaVO;
 public class DisciplinaBO implements EntityBOInterface<DisciplinaVO>{
 
     @Override
-    public void salvar(DisciplinaVO disciplinaVO) throws Exception {
-        try {
-            DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-            disciplinaDAO.inserir(disciplinaVO);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void salvar(DisciplinaVO disciplinaVO){
+        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+        disciplinaDAO.inserir(disciplinaVO);
     }
 
     @Override
