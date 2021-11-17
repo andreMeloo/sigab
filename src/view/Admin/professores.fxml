@@ -134,13 +134,13 @@
                         <Image url="@../VE/magnify.png" />
                      </image>
                   </ImageView>
-                  <TableView layoutX="19.0" layoutY="54.0" prefHeight="297.0" prefWidth="571.0">
+                  <TableView fx:id="tblGeral" editable="true" layoutX="19.0" layoutY="54.0" prefHeight="297.0" prefWidth="571.0">
                      <columns>
-                        <TableColumn prefWidth="153.0" text="Nome" />
-                        <TableColumn prefWidth="145.0" text="CPF" />
-                        <TableColumn prefWidth="122.00003051757812" text="Endereço" />
-                        <TableColumn prefWidth="62.0" text="Turmas" />
-                        <TableColumn prefWidth="92.0" text="Ações" />
+                        <TableColumn fx:id="colunmAction" maxWidth="33.0" prefWidth="33.0" resizable="false" sortable="false" />
+                        <TableColumn fx:id="colunm1" maxWidth="180.0" prefWidth="180.0" text="Nome" />
+                        <TableColumn fx:id="colunm2" maxWidth="85.0" prefWidth="85.0" resizable="false" text="CPF" />
+                        <TableColumn fx:id="colunm3" maxWidth="190.0" prefWidth="190.0" text="Endereço" />
+                        <TableColumn fx:id="colunm4" maxWidth="500.0" prefWidth="250.0" text="Turmas" />
                      </columns>
                   </TableView>
                   <Button fx:id="btnAdicionar" layoutX="240.0" layoutY="360.0" mnemonicParsing="false" onAction="#telaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Adicionar" textFill="WHITE">

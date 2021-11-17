@@ -139,21 +139,13 @@
                   </ImageView>
                   <TableView fx:id="tblGeral" editable="true" layoutX="19.0" layoutY="54.0" prefHeight="297.0" prefWidth="571.0">
                      <columns>
-                        <TableColumn fx:id="colunmAction" maxWidth="33.0" prefWidth="33.0" resizable="false" />
+                        <TableColumn fx:id="colunmAction" maxWidth="33.0" prefWidth="33.0" resizable="false" sortable="false" />
                         <TableColumn fx:id="colunm1" editable="false" maxWidth="246.0" prefWidth="196.0" sortable="false" text="Nome" />
                         <TableColumn fx:id="colunm2" editable="false" maxWidth="148.0" prefWidth="100.0" sortable="false" text="Matricula" />
                         <TableColumn fx:id="colunm3" editable="false" maxWidth="500.0" prefWidth="295.0" sortable="false" text="Endereço" />
                      </columns>
                   </TableView>
                   <Button fx:id="btnAdicionar" layoutX="460.0" layoutY="360.0" mnemonicParsing="false" onAction="#telaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Adicionar +" textFill="WHITE">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnEditar" layoutX="240.0" layoutY="360.0" mnemonicParsing="false" onAction="#telaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Editar ./" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

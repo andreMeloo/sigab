@@ -194,8 +194,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
         connection = getConnection();
         String sql = "SELECT Turma.id, disciplina_id, professor_id, Turma.codigo, horario, local, aberta FROM Turma "
                     + "JOIN Professor ON Turma.professor_id=Professor.id "
-                    + "JOIN Disciplina ON Turma.disciplina_codigo=Disciplina.id "
-                    + "RIGHT JOIN Diario ON Turma.id=Diario.turma_id "
+                    + "JOIN Disciplina ON Turma.disciplina_id=Disciplina.id "
                     + "WHERE professor_id=?";
         TurmaVO turma = new TurmaVO();
         List<TurmaVO> result = new ArrayList<TurmaVO>();

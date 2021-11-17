@@ -148,8 +148,8 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
     public EnderecoVO getByAluno(AlunoVO aluno) {
         connection = getConnection();
         String sql = "SELECT Endereco.id, endereco, cidade, uf "
-                    + "FROM Endereco INNER JOIN Aluno ON Endereco.id=Aluno.endereco_id "
-                    + "WHERE Aluno.id=?";
+                    + "FROM endereco INNER JOIN aluno ON endereco.id=aluno.endereco_id "
+                    + "WHERE aluno.id=?";
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         EnderecoVO endereco = new EnderecoVO();
@@ -160,11 +160,11 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 
-            if (resultSet.next()) {
+            if(resultSet.next()) {
                 endereco.setId(resultSet.getLong("id"));
-                endereco.setEndereco(resultSet.getString("endereco"));
                 endereco.setCidade(resultSet.getString("cidade"));
                 endereco.setUf(resultSet.getString("uf"));
+                endereco.setEndereco(resultSet.getString("endereco"));
             }
         
         } catch (SQLException e) {

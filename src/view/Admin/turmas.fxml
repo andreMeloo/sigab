@@ -134,15 +134,16 @@
                         <Image url="@../VE/magnify.png" />
                      </image>
                   </ImageView>
-                  <TableView editable="true" layoutX="19.0" layoutY="54.0" prefHeight="290.0" prefWidth="571.0">
+                  <TableView fx:id="tblGeral" editable="true" layoutX="19.0" layoutY="54.0" prefHeight="290.0" prefWidth="571.0">
                      <columns>
-                        <TableColumn maxWidth="33.0" prefWidth="33.0" sortable="false" />
-                        <TableColumn maxWidth="40.0" prefWidth="40.0" sortable="false" text="Cod." />
-                        <TableColumn prefWidth="120.0" text="Disciplina" />
-                        <TableColumn prefWidth="75.0" text="Horário" />
-                        <TableColumn prefWidth="75.0" text="Alunos" />
-                        <TableColumn prefWidth="75.0" text="Status" />
-                        <TableColumn prefWidth="75.0" text="Local" />
+                        <TableColumn fx:id="colunmAction" maxWidth="33.0" minWidth="0.0" prefWidth="33.0" resizable="false" sortable="false" />
+                        <TableColumn fx:id="colunm1" maxWidth="40.0" prefWidth="40.0" resizable="false" sortable="false" text="Cod." />
+                        <TableColumn fx:id="colunm2" maxWidth="200.0" prefWidth="200.0" sortable="false" text="Professor" />
+                        <TableColumn fx:id="colunm3" maxWidth="200.0" prefWidth="200.0" text="Disciplina" />
+                        <TableColumn fx:id="colunm4" maxWidth="70.0" prefWidth="70.0" resizable="false" text="Horário" />
+                        <TableColumn fx:id="colunm5" maxWidth="50.0" prefWidth="50.0" resizable="false" text="Alunos" />
+                        <TableColumn fx:id="colunm6" maxWidth="65.0" prefWidth="65.0" resizable="false" text="Status" />
+                        <TableColumn fx:id="colunm7" maxWidth="150.0" prefWidth="150.0" text="Local" />
                      </columns>
                   </TableView>
                   <Button fx:id="btnRemover" layoutX="19.0" layoutY="356.0" mnemonicParsing="false" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Remover -" textFill="WHITE">

@@ -46,8 +46,8 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         
-        usuarioDAO.remover(usuarioDAO.getById(alunoVO.getId()));
         enderecoDAO.remover(enderecoDAO.getByAluno(alunoVO));
+        usuarioDAO.remover(usuarioDAO.getById(alunoVO.getId()));
     }
 
     public List<AlunoVO> listar(){

@@ -85,5 +85,13 @@ public class TurmaBO implements EntityBOInterface<TurmaVO>{
             return "";
         }
     }
+
+    public String turmasProfString(List<TurmaVO> turmas) {
+        String turmasProf = "";
+        for (TurmaVO turma : turmas) {
+            turmasProf += turma.getCodigo() + ", ";
+        }
+        return turmasProf;
+    }
     
 }
