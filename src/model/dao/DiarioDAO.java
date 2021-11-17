@@ -156,6 +156,7 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, aluno.getId());
+            preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 
             while (resultSet.next()) {
