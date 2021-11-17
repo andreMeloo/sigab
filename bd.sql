@@ -1,3 +1,4 @@
+DROP VIEW boletim;
 DROP TABLE Diario;
 DROP TABLE Turma;
 DROP TABLE Disciplina;
@@ -171,7 +172,7 @@ VALUES
 	(3, 2, 3.6, 2.5, 4.0, 9.8, 95);
 
 CREATE VIEW boletim AS
-SELECT aluno_id, turma_id, nota1, nota2, nota3, quarta_prova
+SELECT aluno_id, turma_id, nota1, nota2, nota3, quarta_prova, media
 FROM Diario;
 
 CREATE OR REPLACE FUNCTION public.update_media()
