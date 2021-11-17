@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.vo.AlunoVO;
 import model.vo.DiarioVO;
 
 
@@ -67,6 +68,7 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
                 diarioVO.setNota2(resultSet.getDouble("nota2"));
                 diarioVO.setNota3(resultSet.getDouble("nota3"));
                 diarioVO.setQuartaProva(resultSet.getDouble("quarta_Prova"));
+                diarioVO.setMedia(resultSet.getDouble("media"));
                 diarioVO.setFrequencia(resultSet.getInt("frequencia"));
                 diarioVO.setAluno(alunoDAO.getById(resultSet.getLong("aluno_id")));
                 diarioVO.setTurma(turmaDAO.getById(resultSet.getLong("turma_id")));
@@ -128,6 +130,7 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
             diario.setNota2(resultSet.getDouble("nota2"));
             diario.setNota3(resultSet.getDouble("nota3"));
             diario.setQuartaProva(resultSet.getDouble("quarta_prova"));
+            diario.setMedia(resultSet.getDouble("media"));
             diario.setFrequencia(resultSet.getInt("frequencia"));
             diario.setAluno(alunoDAO.getById(resultSet.getLong("aluno_id")));
             diario.setTurma(turmaDAO.getById(resultSet.getLong("turma_id")));
@@ -138,6 +141,41 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
         }
 
         return diario;
+    }
+
+    // Este método é só para gerar o histórico
+    public List<DiarioVO> findAllBoletimByAluno(AlunoVO aluno) {
+        connection = getConnection();
+        String sql = "SELECT * FROM boletim WHERE aluno_id = ?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        AlunoDAO alunoDAO = new AlunoDAO();
+        TurmaDAO turmaDAO = new TurmaDAO();
+        List<DiarioVO> boletins = new ArrayList<DiarioVO>();
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, aluno.getId());
+            resultSet = preparedStatement.getResultSet();
+
+            while (resultSet.next()) {
+                DiarioVO diarioVO = new DiarioVO();
+                diarioVO.setNota1(resultSet.getDouble("nota1"));
+                diarioVO.setNota2(resultSet.getDouble("nota2"));
+                diarioVO.setNota3(resultSet.getDouble("nota3"));
+                diarioVO.setQuartaProva(resultSet.getDouble("quarta_Prova"));
+                diarioVO.setMedia(resultSet.getDouble("media"));
+                diarioVO.setAluno(alunoDAO.getById(resultSet.getLong("aluno_id")));
+                diarioVO.setTurma(turmaDAO.getById(resultSet.getLong("turma_id")));
+
+                boletins.add(diarioVO);
+            }
+
+        } catch (SQLException e) {   
+            e.printStackTrace();
+        }
+
+        return boletins;
     }
 
 }
