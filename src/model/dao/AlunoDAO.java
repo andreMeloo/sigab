@@ -160,6 +160,35 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
         }
         return alunos;
     }
+
+    public AlunoVO getByMatricula(String matricula) {
+        connection = getConnection();
+        String sql = "SELECT * FROM Aluno INNER JOIN Usuario ON Aluno.id=Usuario.id WHERE Aluno.matricula=?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        AlunoVO alunoVO = new AlunoVO();
+        
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, matricula);
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+
+            resultSet.next();
+            alunoVO.setId(resultSet.getLong("id"));
+            alunoVO.setNome(resultSet.getString("nome"));
+            alunoVO.setMatricula(resultSet.getString("matricula"));
+            alunoVO.setUsername(resultSet.getString("username"));
+            alunoVO.setSenha(resultSet.getString("senha"));
+            alunoVO.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return alunoVO;
+    }
 }
 
     

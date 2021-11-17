@@ -139,11 +139,11 @@ public class UsuarioDAO extends BaseDAO implements EntityDAOInterface<UsuarioVO>
             resultSet = preparedStatement.getResultSet();
 
             if(resultSet.next()) {
-            usuario.setId(resultSet.getLong("id"));
-            usuario.setNivel(NivelDeUsuario.valueOf(resultSet.getString("nivel")));
-            usuario.setNome(resultSet.getString("nome"));
-            usuario.setUsername(resultSet.getString("username"));
-            usuario.setSenha(resultSet.getString("senha"));
+                usuario.setId(resultSet.getLong("id"));
+                usuario.setNivel(NivelDeUsuario.valueOf(resultSet.getString("nivel")));
+                usuario.setNome(resultSet.getString("nome"));
+                usuario.setUsername(resultSet.getString("username"));
+                usuario.setSenha(resultSet.getString("senha"));
             }
         
         } catch (SQLException e) {

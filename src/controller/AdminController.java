@@ -118,10 +118,13 @@ public class AdminController {
 
         alunosVO = alunoBO.listar();
 
-        colunmAction.setCellFactory(CheckBoxTableCell.forTableColumn(colunmAction));
+        
+        colunmAction.setCellValueFactory(new PropertyValueFactory<modelAdmin, Boolean>("action"));
         colunm1.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna1"));
         colunm2.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna2"));
         colunm3.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna3"));
+
+        colunmAction.setCellFactory(CheckBoxTableCell.forTableColumn(colunmAction));
 
         ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
 
@@ -285,6 +288,33 @@ public class AdminController {
         }
     }
 
+    public void removerItems(ActionEvent e) throws Exception {
+       try {
+            List<String> matriculas = new ArrayList<String>();
+            ObservableList<modelAdmin> obsList = tblGeral.getItems();
+            for (modelAdmin obs : obsList) {
+                if (obs.isAction()) {
+                    matriculas.add(obs.getColuna2());
+                }
+            }
+
+            AlunoBO alunoBO = new AlunoBO();
+            List<AlunoVO> alunosVO = new ArrayList<AlunoVO>();
+            for (String matricula : matriculas) {
+                if (alunoBO.buscarPorMatricula(matricula) != null) {
+                    alunosVO.add(alunoBO.buscarPorMatricula(matricula));
+                }
+            }
+
+            for (AlunoVO alunoVO : alunosVO) {
+                alunoBO.remover(alunoVO);
+            }
+       } catch (Exception a) {
+           a.printStackTrace();
+       }
+       System.out.println("itens removidos");
+       Telas.telaAlunos(userVO);
+    }
 
     // ==> Métodos dos botões de navegação <==
 

@@ -73,6 +73,18 @@ public class AlunoBO implements EntityBOInterface<AlunoVO>{
         return listaPorTurma;
     }
 
+    public AlunoVO buscarPorMatricula(String matricula) {
+        AlunoVO alunoVO = new AlunoVO();
+        AlunoDAO alunoDAO = new AlunoDAO();
+        try {
+            alunoVO = alunoDAO.getByMatricula(matricula);
+            return alunoVO;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public String gerarMatricula() {
         String matricula = "";
         String finalMatricula = "";

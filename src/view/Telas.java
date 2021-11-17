@@ -112,13 +112,13 @@ public class Telas extends Application {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Admin/alunos.fxml"));
         Parent root = (Parent) floader.load();
         AdminController controller = floader.<AdminController>getController();
-        
+        controller.carregaTabelas();
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Administrador");
         primaryStage.setScene(cena);
 
-        controller.carregaTabelas();
+        
         controller.setUser(usuario);
     }
 
