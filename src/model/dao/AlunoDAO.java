@@ -113,13 +113,14 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 
-            resultSet.next();
-            alunoVO.setId(resultSet.getLong("id"));
-            alunoVO.setNome(resultSet.getString("nome"));
-            alunoVO.setMatricula(resultSet.getString("matricula"));
-            alunoVO.setUsername(resultSet.getString("username"));
-            alunoVO.setSenha(resultSet.getString("senha"));
-            alunoVO.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
+            if(resultSet.next()) {
+                alunoVO.setId(resultSet.getLong("id"));
+                alunoVO.setNome(resultSet.getString("nome"));
+                alunoVO.setMatricula(resultSet.getString("matricula"));
+                alunoVO.setUsername(resultSet.getString("username"));
+                alunoVO.setSenha(resultSet.getString("senha"));
+                alunoVO.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
+            }
         
         } catch (SQLException e) {
             e.printStackTrace();
@@ -175,14 +176,15 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 
-            resultSet.next();
-            alunoVO.setId(resultSet.getLong("id"));
-            alunoVO.setNome(resultSet.getString("nome"));
-            alunoVO.setMatricula(resultSet.getString("matricula"));
-            alunoVO.setUsername(resultSet.getString("username"));
-            alunoVO.setSenha(resultSet.getString("senha"));
-            alunoVO.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
-        
+            if(resultSet.next()) {
+                alunoVO.setId(resultSet.getLong("id"));
+                alunoVO.setNome(resultSet.getString("nome"));
+                alunoVO.setMatricula(resultSet.getString("matricula"));
+                alunoVO.setUsername(resultSet.getString("username"));
+                alunoVO.setSenha(resultSet.getString("senha"));
+                alunoVO.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -125,16 +125,16 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 
-            resultSet.next();
-            diario.setNota1(resultSet.getDouble("nota1"));
-            diario.setNota2(resultSet.getDouble("nota2"));
-            diario.setNota3(resultSet.getDouble("nota3"));
-            diario.setQuartaProva(resultSet.getDouble("quarta_prova"));
-            diario.setMedia(resultSet.getDouble("media"));
-            diario.setFrequencia(resultSet.getInt("frequencia"));
-            diario.setAluno(alunoDAO.getById(resultSet.getLong("aluno_id")));
-            diario.setTurma(turmaDAO.getById(resultSet.getLong("turma_id")));
-
+            if(resultSet.next()) {
+                diario.setNota1(resultSet.getDouble("nota1"));
+                diario.setNota2(resultSet.getDouble("nota2"));
+                diario.setNota3(resultSet.getDouble("nota3"));
+                diario.setQuartaProva(resultSet.getDouble("quarta_prova"));
+                diario.setMedia(resultSet.getDouble("media"));
+                diario.setFrequencia(resultSet.getInt("frequencia"));
+                diario.setAluno(alunoDAO.getById(resultSet.getLong("aluno_id")));
+                diario.setTurma(turmaDAO.getById(resultSet.getLong("turma_id")));
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -111,13 +111,14 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 
-            resultSet.next();
-            professor.setId(resultSet.getLong("id"));
-            professor.setNome(resultSet.getString("nome"));
-            professor.setCpf(resultSet.getString("cpf"));
-            professor.setUsername(resultSet.getString("username"));
-            professor.setSenha(resultSet.getString("senha"));
-            professor.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
+            if(resultSet.next()) {
+                professor.setId(resultSet.getLong("id"));
+                professor.setNome(resultSet.getString("nome"));
+                professor.setCpf(resultSet.getString("cpf"));
+                professor.setUsername(resultSet.getString("username"));
+                professor.setSenha(resultSet.getString("senha"));
+                professor.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
+            }
         
         } catch (SQLException e) {
             e.printStackTrace();

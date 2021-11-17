@@ -130,14 +130,15 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
             
-            resultSet.next();
-            turma.setId(resultSet.getLong("id"));
-            turma.setCodigo(resultSet.getString("codigo"));
-            turma.setHorario(resultSet.getString("horario"));
-            turma.setLocal(resultSet.getString("local"));
-            turma.setAberta(resultSet.getBoolean("aberta"));
-            turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
-            turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
+            if(resultSet.next()) {
+                turma.setId(resultSet.getLong("id"));
+                turma.setCodigo(resultSet.getString("codigo"));
+                turma.setHorario(resultSet.getString("horario"));
+                turma.setLocal(resultSet.getString("local"));
+                turma.setAberta(resultSet.getBoolean("aberta"));
+                turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
+                turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
