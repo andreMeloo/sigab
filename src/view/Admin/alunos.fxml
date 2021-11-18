@@ -128,8 +128,8 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="332.0" layoutY="15.0" prefHeight="26.0" prefWidth="225.0" promptText="Pesquisa" />
-                  <ImageView fx:id="btnPesquisa" fitHeight="25.0" fitWidth="25.0" layoutX="565.0" layoutY="16.0">
+                  <TextField fx:id="inputPesquisa" layoutX="332.0" layoutY="15.0" prefHeight="26.0" prefWidth="225.0" promptText="Pesquisa" />
+                  <ImageView fx:id="btnPesquisa" fitHeight="25.0" fitWidth="25.0" layoutX="565.0" layoutY="16.0" onMouseClicked="#pesquisar">
                      <image>
                         <Image url="@../VE/magnify.png" />
                      </image>

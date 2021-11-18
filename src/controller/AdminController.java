@@ -50,6 +50,7 @@ public class AdminController {
     @FXML private TextField input4;
     @FXML private TextField input5;
     @FXML private TextField input6;
+    @FXML private TextField inputPesquisa;
 
     // Botões
     @FXML private Button btnSair;
@@ -62,6 +63,7 @@ public class AdminController {
     @FXML private Button btnAlunos;
     @FXML private Button btnSim;
     @FXML private Button btnNao;
+    @FXML private Button btnPesquisar;
     
 
     // Panes
@@ -238,8 +240,14 @@ public class AdminController {
                 ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
         
                 for (TurmaVO turma : turmasVO) {
-                    alunosDaTurma = alunoBO.buscarPorTurma(turma.getCodigo());
-                    obsTest.add(new modelAdmin(turma.getCodigo(), turma.getProfessor().getNome(), turma.getDisciplina().getNome(), turma.getHorario() ,String.valueOf(alunosDaTurma.size()) , String.valueOf(turma.isAberta()), turma.getLocal(), "", ""));
+                    String status = "";
+                    alunosDaTurma = alunoBO.buscarPorTurma(turma.getId());
+                    if(turma.isAberta()) {
+                        status = "Aberta";
+                    } else {
+                        status = "Fechada";
+                    }
+                    obsTest.add(new modelAdmin(turma.getCodigo(), turma.getProfessor().getNome(), turma.getDisciplina().getNome(), turma.getHorario() ,String.valueOf(alunosDaTurma.size()) , status, turma.getLocal(), "", ""));
                 }
         
                 tblGeral.setItems(obsTest);                
@@ -689,7 +697,13 @@ public class AdminController {
                     }
         
                     for (TurmaVO turma : turmasVO) {
-                        turmaBO.remover(turma);
+                        if(turma.isAberta()) {
+                            turma.setAberta(false);
+                            turmaBO.editar(turma);
+                        }else {
+                            turma.setAberta(true);
+                            turmaBO.editar(turma);
+                        }
                     }
                 } catch (Exception a) {
                     a.printStackTrace();
@@ -703,6 +717,97 @@ public class AdminController {
         }
 
 
+    }
+
+    public void pesquisar(MouseEvent e) throws Exception {
+        switch (lblTituloTela.getText()) {
+            case "Alunos": {
+                String palavra = inputPesquisa.getText();
+
+                AlunoBO alunoBO = new AlunoBO();
+                List<AlunoVO> alunosVO = new ArrayList<AlunoVO>();
+
+                alunosVO = alunoBO.buscarPorNome(palavra);
+
+                ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
+
+                for (AlunoVO aluno : alunosVO) {
+                    obsTest.add(new modelAdmin(aluno.getNome(), aluno.getMatricula(), aluno.getEndereco().getEndereco() + ", " + aluno.getEndereco().getCidade() + ", " + aluno.getEndereco().getUf(), "", "", "", "", "", ""));
+                }
+
+                tblGeral.setItems(obsTest);
+                break;
+            }
+
+            case "Professores": {
+                String palavra = inputPesquisa.getText();
+
+                ProfessorBO professorBO = new ProfessorBO();
+                List<ProfessorVO> professoresVO = new ArrayList<ProfessorVO>();
+
+                professoresVO = professorBO.buscarPorNome(palavra);
+
+                ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
+
+                List<TurmaVO> turmasProfessor = new ArrayList<TurmaVO>();
+                TurmaBO turmaBO = new TurmaBO();
+
+                for (ProfessorVO professor : professoresVO) {
+                    obsTest.add(new modelAdmin(professor.getNome(), professor.getCpf(), professor.getEndereco().getEndereco() + ", " + professor.getEndereco().getCidade() + ", " + professor.getEndereco().getUf(), turmaBO.turmasProfString(turmasProfessor) , "", "", "", "", ""));
+                }
+
+                tblGeral.setItems(obsTest);
+                break;
+            }
+            
+            case "Disciplinas": {
+                String palavra = inputPesquisa.getText();
+
+                DisciplinaBO disciplinaBO = new DisciplinaBO();
+                List<DisciplinaVO> disciplinasVO = new ArrayList<DisciplinaVO>();
+
+                disciplinasVO = disciplinaBO.buscarPorNome(palavra);
+
+                ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
+        
+                for (DisciplinaVO disciplina : disciplinasVO) {
+                    obsTest.add(new modelAdmin(disciplina.getCodigo(), disciplina.getNome(), "", "", "", "", "", "", ""));
+                }
+
+                tblGeral.setItems(obsTest);
+                break;
+            }
+
+            case "Turmas": {
+                String palavra = inputPesquisa.getText();
+
+                TurmaBO turmaBO = new TurmaBO();
+                List<TurmaVO> turmasVO = new ArrayList<TurmaVO>();
+                AlunoBO alunoBO = new AlunoBO();
+                List<AlunoVO> alunosDaTurma = new ArrayList<AlunoVO>();
+
+                ProfessorBO professorBO = new ProfessorBO();
+                List<ProfessorVO> professoresVO = new ArrayList<ProfessorVO>();
+                professoresVO = professorBO.buscarPorNome(palavra);
+
+                for (ProfessorVO professor : professoresVO) {
+                    turmasVO.addAll(turmaBO.getTurmasDoProfessor(professor.getId()));
+                }
+
+                ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
+        
+                for (TurmaVO turma : turmasVO) {
+                    alunosDaTurma = alunoBO.buscarPorTurma(turma.getId());
+                    obsTest.add(new modelAdmin(turma.getCodigo(), turma.getProfessor().getNome(), turma.getDisciplina().getNome(), turma.getHorario() ,String.valueOf(alunosDaTurma.size()) , String.valueOf(turma.isAberta()), turma.getLocal(), "", ""));
+                }
+
+                tblGeral.setItems(obsTest);
+                break;
+            }
+        
+            default:
+                break;
+        }
     }
 
     // ==> Métodos dos botões de navegação <==

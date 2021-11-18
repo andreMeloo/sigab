@@ -79,15 +79,18 @@ public class AlunoBO implements EntityBOInterface<AlunoVO>{
         return listaPorNome;
     }
 
-    public List<AlunoVO> buscarPorTurma(String codigo) {
+    public List<AlunoVO> buscarPorTurma(Long id) {
+        try {
+            AlunoDAO alunoDAO = new AlunoDAO();
+            List<AlunoVO> listaPorTurma = new ArrayList<AlunoVO>();
+            
+            listaPorTurma = alunoDAO.getAllByTurmaId(id);
+            return listaPorTurma;
 
-        AlunoDAO usuarioDAO = new AlunoDAO();
-        List<AlunoVO> listaPorTurma = new ArrayList<AlunoVO>();
-        
-        listaPorTurma = usuarioDAO.listar();
-        listaPorTurma.removeIf(s -> !s.getNome().contains(codigo));
-
-        return listaPorTurma;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public AlunoVO buscarPorMatricula(String matricula) {

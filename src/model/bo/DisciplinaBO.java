@@ -49,6 +49,17 @@ public class DisciplinaBO implements EntityBOInterface<DisciplinaVO>{
         return disciplinaDAO.getById(id);
     }
 
+    public List<DisciplinaVO> buscarPorNome(String nome) {
+        
+        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+        List<DisciplinaVO> listaPorNome = new ArrayList<DisciplinaVO>();
+        
+        listaPorNome = disciplinaDAO.listar();
+        listaPorNome.removeIf(s -> !s.getNome().contains(nome));
+
+        return listaPorNome;
+    }
+
     public String geraCodigoDisciplina() throws Exception {
         String codigo = "";
         List<DisciplinaVO> disciplinaVO = new ArrayList<DisciplinaVO>();

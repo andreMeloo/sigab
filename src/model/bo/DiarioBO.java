@@ -38,6 +38,19 @@ public class DiarioBO implements EntityBOInterface<DiarioVO> {
         return null;
     }
 
+    public DiarioVO buscarPorAlunoETurma(Long aluno_id, Long turma_id) {
+        try {
+            
+            DiarioDAO diarioDAO = new DiarioDAO();
+            DiarioVO diario = new DiarioVO();
+            diario = diarioDAO.getByAlunoIdAndTurmaId(aluno_id, turma_id);
+            return diario;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public List<DiarioVO> getAllBoletimByAluno(AlunoVO aluno) {
         DiarioDAO diarioDAO = new DiarioDAO();
         return diarioDAO.findAllBoletimByAluno(aluno);
