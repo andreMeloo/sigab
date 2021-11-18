@@ -57,7 +57,7 @@ public class DiarioBO implements EntityBOInterface<DiarioVO> {
         return diarioDAO.findAllBoletimByAluno(aluno);
     }
 
-    public List<DiarioVO> getDiarioByAlunoName(String nome, TurmaVO turmaVO) {
+    public List<DiarioVO> getDiarioByAlunoNameAndTurma(String nome, TurmaVO turmaVO) {
         DiarioDAO diarioDAO = new DiarioDAO();
         return diarioDAO.getDiarioByAlunoNameAndTurma(nome, turmaVO);
     }

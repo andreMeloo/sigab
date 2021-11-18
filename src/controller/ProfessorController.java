@@ -320,7 +320,7 @@ public class ProfessorController {
             DiarioBO diarioBO = new DiarioBO();
             List<DiarioVO> diariosVO = new ArrayList<DiarioVO>();
 
-            diariosVO = diarioBO.getDiarioByAlunoName(palavra);
+            diariosVO = diarioBO.getDiarioByAlunoNameAndTurma(palavra, turmaDiarios);
 
             ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
 
