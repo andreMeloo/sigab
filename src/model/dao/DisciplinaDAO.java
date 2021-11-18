@@ -18,6 +18,7 @@ public class DisciplinaDAO extends BaseDAO implements EntityDAOInterface<Discipl
             preparedStatement.setString(1, disciplinaVO.getCodigo());
             preparedStatement.setString(2, disciplinaVO.getNome());
             preparedStatement.executeUpdate();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -30,6 +31,7 @@ public class DisciplinaDAO extends BaseDAO implements EntityDAOInterface<Discipl
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, disciplinaVO.getId());
             preparedStatement.executeUpdate();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,6 +53,7 @@ public class DisciplinaDAO extends BaseDAO implements EntityDAOInterface<Discipl
                 disciplinaVO.setId(resultSet.getLong("id"));
                 disciplinaVO.setCodigo(resultSet.getString("codigo"));
                 disciplinaVOs.add(disciplinaVO);
+                connection.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,7 +71,7 @@ public class DisciplinaDAO extends BaseDAO implements EntityDAOInterface<Discipl
             preparedStatement.setString(2, disciplinaVO.getCodigo());
             preparedStatement.setLong(3, disciplinaVO.getId());
             preparedStatement.executeUpdate();
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,7 +95,7 @@ public class DisciplinaDAO extends BaseDAO implements EntityDAOInterface<Discipl
                 disciplina.setNome(resultSet.getString("nome"));
                 disciplina.setId(resultSet.getLong("id"));
             }
-            
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -117,6 +120,7 @@ public class DisciplinaDAO extends BaseDAO implements EntityDAOInterface<Discipl
                 disciplinaVO.setId(resultSet.getLong("id"));
                 disciplinaVOs.add(disciplinaVO);
             }
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -136,7 +140,7 @@ public class DisciplinaDAO extends BaseDAO implements EntityDAOInterface<Discipl
             disciplinaVO.setCodigo(resultSet.getString("codigo"));
             disciplinaVO.setNome(resultSet.getString("nome"));
             disciplinaVO.setId(resultSet.getLong("id"));
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

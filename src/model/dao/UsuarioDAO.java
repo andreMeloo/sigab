@@ -33,7 +33,7 @@ public class UsuarioDAO extends BaseDAO implements EntityDAOInterface<UsuarioVO>
 
             keys.next();
             usuarioVO.setId(keys.getLong(1));
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,7 +47,7 @@ public class UsuarioDAO extends BaseDAO implements EntityDAOInterface<UsuarioVO>
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, usuario.getId());
             preparedStatement.executeUpdate();
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,6 +74,7 @@ public class UsuarioDAO extends BaseDAO implements EntityDAOInterface<UsuarioVO>
 
                 usuarioVOs.add(usuarioVO);
             }
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,7 +93,7 @@ public class UsuarioDAO extends BaseDAO implements EntityDAOInterface<UsuarioVO>
             preparedStatement.setString(3, usuarioVO.getSenha());
             preparedStatement.setLong(4, usuarioVO.getId());
             preparedStatement.executeUpdate();
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -118,7 +119,7 @@ public class UsuarioDAO extends BaseDAO implements EntityDAOInterface<UsuarioVO>
                 usuario.setUsername(resultSet.getString("username"));
                 usuario.setSenha(resultSet.getString("senha"));
             }
-        
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -146,7 +147,7 @@ public class UsuarioDAO extends BaseDAO implements EntityDAOInterface<UsuarioVO>
                 usuario.setUsername(resultSet.getString("username"));
                 usuario.setSenha(resultSet.getString("senha"));
             }
-        
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
