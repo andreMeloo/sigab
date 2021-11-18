@@ -1,7 +1,9 @@
 package model.bo;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,6 +20,7 @@ import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
+import java.awt.Desktop;
 
 import model.dao.AlunoDAO;
 import model.dao.TurmaDAO;
@@ -192,6 +195,12 @@ public class AlunoBO implements EntityBOInterface<AlunoVO>{
             return false;
         } finally {
             document.close();
+            
+            try {
+                Desktop.getDesktop().open(new File(documentName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return true;
