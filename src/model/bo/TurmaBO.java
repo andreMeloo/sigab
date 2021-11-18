@@ -74,14 +74,11 @@ public class TurmaBO implements EntityBOInterface<TurmaVO>{
         }
     }
 
-    public Boolean getTurmasByDisciplina(Long id) throws Exception  {
+    public List<TurmaVO> getTurmasByDisciplina(Long id) throws Exception  {
         try {
             TurmaDAO turmaDAO = new TurmaDAO();
             List<TurmaVO> turmas = turmaDAO.getTurmasByDisciplina(id);
-            if (turmas.size() < 1) {
-                return false;
-            }
-            return true;
+            return turmas;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -37,7 +37,6 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
 
             keys.next();
             alunoVO.setId(keys.getLong(1));
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,7 +71,6 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
                 alunoVO.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
 
                 alunoVOs.add(alunoVO);
-                connection.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,7 +93,6 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
             preparedStatement.setLong(2, alunoVO.getEndereco().getId());
             preparedStatement.setLong(3, alunoVO.getId());
             preparedStatement.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -124,7 +121,6 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
                 alunoVO.setSenha(resultSet.getString("senha"));
                 alunoVO.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
             }
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -158,7 +154,6 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
                 aluno.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
 
                 alunos.add(aluno);
-                connection.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -188,7 +183,6 @@ public class AlunoDAO extends BaseDAO implements EntityDAOInterface<AlunoVO>{
                 alunoVO.setSenha(resultSet.getString("senha"));
                 alunoVO.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
             }
-            connection.close();
         } catch(SQLException e) {
             e.printStackTrace();
         }

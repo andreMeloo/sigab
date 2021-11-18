@@ -36,9 +36,10 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
             keys.next();
             turma.setId(keys.getLong(1));
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally{
+            try {connection.close();} catch (Exception e) {}
         }
     }
 
@@ -51,7 +52,6 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, turma.getId());
             preparedStatement.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -86,7 +86,6 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
                 result.add(turma);
             }
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -108,7 +107,6 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
             preparedStatement.setLong(6, turma.getProfessor().getId());
             preparedStatement.setLong(7, turma.getId());
             preparedStatement.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -141,7 +139,6 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
                 turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
                 turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
             }
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -176,7 +173,6 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
                 turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
                 turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -215,7 +211,6 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
                 result.add(turma);
             }
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -254,7 +249,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
                 result.add(turma);
             }
-            connection.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -266,7 +261,10 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
         DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 
         connection = getConnection();
-        String sql = "SELECT Turmas WHERE disciplina_id=?";
+        String sql = "SELECT Turma.id, disciplina_id, professor_id, Turma.codigo, horario, local, aberta FROM Turma "
+                    + "JOIN Professor ON Turma.professor_id=Professor.id "
+                    + "JOIN Disciplina ON Turma.disciplina_id=Disciplina.id "
+                    + "WHERE disciplina_id=?";
         TurmaVO turma = new TurmaVO();
         List<TurmaVO> result = new ArrayList<TurmaVO>();
         
@@ -287,7 +285,6 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
                 result.add(turma);
             }
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

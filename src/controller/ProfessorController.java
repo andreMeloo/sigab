@@ -89,7 +89,7 @@ public class ProfessorController {
                TurmaBO turmaBO = new TurmaBO();
                AlunoBO alunoBO = new AlunoBO();
        
-               turmasVO = turmaBO.listar();
+               turmasVO = turmaBO.getTurmasDoProfessor(10L);
                
                
                colunm1.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna1"));
@@ -111,6 +111,7 @@ public class ProfessorController {
                tblGeral.setItems(obsTest);                
                break;
            }
+           
            //TODO Colunas faltando
            case "Diário": {
             List<TurmaVO> turmasVO = new ArrayList<TurmaVO>();

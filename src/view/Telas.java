@@ -98,12 +98,13 @@ public class Telas extends Application {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Admin/disciplinas.fxml"));
         Parent root = (Parent) floader.load();
         AdminController controller = floader.<AdminController>getController();
+        controller.carregaTabelas();
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Administrador");
         primaryStage.setScene(cena);
 
-        controller.carregaTabelas();
+        
         controller.setUser(usuario);
     }
 
@@ -136,16 +137,21 @@ public class Telas extends Application {
         controller.setUser(usuario);
     }
 
-    public static void telaAdicionaAluno(UsuarioVO usuario) throws Exception {
+    public static void telaAdicionaAluno(UsuarioVO usuario, UsuarioVO aluno) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Admin/adicionarAluno.fxml"));
         Parent root = (Parent) floader.load();
         AdminController controller = floader.<AdminController>getController();
-        controller.matricula();
-
-        Scene cena = new Scene(root);
-        primaryStage.setTitle("SIGAB - Administrador");
-        primaryStage.setScene(cena);
-
+        if (aluno == null) {
+            controller.matricula();
+            Scene cena = new Scene(root);
+            primaryStage.setTitle("SIGAB - Administrador");
+            primaryStage.setScene(cena);
+        } else {
+            Scene cena = new Scene(root);
+            primaryStage.setTitle("SIGAB - Administrador");
+            primaryStage.setScene(cena);
+            controller.setAlunoEdit(aluno);
+        }
         
         controller.setUser(usuario);
     }

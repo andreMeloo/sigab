@@ -36,6 +36,10 @@ public class AdminController {
 
     // Objetos 
     UsuarioVO userVO = new UsuarioVO();
+    UsuarioVO alunoEdit = new AlunoVO();
+    UsuarioVO professorEdit = new ProfessorVO();
+    TurmaVO turmaEdit = new TurmaVO();
+    DisciplinaVO disciplinaEdit = new DisciplinaVO();
 
     // Inputs
     @FXML private TextField input1;
@@ -94,6 +98,23 @@ public class AdminController {
     public void setUser(UsuarioVO admin) {
         this.userVO = admin;
     }
+
+    public void setAlunoEdit(UsuarioVO aluno) {
+        this.alunoEdit = aluno;
+    }
+    
+    public void setProfessorEdit(UsuarioVO professor) {
+        this.professorEdit = professor;
+    }
+
+    public void setDisciplinaEdit(DisciplinaVO disciplina) {
+        this.disciplinaEdit = disciplina;
+    }
+
+    public void setTurmaEdita(TurmaVO turma) {
+        this.turmaEdit = turma;
+    }
+
 
     public void carregaChoiceBox() {
         List<DisciplinaVO> disciplinas = new ArrayList<DisciplinaVO>();
@@ -434,10 +455,8 @@ public class AdminController {
                     for (ProfessorVO professor : professoresVO) {
                         turmasVO = turmaBO.getTurmasDoProfessor(professor.getId());
                         if (turmasVO.size() < 1) {
-                            alertPane.setVisible(true);
-                        } else {
                             professorBO.remover(professor);
-                        }
+                        } 
                     }
             
                 } catch (Exception a) {
@@ -465,16 +484,15 @@ public class AdminController {
                     }
 
                     TurmaBO turmaBO = new TurmaBO();
-                    Boolean extTurmas = false;
+                    List<TurmaVO> turmas = new ArrayList<TurmaVO>();
 
                     for (DisciplinaVO disciplina : disciplinasVO) {
-                        extTurmas = turmaBO.getTurmasByDisciplina(disciplina.getId());
-                        if (extTurmas) {
-                            alertPane.setVisible(true);
-                        } else {
+                        turmas = turmaBO.getTurmasByDisciplina(disciplina.getId());
+                        if (turmas.size() < 1) {
                             disciplinaBO.remover(disciplina);
                         }
                     }
+            
                 } catch (Exception a) {
                     a.printStackTrace();
                 }
@@ -538,9 +556,23 @@ public class AdminController {
 
     public void telaEditOrSave(ActionEvent e) throws Exception {
         switch (lblTituloTela.getText()) {
-            case "Alunos":
-                Telas.telaAdicionaAluno(userVO);
+            case "Alunos":{
+                AlunoBO alunoBO = new AlunoBO();
+                AlunoVO alunoVO = new AlunoVO();
+                String matricula = "";
+                ObservableList<modelAdmin> obsList = tblGeral.getItems();
+                for (modelAdmin obs : obsList) {
+                    if (obs.isAction() && matricula.equals("")) {
+                        matricula = obs.getColuna2();
+                    }
+                }
+
+                alunoVO = alunoBO.buscarPorMatricula(matricula);
+
+                Telas.telaAdicionaAluno(userVO, alunoVO);
                 break;
+            }
+
             case "Professores":
                 Telas.telaAdicionaProfessor(userVO);
                 break;

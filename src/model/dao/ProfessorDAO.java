@@ -35,11 +35,9 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
             ResultSet keys = preparedStatement.getGeneratedKeys();
             keys.next();
             professorVO.setId(keys.getLong(1));
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public void remover(ProfessorVO professorVO) {
@@ -71,11 +69,9 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
 
                 result.add(professor);
             }
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return result;
     }
 
@@ -93,7 +89,6 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
             preparedStatement.setLong(2, professor.getEndereco().getId());
             preparedStatement.setLong(3, professor.getId());
             preparedStatement.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -121,11 +116,9 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
                 professor.setSenha(resultSet.getString("senha"));
                 professor.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
             }
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return professor;
     }
 
@@ -151,11 +144,9 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
                 professor.setSenha(resultSet.getString("senha"));
                 professor.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
             }
-        
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return professor;
     }
 }
