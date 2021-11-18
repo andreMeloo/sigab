@@ -276,7 +276,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
             
             while (resultSet.next()) {
                 TurmaVO turma = new TurmaVO();
-                
+
                 turma.setId(resultSet.getLong("id"));
                 turma.setCodigo(resultSet.getString("codigo"));
                 turma.setHorario(resultSet.getString("horario"));
@@ -335,7 +335,6 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
         connection = getConnection();
         String sql = "SELECT * FROM Turma WHERE id IN (SELECT turma_id FROM Diario WHERE aluno_id = ?) AND aberta = false";
-        TurmaVO turma = new TurmaVO();
         List<TurmaVO> result = new ArrayList<TurmaVO>();
         
         try {
@@ -345,6 +344,8 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
             ResultSet resultSet = preparedStatement.getResultSet();
             
             while (resultSet.next()) {
+                TurmaVO turma = new TurmaVO();
+
                 turma.setId(resultSet.getLong("id"));
                 turma.setCodigo(resultSet.getString("codigo"));
                 turma.setHorario(resultSet.getString("horario"));
@@ -369,7 +370,6 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
         connection = getConnection();
         String sql = "SELECT * FROM Turma WHERE id NOT IN (SELECT turma_id FROM Diario WHERE aluno_id = ?) AND aberta = true";
-        TurmaVO turma = new TurmaVO();
         List<TurmaVO> result = new ArrayList<TurmaVO>();
         
         try {
@@ -379,6 +379,8 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
             ResultSet resultSet = preparedStatement.getResultSet();
             
             while (resultSet.next()) {
+                TurmaVO turma = new TurmaVO();
+                
                 turma.setId(resultSet.getLong("id"));
                 turma.setCodigo(resultSet.getString("codigo"));
                 turma.setHorario(resultSet.getString("horario"));

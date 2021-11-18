@@ -22,6 +22,7 @@ import javafx.scene.layout.Pane;
 import model.bo.AlunoBO;
 import model.bo.DiarioBO;
 import model.bo.TurmaBO;
+import model.bo.UsuarioBO;
 import model.vo.AlunoVO;
 import model.vo.DiarioVO;
 import model.vo.DisciplinaVO;
@@ -45,6 +46,7 @@ public class ProfessorController {
    @FXML private Button btnSim;
    @FXML private Button btnNao;
    @FXML private ImageView btnPesquisar;  
+   @FXML private Button username;  
 
    // Panes
    @FXML private Pane centerPane;
@@ -57,7 +59,7 @@ public class ProfessorController {
 
    // Labels
    @FXML private Label lblTituloTela;
-   @FXML private Label lblDisciplina;;
+   @FXML private Label lblDisciplina;
 
    // ChoiceBox
    @FXML private ChoiceBox<DisciplinaVO> cbDisciplina;
@@ -89,7 +91,9 @@ public class ProfessorController {
    }
 
    public void carregaTabelas(ProfessorVO usuario, TurmaVO selectedTurma) throws Exception {
-       switch (lblTituloTela.getText()) {
+    username.setText(usuario.getNome());
+    
+    switch (lblTituloTela.getText()) {
            case "Turmas": {
                List<TurmaVO> turmasVO = new ArrayList<TurmaVO>();
                List<AlunoVO> alunosDaTurma = new ArrayList<AlunoVO>();
@@ -127,6 +131,7 @@ public class ProfessorController {
            }
            
            case "Diário": {
+            lblDisciplina.setText(selectedTurma.getCodigo());
                 List<DiarioVO> diariosVO = new ArrayList<DiarioVO>();
                 DiarioBO diarioBO = new DiarioBO();
                 List<AlunoVO> alunosDaTurma = new ArrayList<AlunoVO>();
@@ -149,6 +154,7 @@ public class ProfessorController {
                 colunm5.setCellFactory(TextFieldTableCell.forTableColumn());
                 colunm6.setCellFactory(TextFieldTableCell.forTableColumn());
                 colunm7.setCellFactory(TextFieldTableCell.forTableColumn());
+                colunm8.setCellFactory(TextFieldTableCell.forTableColumn());
 
                 alunosDaTurma = alunoBO.buscarPorTurma(selectedTurma.getId());
                 for (AlunoVO aluno : alunosDaTurma) {
@@ -163,7 +169,7 @@ public class ProfessorController {
                     } else {
                         status = "Fechada";
                     }
-                    obsTest.add(new modelAdmin(diario.getAluno().getNome(), String.valueOf(diario.getNota1()), String.valueOf(diario.getNota2()), String.valueOf(diario.getNota3()), String.valueOf(diario.getQuartaProva()), String.valueOf(diario.getMedia()), String.valueOf(diario.getFrequencia()), status, ""));
+                    obsTest.add(new modelAdmin(diario.getAluno().getNome(), String.valueOf(diario.getNota1()), String.valueOf(diario.getNota2()), String.valueOf(diario.getNota3()), String.valueOf(diario.getQuartaProva()), String.valueOf(diario.getMedia()), String.valueOf(diario.getFrequencia()), "", status));
                 }
                 
                 tblGeral.setItems(obsTest);                
@@ -205,11 +211,6 @@ public class ProfessorController {
         } catch (Exception t) {
             t.printStackTrace();
         }
-   }
-
-   public void pesquisar() throws Exception {
-        
-        
    }
 
    // ==> Navegação de telas
@@ -311,6 +312,27 @@ public class ProfessorController {
        }
    }
 
+   public void pesquisar(MouseEvent e) throws Exception {
+    switch (lblTituloTela.getText()) {
+        case "Diário": {
+            String palavra = inputPesquisa.getText();
+
+            DiarioBO diarioBO = new DiarioBO();
+            List<DiarioVO> diariosVO = new ArrayList<DiarioVO>();
+
+            diariosVO = diarioBO.getDiarioByAlunoNameAndTurma(palavra, turmaDiarios);
+
+            ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
+
+            for (DiarioVO diario : diariosVO) {
+                obsTest.add(new modelAdmin(diario.getAluno().getNome(), String.valueOf(diario.getNota1()), String.valueOf(diario.getNota2()), String.valueOf(diario.getNota3()), String.valueOf(diario.getQuartaProva()), String.valueOf(diario.getMedia()), String.valueOf(diario.getFrequencia()), "", ""));
+            }
+
+            tblGeral.setItems(obsTest);
+            break;
+        }
+    }
+   }
    
     
 }
