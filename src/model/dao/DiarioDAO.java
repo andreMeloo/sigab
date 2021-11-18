@@ -9,6 +9,7 @@ import java.util.List;
 
 import model.vo.AlunoVO;
 import model.vo.DiarioVO;
+import model.vo.TurmaVO;
 
 
 public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
@@ -151,6 +152,45 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, aluno.getId());
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+
+            while (resultSet.next()) {
+                DiarioVO diarioVO = new DiarioVO();
+                diarioVO.setNota1(resultSet.getDouble("nota1"));
+                diarioVO.setNota2(resultSet.getDouble("nota2"));
+                diarioVO.setNota3(resultSet.getDouble("nota3"));
+                diarioVO.setQuartaProva(resultSet.getDouble("quarta_Prova"));
+                diarioVO.setMedia(resultSet.getDouble("media"));
+                diarioVO.setAluno(alunoDAO.getById(resultSet.getLong("aluno_id")));
+                diarioVO.setTurma(turmaDAO.getById(resultSet.getLong("turma_id")));
+
+                boletins.add(diarioVO);
+            }
+        } catch (SQLException e) {   
+            e.printStackTrace();
+        }
+
+        return boletins;
+    }
+
+    public List<DiarioVO> getDiarioByAlunoNameAndTurma(String nome, TurmaVO turmaVO) {
+        connection = getConnection();
+        String sql = "SELECT Usuario.nome, Diario.aluno_id, Diario.turma_id, Diario.nota1, Diario.nota2, Diario.nota3, Diario.quarta_prova, " 
+        +" Diario.media, Diario.frequencia"
+        +" FROM Diario JOIN Usuario ON Diario.aluno_id=Usuario.id"
+        +" WHERE Usuario.nome=? AND Diario.turma_id=?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        AlunoDAO alunoDAO = new AlunoDAO();
+        TurmaDAO turmaDAO = new TurmaDAO();
+        List<DiarioVO> boletins = new ArrayList<DiarioVO>();
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, nome);
+            preparedStatement.setLong(2, turmaVO.getId());
+            
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 
