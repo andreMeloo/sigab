@@ -5,6 +5,7 @@ import java.util.List;
 import model.dao.DiarioDAO;
 import model.vo.AlunoVO;
 import model.vo.DiarioVO;
+import model.vo.TurmaVO;
 
 public class DiarioBO implements EntityBOInterface<DiarioVO> {
 
@@ -54,5 +55,10 @@ public class DiarioBO implements EntityBOInterface<DiarioVO> {
     public List<DiarioVO> getAllBoletimByAluno(AlunoVO aluno) {
         DiarioDAO diarioDAO = new DiarioDAO();
         return diarioDAO.findAllBoletimByAluno(aluno);
+    }
+
+    public List<DiarioVO> getDiarioByAlunoName(String nome, TurmaVO turmaVO) {
+        DiarioDAO diarioDAO = new DiarioDAO();
+        return diarioDAO.getDiarioByAlunoNameAndTurma(nome, turmaVO);
     }
 }
