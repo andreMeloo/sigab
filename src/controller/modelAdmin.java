@@ -11,9 +11,11 @@ public class modelAdmin {
     private final SimpleStringProperty coluna5;
     private final SimpleStringProperty coluna6;
     private final SimpleStringProperty coluna7;
+    private final SimpleStringProperty coluna8;
+    private final SimpleStringProperty coluna9;
     private final SimpleBooleanProperty action;
  
-    modelAdmin(String col1, String col2, String col3, String col4, String col5, String col6, String col7) {
+    modelAdmin(String col1, String col2, String col3, String col4, String col5, String col6, String col7, String col8, String col9) {
         this.coluna1 = new SimpleStringProperty(col1);
         this.coluna2 = new SimpleStringProperty(col2);
         this.coluna3 = new SimpleStringProperty(col3);
@@ -21,6 +23,8 @@ public class modelAdmin {
         this.coluna5 = new SimpleStringProperty(col5);
         this.coluna6 = new SimpleStringProperty(col6);
         this.coluna7 = new SimpleStringProperty(col7);
+        this.coluna8 = new SimpleStringProperty(col8);
+        this.coluna9 = new SimpleStringProperty(col9);
         this.action = new SimpleBooleanProperty(false);
     }
  
@@ -106,6 +110,30 @@ public class modelAdmin {
 
     public void setColuna7(String col7) {
         this.coluna7.set(col7);
+    }
+
+    public String getColuna8() {
+        return coluna8.get();
+    }
+
+    public SimpleStringProperty coluna8Property() {
+        return coluna8;
+    }
+
+    public void setColuna8(String col8) {
+        this.coluna8.set(col8);
+    }
+
+    public String getColuna9() {
+        return coluna9.get();
+    }
+
+    public SimpleStringProperty coluna9Property() {
+        return coluna9;
+    }
+
+    public void setColuna9(String col9) {
+        this.coluna9.set(col9);
     }
 
     public void setAction(Boolean act) {
