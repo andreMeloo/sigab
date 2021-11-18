@@ -33,17 +33,10 @@ public class ProfessorController {
    // Objetos 
    UsuarioVO userVO = new UsuarioVO();
 
-   // Inputs
-   @FXML private TextField input1;
-   @FXML private TextField input2;
-   @FXML private TextField input3;
-   @FXML private TextField input4;
-   @FXML private TextField input5;
-   @FXML private TextField input6;
 
    // Botões
    @FXML private Button btnSair;
-   @FXML private Button btnSalvarCadastro;
+   @FXML private Button btnSalvar;
    @FXML private Button btnVoltar;
    @FXML private Button btnTurmas;
    @FXML private Button btnProfessores;
@@ -81,6 +74,8 @@ public class ProfessorController {
    @FXML private TableColumn<modelAdmin, String> colunm5;
    @FXML private TableColumn<modelAdmin, String> colunm6;
    @FXML private TableColumn<modelAdmin, String> colunm7;
+   @FXML private TableColumn<modelAdmin, String> colunm8;
+   @FXML private TableColumn<modelAdmin, String> colunm9;
    @FXML private TableColumn<modelAdmin, Boolean> colunmAction;
 
 
@@ -92,80 +87,6 @@ public class ProfessorController {
 
    public void carregaTabelas() throws Exception {
        switch (lblTituloTela.getText()) {
-           case "Alunos": {
-               List<AlunoVO> alunosVO = new ArrayList<AlunoVO>();
-               AlunoBO alunoBO = new AlunoBO();
-       
-               alunosVO = alunoBO.listar();
-       
-               
-               colunmAction.setCellValueFactory(new PropertyValueFactory<modelAdmin, Boolean>("action"));
-               colunm1.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna1"));
-               colunm2.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna2"));
-               colunm3.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna3"));
-       
-               colunmAction.setCellFactory(CheckBoxTableCell.forTableColumn(colunmAction));
-       
-               ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
-       
-               for (AlunoVO aluno : alunosVO) {
-                   obsTest.add(new modelAdmin(aluno.getNome(), aluno.getMatricula(), aluno.getEndereco().getEndereco() + ", " + aluno.getEndereco().getCidade() + ", " + aluno.getEndereco().getUf(), "", "", "", ""));
-               }
-       
-               tblGeral.setItems(obsTest);                            
-               break;
-           }
-
-           case "Professores": {
-               List<ProfessorVO> professoresVO = new ArrayList<ProfessorVO>();
-               List<TurmaVO> turmasProfessor = new ArrayList<TurmaVO>(); 
-               ProfessorBO professorBO = new ProfessorBO();
-               TurmaBO turmaBO = new TurmaBO();
-       
-               professoresVO = professorBO.listar();
-               
-               
-               colunmAction.setCellValueFactory(new PropertyValueFactory<modelAdmin, Boolean>("action"));
-               colunm1.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna1"));
-               colunm2.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna2"));
-               colunm3.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna3"));
-               colunm4.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna4"));
-       
-               colunmAction.setCellFactory(CheckBoxTableCell.forTableColumn(colunmAction));
-       
-               ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
-       
-               for (ProfessorVO professor : professoresVO) {
-                   turmasProfessor = turmaBO.getTurmasDoProfessor(professor.getId());
-                   obsTest.add(new modelAdmin(professor.getNome(), professor.getCpf(), professor.getEndereco().getEndereco() + ", " + professor.getEndereco().getCidade() + ", " + professor.getEndereco().getUf(), turmaBO.turmasProfString(turmasProfessor) , "", "", ""));
-               }
-       
-               tblGeral.setItems(obsTest);                
-               break;
-           }
-
-           case "Disciplinas": {
-               List<DisciplinaVO> disciplinasVO = new ArrayList<DisciplinaVO>();
-               DisciplinaBO disciplinaBO = new DisciplinaBO();
-       
-               disciplinasVO = disciplinaBO.listar();
-       
-               
-               colunmAction.setCellValueFactory(new PropertyValueFactory<modelAdmin, Boolean>("action"));
-               colunm1.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna1"));
-               colunm2.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna2"));
-       
-               colunmAction.setCellFactory(CheckBoxTableCell.forTableColumn(colunmAction));
-       
-               ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
-       
-               for (DisciplinaVO disciplina : disciplinasVO) {
-                   obsTest.add(new modelAdmin(disciplina.getCodigo(), disciplina.getNome(), "", "", "", "", ""));
-               }
-       
-               tblGeral.setItems(obsTest);                            
-               break;
-           }
            case "Turmas": {
                List<TurmaVO> turmasVO = new ArrayList<TurmaVO>();
                List<AlunoVO> alunosDaTurma = new ArrayList<AlunoVO>();
@@ -175,7 +96,6 @@ public class ProfessorController {
                turmasVO = turmaBO.listar();
                
                
-               colunmAction.setCellValueFactory(new PropertyValueFactory<modelAdmin, Boolean>("action"));
                colunm1.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna1"));
                colunm2.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna2"));
                colunm3.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna3"));
@@ -184,18 +104,46 @@ public class ProfessorController {
                colunm6.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna6"));
                colunm7.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna7"));
        
-               colunmAction.setCellFactory(CheckBoxTableCell.forTableColumn(colunmAction));
        
                ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
        
                for (TurmaVO turma : turmasVO) {
                    alunosDaTurma = alunoBO.buscarPorTurma(turma.getCodigo());
-                   obsTest.add(new modelAdmin(turma.getCodigo(), turma.getProfessor().getNome(), turma.getDisciplina().getNome(), turma.getHorario() ,String.valueOf(alunosDaTurma.size()) , String.valueOf(turma.isAberta()), turma.getLocal()));
+                   obsTest.add(new modelAdmin(turma.getCodigo(), turma.getProfessor().getNome(), turma.getDisciplina().getNome(), turma.getHorario() ,String.valueOf(alunosDaTurma.size()) , String.valueOf(turma.isAberta()), turma.getLocal(), "", "" ) );
                }
        
                tblGeral.setItems(obsTest);                
                break;
            }
+           //TODO Colunas faltando
+           case "Diário": {
+            List<TurmaVO> turmasVO = new ArrayList<TurmaVO>();
+            List<AlunoVO> alunosDaTurma = new ArrayList<AlunoVO>();
+            TurmaBO turmaBO = new TurmaBO();
+            AlunoBO alunoBO = new AlunoBO();
+    
+            turmasVO = turmaBO.listar();
+            
+            
+            colunm1.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna1"));
+            colunm2.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna2"));
+            colunm3.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna3"));
+            colunm4.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna4"));
+            colunm5.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna5"));
+            colunm6.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna6"));
+            colunm7.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna7"));
+    
+    
+            ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
+    
+            for (TurmaVO turma : turmasVO) {
+                alunosDaTurma = alunoBO.buscarPorTurma(turma.getCodigo());
+                obsTest.add(new modelAdmin(turma.getCodigo(), turma.getProfessor().getNome(), turma.getDisciplina().getNome(), turma.getHorario() ,String.valueOf(alunosDaTurma.size()) , String.valueOf(turma.isAberta()), turma.getLocal(),"",""));
+            }
+    
+            tblGeral.setItems(obsTest);                
+            break;
+        }
        
            default:
                break;
@@ -251,9 +199,7 @@ public class ProfessorController {
                btnDisciplinas.setOpacity(0.7);
                break;
 
-           case "Button[id=btnSalvarCadastro, styleClass=button]'Salvar'":
-               btnSalvarCadastro.setOpacity(0.9);
-               break;
+           
 
            case "Button[id=btnVoltar, styleClass=button]'Voltar'":
                btnVoltar.setOpacity(0.9);
@@ -292,10 +238,6 @@ public class ProfessorController {
 
            case "Button[id=btnDisciplinas, styleClass=button]'Disciplinas'":
                btnDisciplinas.setOpacity(1);
-               break;
-           
-           case "Button[id=btnSalvarCadastro, styleClass=button]'Salvar'":
-               btnSalvarCadastro.setOpacity(1);
                break;
 
            case "Button[id=btnVoltar, styleClass=button]'Voltar'":

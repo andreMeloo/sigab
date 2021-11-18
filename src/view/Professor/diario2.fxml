@@ -93,7 +93,7 @@
          <children>
             <Pane fx:id="centerPane" layoutX="44.0" layoutY="40.0" prefHeight="400.0" prefWidth="610.0" style="-fx-background-color: white;">
                <children>
-                  <Label fx:id="lblTituloTela" layoutX="23.0" layoutY="14.0" text="Turmas" textFill="#274d63">
+                  <Label fx:id="lblTituloTela" layoutX="23.0" layoutY="14.0" text="Diário" textFill="#274d63">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -107,15 +107,17 @@
                   <TableView fx:id="tblGeral" editable="true" layoutX="19.0" layoutY="54.0" prefHeight="290.0" prefWidth="571.0">
                      <columns>
                         <TableColumn fx:id="colunm1" maxWidth="40.0" prefWidth="40.0" resizable="false" sortable="false" text="Cod." />
-                        <TableColumn fx:id="colunm2" maxWidth="200.0" prefWidth="200.0" sortable="false" text="Professor" />
-                        <TableColumn fx:id="colunm3" maxWidth="200.0" prefWidth="200.0" text="Disciplina" />
-                        <TableColumn fx:id="colunm4" maxWidth="70.0" prefWidth="70.0" resizable="false" text="Horário" />
-                        <TableColumn fx:id="colunm5" maxWidth="50.0" prefWidth="50.0" resizable="false" text="Alunos" />
-                        <TableColumn fx:id="colunm6" maxWidth="65.0" prefWidth="65.0" resizable="false" text="Status" />
-                        <TableColumn fx:id="colunm7" maxWidth="150.0" prefWidth="150.0" text="Local" />
+                        <TableColumn fx:id="colunm2" maxWidth="200.0" prefWidth="152.00001525878906" sortable="false" text="Aluno" />
+                        <TableColumn fx:id="colunm3" maxWidth="30.0" prefWidth="30.0" resizable="false" text="N1" />
+                        <TableColumn fx:id="colunm4" maxWidth="30.0" prefWidth="30.0" resizable="false" text="N2" />
+                        <TableColumn fx:id="colunm5" maxWidth="30.0" prefWidth="30.0" resizable="false" text="N3" />
+                        <TableColumn fx:id="colunm6" maxWidth="30.0" prefWidth="30.0" resizable="false" text="N4" />
+                        <TableColumn fx:id="colunm7" maxWidth="50.0" prefWidth="50.0" resizable="false" text="Média" />
+                        <TableColumn fx:id="colunm71" maxWidth="60.0" prefWidth="60.0" text="Freq." />
+                        <TableColumn fx:id="colunm711" maxWidth="150.0" prefWidth="150.0" text="Status" />
                      </columns>
                   </TableView>
-                  <Button fx:id="btnEditar" layoutX="240.0" layoutY="356.0" mnemonicParsing="false" onAction="#telaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Editar Diário" textFill="WHITE">
+                  <Button fx:id="btnSalvar" layoutX="240.0" layoutY="356.0" mnemonicParsing="false" onAction="#telaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Salvar Diário" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
