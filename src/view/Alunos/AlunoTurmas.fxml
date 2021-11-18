@@ -51,7 +51,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="530.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProfessorController">
+<BorderPane prefHeight="530.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AlunoController">
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: F0F0F0;" BorderPane.alignment="CENTER">
          <children>
@@ -71,21 +71,22 @@
                   <TableView fx:id="tblGeral" editable="true" layoutX="19.0" layoutY="54.0" prefHeight="290.0" prefWidth="571.0">
                      <columns>
                         <TableColumn fx:id="colunmAction" maxWidth="33.0" prefWidth="33.0" resizable="false" sortable="false" />
-                        <TableColumn fx:id="colunm1" maxWidth="200.0" prefWidth="152.00001525878906" sortable="false" text="Disciplinas" />
-                        <TableColumn fx:id="colunm2" maxWidth="40.0" prefWidth="40.0" resizable="false" text="N1" />
-                        <TableColumn fx:id="colunm3" maxWidth="40.0" prefWidth="40.0" resizable="false" text="N2" />
-                        <TableColumn fx:id="colunm4" maxWidth="40.0" prefWidth="40.0" resizable="false" text="N3" />
-                        <TableColumn fx:id="colunm5" maxWidth="40.0" prefWidth="40.0" resizable="false" text="N4" />
-                        <TableColumn fx:id="colunm6" maxWidth="50.0" prefWidth="50.0" resizable="false" text="Média" />
-                        <TableColumn fx:id="colunm7" maxWidth="60.0" prefWidth="60.0" text="Freq." />
-                        <TableColumn fx:id="colunm8" maxWidth="150.0" prefWidth="150.0" text="Status" />
+                        <TableColumn fx:id="colunm1" maxWidth="60.0" prefWidth="60.0" resizable="false" text="cod." />
+                        <TableColumn fx:id="colunm2" maxWidth="200.0" prefWidth="152.00001525878906" sortable="false" text="Disciplinas" />
+                        <TableColumn fx:id="colunm3" maxWidth="40.0" prefWidth="40.0" resizable="false" text="N1" />
+                        <TableColumn fx:id="colunm4" maxWidth="40.0" prefWidth="40.0" resizable="false" text="N2" />
+                        <TableColumn fx:id="colunm5" maxWidth="40.0" prefWidth="40.0" resizable="false" text="N3" />
+                        <TableColumn fx:id="colunm6" maxWidth="40.0" prefWidth="40.0" resizable="false" text="N4" />
+                        <TableColumn fx:id="colunm7" maxWidth="50.0" prefWidth="50.0" resizable="false" text="Média" />
+                        <TableColumn fx:id="colunm8" maxWidth="60.0" prefWidth="60.0" text="Freq." />
+                        <TableColumn fx:id="colunm9" maxWidth="150.0" prefWidth="150.0" text="Status" />
                      </columns>
                   </TableView>
                </children>
             </Pane>
             <Pane fx:id="exitPane" disable="true" layoutX="220.0" layoutY="150.0" prefHeight="136.0" prefWidth="215.0" style="-fx-background-color: F0F0F0; -fx-border-style: solid; -fx-border-radius: 5px; -fx-border-width: 5px; -fx-border-color: #274D63;" visible="false">
                <children>
-                  <Button fx:id="btnNao" layoutX="130.0" layoutY="90.0" mnemonicParsing="false" onAction="#desativaExitPane" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #274D63;" text="NÃO" textFill="WHITE">
+                  <Button fx:id="btnNao" layoutX="130.0" layoutY="90.0" mnemonicParsing="false" onAction="#desativaExitPane" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #274D63;" text="NÃO" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -93,7 +94,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnSim" layoutX="23.0" layoutY="90.0" mnemonicParsing="false" onAction="#voltaTelaLogin" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #274D63;" text="SIM" textFill="WHITE">
+                  <Button fx:id="btnSim" layoutX="23.0" layoutY="90.0" mnemonicParsing="false" onAction="#voltaTelaLogin" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #274D63;" text="SIM" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -113,7 +114,7 @@
          <children>
             <Pane prefHeight="440.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="btnDisciplinas" mnemonicParsing="false" onAction="#carregaTelaDisciplinas" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(39,77,99,0.7); -fx-background-radius: 0px 0px 0px 50px;" text="Disciplinas" textFill="WHITE">
+                  <Button fx:id="btnDisciplinas" mnemonicParsing="false" onAction="#carregaTelaDisciplinas" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(240,240,240,1); -fx-background-radius: 0px 0px 0px 50px;" text="Disciplinas" textFill="#274d63">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -121,7 +122,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnAlunos" layoutY="30.0" mnemonicParsing="false" onAction="#carregaTelaAlunos" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(39,77,99,0.7); -fx-background-radius: 0px 0px 0px 50px;" text="Historico" textFill="WHITE">
+                  <Button fx:id="btnHistoricos" layoutY="30.0" mnemonicParsing="false" onAction="#abreHistorico" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(39,77,99,0.7); -fx-background-radius: 0px 0px 0px 50px;" text="Historico" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -129,7 +130,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnProfessores" layoutY="60.0" mnemonicParsing="false" onAction="#carregaTelaProfessores" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(240,240,240,1); -fx-background-radius: 0px 0px 0px 50px;" text="Matriculas" textFill="#274d63">
+                  <Button fx:id="btnMatriculas" layoutY="60.0" mnemonicParsing="false" onAction="#carregaTelaMatricula" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: rgba(39,77,99,0.7); -fx-background-radius: 0px 0px 0px 50px;" text="Matriculas" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

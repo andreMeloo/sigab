@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import model.bo.AlunoBO;
 import model.bo.ProfessorBO;
 import model.bo.UsuarioBO;
+import model.vo.AlunoVO;
 import model.vo.ProfessorVO;
 import model.vo.UsuarioVO;
 import view.Telas;
@@ -37,8 +38,9 @@ public class FrontController {
             switch (autenticado.getNivel()) {
                 case ALUNO:
                     // Abre janelas de Aluno
-
-                    Telas.telaInicialAluno(autenticado);
+                    AlunoVO alunoVO = new AlunoVO();
+                    alunoVO = alunoBO.getById(autenticado.getId());
+                    Telas.telaInicialAluno(alunoVO);
                     
                     break;
                 case PROFESSOR:
@@ -48,7 +50,7 @@ public class FrontController {
                     Telas.telaInicialProfessor(professorVO);
                     break;
                 case ADMIN:
-                    // Abre Janelas do administrador
+                    
                     Telas.telaInicialAdmin(autenticado);
                     break;
             }

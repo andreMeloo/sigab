@@ -1,6 +1,7 @@
 package view;
 
 import controller.AdminController;
+import controller.AlunoController;
 import controller.ProfessorController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -44,17 +45,43 @@ public class Telas extends Application {
 
 
     // ==> Telas do usuário Aluno
-    public static void telaInicialAluno(UsuarioVO aluno) throws Exception {
+    public static void telaInicialAluno(AlunoVO aluno) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Alunos/AlunoTurmas.fxml"));
         Parent root = (Parent) floader.load();
-        
+        AlunoController alunoController = floader.<AlunoController>getController();
+        alunoController.carregaTabelas(aluno);
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Aluno");
         primaryStage.setScene(cena);
+        alunoController.setAluno(aluno);
     }
 
+    public static void telaAlunoHistorico(AlunoVO aluno, TurmaVO turma) throws Exception {
+        FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Alunos/historico.fxml"));
+        Parent root = (Parent) floader.load();
+        AlunoController myController = floader.<AlunoController>getController();
+        myController.carregaTabelas(aluno);
 
+        Scene cena = new Scene(root);
+        primaryStage.setTitle("SIGAB - Aluno");
+        primaryStage.setScene(cena);
+        myController.setAluno(aluno);
+        myController.setTurmaDiarios(turma);
+    }
+
+    public static void telaMatriculas(AlunoVO aluno, TurmaVO turma) throws Exception {
+        FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Alunos/matricula.fxml"));
+        Parent root = (Parent) floader.load();
+        AlunoController myController = floader.<AlunoController>getController();
+        myController.carregaTabelas(aluno);
+
+        Scene cena = new Scene(root);
+        primaryStage.setTitle("SIGAB - Aluno");
+        primaryStage.setScene(cena);
+        myController.setAluno(aluno);
+        myController.setTurmaDiarios(turma);
+    }
 
     // ==> Telas do usuário Professor
     public static void telaInicialProfessor(ProfessorVO professor) throws Exception {
