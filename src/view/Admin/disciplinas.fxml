@@ -51,7 +51,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="530.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+<BorderPane fx:id="principalPane" onMouseClicked="#desativaAlert" prefHeight="530.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
    <top>
       <Pane fx:id="topPane" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #274D63;" BorderPane.alignment="CENTER">
          <children>
@@ -212,6 +212,12 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="alertPane" layoutX="147.0" prefHeight="47.0" prefWidth="361.0" visible="false">
+               <children>
+                  <Label fx:id="lblErroRemove" layoutX="47.0" layoutY="6.0" text="Alguma(s) Disciplinas não puderam ser removidas!" textFill="#bc0f0f" />
+                  <Label layoutX="26.0" layoutY="25.0" text="Disciplinas que possuem turmas não podem ser exluidas!" textFill="#bc0f0f" />
                </children>
             </Pane>
          </children></Pane>

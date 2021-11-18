@@ -66,6 +66,7 @@ public class AdminController {
     @FXML private Pane concluidoPane;
     @FXML private Pane painelErro;
     @FXML private Pane removePane;
+    @FXML private Pane alertPane;
 
     // Labels
     @FXML private Label lblTituloTela;
@@ -190,6 +191,7 @@ public class AdminController {
                 tblGeral.setItems(obsTest);                            
                 break;
             }
+            
             case "Turmas": {
                 List<TurmaVO> turmasVO = new ArrayList<TurmaVO>();
                 List<AlunoVO> alunosDaTurma = new ArrayList<AlunoVO>();
@@ -411,7 +413,6 @@ public class AdminController {
 
             case "Professores": {
                 try {
-                    String nomeProfessor;
                     List<String> cpfs = new ArrayList<String>();
                     ObservableList<modelAdmin> obsList = tblGeral.getItems();
                     for (modelAdmin obs : obsList) {
@@ -433,13 +434,12 @@ public class AdminController {
                     for (ProfessorVO professor : professoresVO) {
                         turmasVO = turmaBO.getTurmasDoProfessor(professor.getId());
                         if (turmasVO.size() < 1) {
-                            
+                            alertPane.setVisible(true);
                         } else {
-                            
+                            professorBO.remover(professor);
                         }
                     }
-                    
-                    professorBO.remover(professor);
+            
                 } catch (Exception a) {
                     a.printStackTrace();
                 }
@@ -449,7 +449,6 @@ public class AdminController {
 
             case "Disciplinas": {
                 try {
-                    String nomeDisciplina;
                     List<String> codigos = new ArrayList<String>();
                     ObservableList<modelAdmin> obsList = tblGeral.getItems();
                     for (modelAdmin obs : obsList) {
@@ -465,10 +464,16 @@ public class AdminController {
                             disciplinasVO.add(disciplinaBO.buscarDisciplinaPorCod(codigo));
                     }
 
+                    TurmaBO turmaBO = new TurmaBO();
+                    Boolean extTurmas = false;
 
-        
                     for (DisciplinaVO disciplina : disciplinasVO) {
-                        disciplinaBO.remover(disciplina);
+                        extTurmas = turmaBO.getTurmasByDisciplina(disciplina.getId());
+                        if (extTurmas) {
+                            alertPane.setVisible(true);
+                        } else {
+                            disciplinaBO.remover(disciplina);
+                        }
                     }
                 } catch (Exception a) {
                     a.printStackTrace();
@@ -531,7 +536,7 @@ public class AdminController {
         Telas.telaAlunos(userVO);
     }
 
-    public void telaCadastro(ActionEvent e) throws Exception {
+    public void telaEditOrSave(ActionEvent e) throws Exception {
         switch (lblTituloTela.getText()) {
             case "Alunos":
                 Telas.telaAdicionaAluno(userVO);
@@ -598,6 +603,10 @@ public class AdminController {
     public void perguntaRemover(ActionEvent e) {
         removePane.setVisible(true);
         removePane.setDisable(false);
+    }
+
+    public void desativaAlert() {
+        alertPane.setVisible(false);
     }
     
     // Efeitos
