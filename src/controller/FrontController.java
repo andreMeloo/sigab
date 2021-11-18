@@ -8,7 +8,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import model.bo.AlunoBO;
+import model.bo.ProfessorBO;
 import model.bo.UsuarioBO;
+import model.vo.ProfessorVO;
 import model.vo.UsuarioVO;
 import view.Telas;
 
@@ -20,6 +23,8 @@ public class FrontController {
 
 
     UsuarioBO usuBO = new UsuarioBO();
+    AlunoBO alunoBO = new AlunoBO();
+    ProfessorBO professorBO = new ProfessorBO();
 
     public void autenticar(ActionEvent event) throws Exception {
         UsuarioVO vo = new UsuarioVO();
@@ -32,12 +37,15 @@ public class FrontController {
             switch (autenticado.getNivel()) {
                 case ALUNO:
                     // Abre janelas de Aluno
+
                     Telas.telaInicialAluno(autenticado);
                     
                     break;
                 case PROFESSOR:
                     // Abre Janelas de professor
-                    Telas.telaInicialProfessor(autenticado);
+                    ProfessorVO professorVO = new ProfessorVO();
+                    professorVO = professorBO.getById(autenticado.getId());
+                    Telas.telaInicialProfessor(professorVO);
                     break;
                 case ADMIN:
                     // Abre Janelas do administrador

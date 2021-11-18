@@ -57,16 +57,40 @@ public class Telas extends Application {
 
 
     // ==> Telas do usuário Professor
-    public static void telaInicialProfessor(UsuarioVO professor) throws Exception {
+    public static void telaInicialProfessor(ProfessorVO professor) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Professor/ProfTurmas.fxml"));
         Parent root = (Parent) floader.load();
         ProfessorController controller = floader.<ProfessorController>getController();
-        controller.carregaTabelas(professor);
+        controller.carregaTabelas(professor, null);
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Professor");
         primaryStage.setScene(cena);
-        
+        controller.setProfessor(professor);
+    }
+
+    public static void telaPerfilProfessor(ProfessorVO professor) throws Exception {
+        FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Professor/perfilProfessor.fxml"));
+        Parent root = (Parent) floader.load();
+        ProfessorController controller = floader.<ProfessorController>getController();
+        controller.carregaTabelas(professor, null);
+
+        Scene cena = new Scene(root);
+        primaryStage.setTitle("SIGAB - Professor");
+        primaryStage.setScene(cena);
+        controller.setProfessor(professor);
+    }
+
+    public static void diarioProfessor(ProfessorVO professor, TurmaVO turma) throws Exception {
+        FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Professor/diario.fxml"));
+        Parent root = (Parent) floader.load();
+        ProfessorController controller = floader.<ProfessorController>getController();
+        controller.carregaTabelas(professor, turma);
+
+        Scene cena = new Scene(root);
+        primaryStage.setTitle("SIGAB - Professor");
+        primaryStage.setScene(cena);
+        controller.setProfessor(professor);
     }
 
 

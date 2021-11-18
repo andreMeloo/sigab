@@ -128,11 +128,14 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="332.0" layoutY="15.0" prefHeight="26.0" prefWidth="225.0" promptText="Pesquisa" />
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="557.0" layoutY="16.0">
+                  <TextField fx:id="inputPesquisa" layoutX="332.0" layoutY="15.0" prefHeight="26.0" prefWidth="225.0" promptText="Pesquisa" />
+                  <ImageView fx:id="btnPesquisa" fitHeight="25.0" fitWidth="25.0" layoutX="565.0" layoutY="16.0" onMouseClicked="#pesquisar">
                      <image>
                         <Image url="@../VE/magnify.png" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                   <TableView fx:id="tblGeral" editable="true" layoutX="19.0" layoutY="54.0" prefHeight="290.0" prefWidth="571.0">
                      <columns>
@@ -146,7 +149,7 @@
                         <TableColumn fx:id="colunm7" maxWidth="150.0" prefWidth="150.0" text="Local" />
                      </columns>
                   </TableView>
-                  <Button fx:id="btnRemover" layoutX="19.0" layoutY="356.0" mnemonicParsing="false" onAction="#perguntaRemover" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Remover -" textFill="WHITE">
+                  <Button fx:id="btnRemover" layoutX="19.0" layoutY="356.0" mnemonicParsing="false" onAction="#perguntaRemover" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Fechar -o" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
