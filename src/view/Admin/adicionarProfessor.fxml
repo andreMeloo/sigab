@@ -132,7 +132,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnSalvarCadastro" layoutX="422.0" layoutY="350.0" mnemonicParsing="false" onAction="#salvaCadastro" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Salvar" textFill="WHITE">
+                  <Button fx:id="btnSalvarCadastro" layoutX="422.0" layoutY="350.0" mnemonicParsing="false" onAction="#saveOrEdit" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #274D63;" text="Salvar" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

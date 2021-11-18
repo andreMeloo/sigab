@@ -21,8 +21,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import model.bo.AlunoBO;
 import model.bo.DisciplinaBO;
+import model.bo.EnderecoBO;
 import model.bo.ProfessorBO;
 import model.bo.TurmaBO;
+import model.bo.UsuarioBO;
 import model.vo.AlunoVO;
 import model.vo.DisciplinaVO;
 import model.vo.EnderecoVO;
@@ -36,8 +38,8 @@ public class AdminController {
 
     // Objetos 
     UsuarioVO userVO = new UsuarioVO();
-    UsuarioVO alunoEdit = new AlunoVO();
-    UsuarioVO professorEdit = new ProfessorVO();
+    AlunoVO alunoEdit = new AlunoVO();
+    ProfessorVO professorEdit = new ProfessorVO();
     TurmaVO turmaEdit = new TurmaVO();
     DisciplinaVO disciplinaEdit = new DisciplinaVO();
 
@@ -99,11 +101,11 @@ public class AdminController {
         this.userVO = admin;
     }
 
-    public void setAlunoEdit(UsuarioVO aluno) {
+    public void setAlunoEdit(AlunoVO aluno) {
         this.alunoEdit = aluno;
     }
     
-    public void setProfessorEdit(UsuarioVO professor) {
+    public void setProfessorEdit(ProfessorVO professor) {
         this.professorEdit = professor;
     }
 
@@ -250,6 +252,41 @@ public class AdminController {
 
     }
 
+    public void carregaEdicaoAluno(AlunoVO aluno) {
+        input1.setText(aluno.getMatricula());
+        input2.setText(aluno.getNome());
+        String endereco = aluno.getEndereco().getEndereco();
+        input3.setText(endereco);
+        input4.setDisable(true);
+        input5.setText(aluno.getEndereco().getCidade());
+        input6.setText(aluno.getEndereco().getUf());
+    }
+
+    public void carregaEdicaoProfessor(ProfessorVO professor) {
+        input1.setText(professor.getCpf());
+        input2.setText(professor.getNome());
+        String endereco = professor.getEndereco().getEndereco();
+        input3.setText(endereco);
+        input4.setDisable(true);
+        input5.setText(professor.getEndereco().getCidade());
+        input6.setText(professor.getEndereco().getUf());
+    }
+
+    public void carregaEdicaoDisciplina(DisciplinaVO disciplina) {
+        input1.setText(disciplina.getNome());
+        input2.setText(disciplina.getCodigo());
+        input2.setDisable(true);
+    }
+
+    public void carregaEdicaoTurma(TurmaVO turma) {
+        cbDisciplina.setValue(turma.getDisciplina());
+        cbProfessor.setValue(turma.getProfessor());
+        input1.setText(turma.getCodigo());
+        input1.setDisable(true);
+        input2.setText(turma.getHorario());
+        input3.setText(turma.getLocal());
+    }
+
         // metodos para preenchimento automatico
 
     public void matricula() {
@@ -274,128 +311,262 @@ public class AdminController {
 
     // ==> Métodos principais <==
 
-    public void salvaCadastro() throws Exception {
+    public void saveOrEdit() throws Exception {
         switch (lblTituloCadastro.getText()) {
             case "Aluno":{
-                AlunoVO cadastroAluno = new AlunoVO();
-                EnderecoVO cadastroEndereco = new EnderecoVO();
-                AlunoBO aluno = new AlunoBO();
-
-                try {
-
-                    if (!input1.getText().isBlank() && !input2.getText().isBlank() && !input3.getText().isBlank() && !input4.getText().isBlank() && !input5.getText().isBlank() && !input6.getText().isBlank()) {
-                        cadastroAluno.setMatricula(input1.getText());
-                        cadastroAluno.setNome(input2.getText());
-                        cadastroEndereco.setEndereco(input3.getText() + ", " + input4.getText());
-                        cadastroEndereco.setCidade(input5.getText());
-                        cadastroEndereco.setUf(input6.getText());
-                    } else {
-                        throw new Exception();
+                if (alunoEdit.getId() == null) {
+                    AlunoVO cadastroAluno = new AlunoVO();
+                    EnderecoVO cadastroEndereco = new EnderecoVO();
+                    AlunoBO aluno = new AlunoBO();
+    
+                    try {
+    
+                        if (!input1.getText().isBlank() && !input2.getText().isBlank() && !input3.getText().isBlank() && !input4.getText().isBlank() && !input5.getText().isBlank() && !input6.getText().isBlank()) {
+                            cadastroAluno.setMatricula(input1.getText());
+                            cadastroAluno.setNome(input2.getText());
+                            cadastroEndereco.setEndereco(input3.getText() + ", " + input4.getText());
+                            cadastroEndereco.setCidade(input5.getText());
+                            cadastroEndereco.setUf(input6.getText());
+                        } else {
+                            throw new Exception();
+                        }
+                
+                        cadastroAluno.setEndereco(cadastroEndereco);
+                        cadastroAluno.setUsername(cadastroAluno.getMatricula());
+                        cadastroAluno.setSenha(String.valueOf(geraSenha()));
+    
+                        aluno.salvar(cadastroAluno);
+    
+                        concluidoPane.setDisable(false);
+                        concluidoPane.setVisible(true);
+                        
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        painelErro.setDisable(false);
+                        painelErro.setVisible(true);
+                        
                     }
-            
-                    cadastroAluno.setEndereco(cadastroEndereco);
-                    cadastroAluno.setUsername(cadastroAluno.getMatricula());
-                    cadastroAluno.setSenha(String.valueOf(geraSenha()));
+                    break;
+                } else {
+                    AlunoVO cadastroAluno = new AlunoVO();
+                    EnderecoVO cadastroEndereco = new EnderecoVO();
+                    UsuarioBO aluno = new UsuarioBO();
+                    EnderecoBO endereco = new EnderecoBO();
+    
+                    try {
+                        cadastroAluno.setId(alunoEdit.getId());
+                        if (!input1.getText().isBlank() && !input2.getText().isBlank() && !input3.getText().isBlank() && !input5.getText().isBlank() && !input6.getText().isBlank()) {
+                            cadastroAluno.setMatricula(input1.getText());
+                            cadastroAluno.setNome(input2.getText());
+                            cadastroEndereco.setEndereco(input3.getText());
+                            cadastroEndereco.setCidade(input5.getText());
+                            cadastroEndereco.setUf(input6.getText());
+                        } else {
+                            throw new Exception();
+                        }
+                        cadastroAluno.setUsername(alunoEdit.getUsername());
+                        cadastroAluno.setSenha(alunoEdit.getSenha());
+                
+                        cadastroAluno.setEndereco(cadastroEndereco);
+                        cadastroEndereco.setId(alunoEdit.getEndereco().getId());
 
-                    aluno.salvar(cadastroAluno);
-
-                    concluidoPane.setDisable(false);
-                    concluidoPane.setVisible(true);
-                    
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    painelErro.setDisable(false);
-                    painelErro.setVisible(true);
-                    
+                        aluno.editar(cadastroAluno);
+                        endereco.editar(cadastroEndereco);
+    
+                        concluidoPane.setDisable(false);
+                        concluidoPane.setVisible(true);
+                        
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        painelErro.setDisable(false);
+                        painelErro.setVisible(true);
+                        
+                    }
+                    break;
                 }
-                break;
+                
             }
                  
             case "Professor": {
-                ProfessorVO cadastroProfessor = new ProfessorVO();
-                EnderecoVO cadastroEndereco = new EnderecoVO();
-                ProfessorBO professor = new ProfessorBO();
-
-                try {
-                    if (!input1.getText().isBlank() && !input2.getText().isBlank() && !input3.getText().isBlank() && !input4.getText().isBlank() && !input5.getText().isBlank() && !input6.getText().isBlank()) {
-                        cadastroProfessor.setCpf(input1.getText());
-                        cadastroProfessor.setNome(input2.getText());
-                        cadastroEndereco.setEndereco(input3.getText() + ", " + input4.getText());
-                        cadastroEndereco.setCidade(input5.getText());
-                        cadastroEndereco.setUf(input6.getText());
-                    } else {
-                        throw new Exception();
+                if (professorEdit.getId() == null) {
+                    ProfessorVO cadastroProfessor = new ProfessorVO();
+                    EnderecoVO cadastroEndereco = new EnderecoVO();
+                    ProfessorBO professor = new ProfessorBO();
+    
+                    try {
+                        if (!input1.getText().isBlank() && !input2.getText().isBlank() && !input3.getText().isBlank() && !input4.getText().isBlank() && !input5.getText().isBlank() && !input6.getText().isBlank()) {
+                            cadastroProfessor.setCpf(input1.getText());
+                            cadastroProfessor.setNome(input2.getText());
+                            cadastroEndereco.setEndereco(input3.getText() + ", " + input4.getText());
+                            cadastroEndereco.setCidade(input5.getText());
+                            cadastroEndereco.setUf(input6.getText());
+                        } else {
+                            throw new Exception();
+                        }
+    
+                        cadastroProfessor.setEndereco(cadastroEndereco);
+                        cadastroProfessor.setUsername(cadastroProfessor.getCpf());
+                        cadastroProfessor.setSenha(String.valueOf(geraSenha()));
+    
+                        professor.salvar(cadastroProfessor);
+    
+                        concluidoPane.setDisable(false);
+                        concluidoPane.setVisible(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        painelErro.setDisable(false);
+                        painelErro.setVisible(true);
                     }
+                    break;
+                } else {
+                    ProfessorVO cadastroProfessor = new ProfessorVO();
+                    EnderecoVO cadastroEndereco = new EnderecoVO();
+                    UsuarioBO professor = new UsuarioBO();
+                    EnderecoBO endereco = new EnderecoBO();
 
-                    cadastroProfessor.setEndereco(cadastroEndereco);
-                    cadastroProfessor.setUsername(cadastroProfessor.getCpf());
-                    cadastroProfessor.setSenha(String.valueOf(geraSenha()));
-
-                    professor.salvar(cadastroProfessor);
-
-                    concluidoPane.setDisable(false);
-                    concluidoPane.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    painelErro.setDisable(false);
-                    painelErro.setVisible(true);
+    
+                    try {
+                        cadastroProfessor.setId(professorEdit.getId());
+                        if (!input1.getText().isBlank() && !input2.getText().isBlank() && !input3.getText().isBlank() && !input5.getText().isBlank() && !input6.getText().isBlank()) {
+                            cadastroProfessor.setCpf(input1.getText());
+                            cadastroProfessor.setNome(input2.getText());
+                            cadastroEndereco.setEndereco(input3.getText());
+                            cadastroEndereco.setCidade(input5.getText());
+                            cadastroEndereco.setUf(input6.getText());
+                        } else {
+                            throw new Exception();
+                        }
+                        cadastroProfessor.setUsername(professorEdit.getUsername());
+                        cadastroProfessor.setSenha(professorEdit.getSenha());
+    
+                        cadastroProfessor.setEndereco(cadastroEndereco);
+                        cadastroEndereco.setId(professorEdit.getEndereco().getId());
+    
+                        professor.editar(cadastroProfessor);
+                        endereco.editar(cadastroEndereco);
+    
+                        concluidoPane.setDisable(false);
+                        concluidoPane.setVisible(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        painelErro.setDisable(false);
+                        painelErro.setVisible(true);
+                    }
+                    break;
                 }
-                break;
             }
                 
             case "Disciplina": {
-                DisciplinaVO cadastroDisciplina = new DisciplinaVO();
-                DisciplinaBO disciplina = new DisciplinaBO();
-                try {
-                    cadastroDisciplina.setCodigo(input2.getText());
-
-                    if (!input1.getText().isBlank()) {
-                        cadastroDisciplina.setNome(input1.getText());
-                    } else {
-                        throw new Exception();
+                if (disciplinaEdit.getId() == null) {
+                    DisciplinaVO cadastroDisciplina = new DisciplinaVO();
+                    DisciplinaBO disciplina = new DisciplinaBO();
+                    try {
+                        cadastroDisciplina.setCodigo(input2.getText());
+    
+                        if (!input1.getText().isBlank()) {
+                            cadastroDisciplina.setNome(input1.getText());
+                        } else {
+                            throw new Exception();
+                        }
+    
+                        disciplina.salvar(cadastroDisciplina);
+    
+                        concluidoPane.setDisable(false);
+                        concluidoPane.setVisible(true);
+                        
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        painelErro.setDisable(false);
+                        painelErro.setVisible(true);
                     }
-
-                    disciplina.salvar(cadastroDisciplina);
-
-                    concluidoPane.setDisable(false);
-                    concluidoPane.setVisible(true);
-                    
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    painelErro.setDisable(false);
-                    painelErro.setVisible(true);
+    
+                    break;
+                } else {
+                    DisciplinaVO cadastroDisciplina = new DisciplinaVO();
+                    DisciplinaBO disciplina = new DisciplinaBO();
+                    try {
+                        cadastroDisciplina.setId(disciplinaEdit.getId());
+                        cadastroDisciplina.setCodigo(input2.getText());
+    
+                        if (!input1.getText().isBlank()) {
+                            cadastroDisciplina.setNome(input1.getText());
+                        } else {
+                            throw new Exception();
+                        }
+    
+                        disciplina.editar(cadastroDisciplina);
+    
+                        concluidoPane.setDisable(false);
+                        concluidoPane.setVisible(true);
+                        
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        painelErro.setDisable(false);
+                        painelErro.setVisible(true);
+                    }
+                    break;
                 }
 
-                break;
             }
 
-            case "Turma": {   
-                TurmaVO cadastroTurma = new TurmaVO();
-                TurmaBO turma = new TurmaBO();
-                try {
-                    cadastroTurma.setDisciplina(cbDisciplina.getValue());
-                    cadastroTurma.setProfessor(cbProfessor.getValue());
-                    cadastroTurma.setCodigo(input1.getText());
-                    if (!input1.getText().isBlank() && !input2.getText().isBlank() && !input3.getText().isBlank()) {
-                        cadastroTurma.setHorario(input2.getText());
-                        cadastroTurma.setLocal(input3.getText());
-                        cadastroTurma.setAberta(true);
-                    } else {
-                        throw new Exception();
+            case "Turma": { 
+                if (turmaEdit.getId() == null) {
+                    TurmaVO cadastroTurma = new TurmaVO();
+                    TurmaBO turma = new TurmaBO();
+                    try {
+                        cadastroTurma.setDisciplina(cbDisciplina.getValue());
+                        cadastroTurma.setProfessor(cbProfessor.getValue());
+                        cadastroTurma.setCodigo(input1.getText());
+                        if (!input1.getText().isBlank() && !input2.getText().isBlank() && !input3.getText().isBlank()) {
+                            cadastroTurma.setHorario(input2.getText());
+                            cadastroTurma.setLocal(input3.getText());
+                            cadastroTurma.setAberta(true);
+                        } else {
+                            throw new Exception();
+                        }
+                        
+                        turma.salvar(cadastroTurma);
+    
+                        concluidoPane.setDisable(false);
+                        concluidoPane.setVisible(true);
+                        
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        painelErro.setDisable(false);
+                        painelErro.setVisible(true);
                     }
-                    
-                    turma.salvar(cadastroTurma);
-
-                    concluidoPane.setDisable(false);
-                    concluidoPane.setVisible(true);
-                    
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    painelErro.setDisable(false);
-                    painelErro.setVisible(true);
+    
+                    break;
+                } else {
+                    TurmaVO cadastroTurma = new TurmaVO();
+                    TurmaBO turma = new TurmaBO();
+                    try {
+                        cadastroTurma.setId(turmaEdit.getId());
+                        cadastroTurma.setDisciplina(cbDisciplina.getValue());
+                        cadastroTurma.setProfessor(cbProfessor.getValue());
+                        cadastroTurma.setCodigo(input1.getText());
+                        if (!input1.getText().isBlank() && !input2.getText().isBlank() && !input3.getText().isBlank()) {
+                            cadastroTurma.setHorario(input2.getText());
+                            cadastroTurma.setLocal(input3.getText());
+                            cadastroTurma.setAberta(true);
+                        } else {
+                            throw new Exception();
+                        }
+                        
+                        turma.editar(cadastroTurma);
+    
+                        concluidoPane.setDisable(false);
+                        concluidoPane.setVisible(true);
+                        
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        painelErro.setDisable(false);
+                        painelErro.setVisible(true);
+                    }
+    
+                    break;
                 }
-
-                break;
+            
             }
             
             default:
@@ -573,15 +744,57 @@ public class AdminController {
                 break;
             }
 
-            case "Professores":
-                Telas.telaAdicionaProfessor(userVO);
+            case "Professores":{
+                ProfessorBO professorBO = new ProfessorBO();
+                ProfessorVO professorVO = new ProfessorVO();
+                String cpf = "";
+                ObservableList<modelAdmin> obsList = tblGeral.getItems();
+                for (modelAdmin obs : obsList) {
+                    if (obs.isAction() && cpf.equals("")) {
+                        cpf = obs.getColuna2();
+                    }
+                }
+
+                professorVO = professorBO.getByCPF(cpf);
+
+                Telas.telaAdicionaProfessor(userVO, professorVO);
                 break;
-            case "Disciplinas":
-                Telas.telaAdicionaDisciplina(userVO);
+            }
+
+            case "Disciplinas": {
+                DisciplinaBO disciplinaBO = new DisciplinaBO();
+                DisciplinaVO disciplinaVO = new DisciplinaVO();
+                String codigo = "";
+                ObservableList<modelAdmin> obsList = tblGeral.getItems();
+                for (modelAdmin obs : obsList) {
+                    if (obs.isAction() && codigo.equals("")) {
+                        codigo = obs.getColuna1();
+                    }
+                }
+
+                disciplinaVO = disciplinaBO.buscarDisciplinaPorCod(codigo);
+
+                Telas.telaAdicionaDisciplina(userVO, disciplinaVO);
                 break;
-            case "Turmas":
-                Telas.telaAdicionaTurma(userVO);
+            }
+        
+            case "Turmas": {
+                TurmaBO turmaBO = new TurmaBO();
+                TurmaVO turmaVO = new TurmaVO();
+                String codigo = "";
+                ObservableList<modelAdmin> obsList = tblGeral.getItems();
+                for (modelAdmin obs : obsList) {
+                    if (obs.isAction() && codigo.equals("")) {
+                        codigo = obs.getColuna1();
+                    }
+                }
+
+                turmaVO = turmaBO.getByCodigo(codigo);
+
+                Telas.telaAdicionaTurma(userVO, turmaVO);
                 break;
+            }
+
         
             default:
                 break;
