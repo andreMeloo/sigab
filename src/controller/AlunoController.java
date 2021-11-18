@@ -15,7 +15,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import model.bo.AlunoBO;
@@ -147,14 +146,6 @@ public class AlunoController {
                 colunm8.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna8"));
 
                 colunmAction.setCellFactory(CheckBoxTableCell.forTableColumn(colunmAction));
-                colunm2.setCellFactory(TextFieldTableCell.forTableColumn());
-                colunm3.setCellFactory(TextFieldTableCell.forTableColumn());
-                colunm4.setCellFactory(TextFieldTableCell.forTableColumn());
-                colunm5.setCellFactory(TextFieldTableCell.forTableColumn());
-                colunm6.setCellFactory(TextFieldTableCell.forTableColumn());
-                colunm7.setCellFactory(TextFieldTableCell.forTableColumn());
-
-                
 
                 ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
                 for (TurmaVO turma : turmasVO) {
@@ -173,6 +164,25 @@ public class AlunoController {
         }
 
         case "Matriculas": {
+            List<TurmaVO> turmasVO = new ArrayList<TurmaVO>();
+            AlunoBO alunoBO = new AlunoBO();
+
+            turmasVO = alunoBO.getTurmasDisponiveisParaMatriculaByAluno(usuario);
+            
+            colunmAction.setCellValueFactory(new PropertyValueFactory<modelAdmin, Boolean>("action"));
+            colunm1.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna1"));
+            colunm2.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna2"));
+            colunm3.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna3"));
+            colunm4.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna4"));
+
+            colunmAction.setCellFactory(CheckBoxTableCell.forTableColumn(colunmAction));
+
+            ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
+            for (TurmaVO turma : turmasVO) {
+                obsTest.add(new modelAdmin(turma.getCodigo(), turma.getDisciplina().getCodigo(), turma.getDisciplina().getNome(), turma.getLocal(), turma.getHorario(), "", "", "", ""));
+            }
+            
+            tblGeral.setItems(obsTest);                
             break;
         }
        
@@ -180,6 +190,15 @@ public class AlunoController {
                break;
        }
 
+   }
+
+   public void gerarPdfHistorico(ActionEvent e) {
+       AlunoBO alunoBO = new AlunoBO();
+       alunoBO.gerarHistorico(userAluno);
+   }
+
+   public void matricularAluno(ActionEvent e) {
+        
    }
 
    public void pesquisar() throws Exception {
@@ -194,11 +213,11 @@ public class AlunoController {
    }
 
    public void abreHistorico(ActionEvent e) throws Exception {
-            Telas.telaAlunoHistorico(userAluno, turmaDiarios);
+        Telas.telaAlunoHistorico(userAluno, turmaDiarios);
    }
 
-   public void carregaTelaMatricula(ActionEvent e) {
-
+   public void carregaTelaMatricula(ActionEvent e) throws Exception {
+        Telas.telaMatriculas(userAluno, turmaDiarios);
    }
  
    public void logoff(ActionEvent event) {
