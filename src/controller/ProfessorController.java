@@ -33,6 +33,7 @@ public class ProfessorController {
     
    // Objetos 
    ProfessorVO profVO = new ProfessorVO();
+   TurmaVO turmaDiarios = new TurmaVO();
 
    @FXML private TextField inputPesquisa;
 
@@ -81,6 +82,10 @@ public class ProfessorController {
 
     public void setProfessor(ProfessorVO professor) {
        this.profVO = professor;
+   }
+
+   public void setTurmaDiarios(TurmaVO turma) {
+       this.turmaDiarios = turma;
    }
 
    public void carregaTabelas(ProfessorVO usuario, TurmaVO selectedTurma) throws Exception {
@@ -137,6 +142,7 @@ public class ProfessorController {
                 colunm7.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna7"));
                 colunm8.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna8"));
 
+                colunmAction.setCellFactory(CheckBoxTableCell.forTableColumn(colunmAction));
                 colunm2.setCellFactory(TextFieldTableCell.forTableColumn());
                 colunm3.setCellFactory(TextFieldTableCell.forTableColumn());
                 colunm4.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -157,7 +163,7 @@ public class ProfessorController {
                     } else {
                         status = "Fechada";
                     }
-                    obsTest.add(new modelAdmin(diario.getAluno().getNome(), String.valueOf(diario.getNota1()), String.valueOf(diario.getNota2()), String.valueOf(diario.getNota3()), String.valueOf(diario.getQuartaProva()), String.valueOf(diario.getFrequencia()), status, "", ""));
+                    obsTest.add(new modelAdmin(diario.getAluno().getNome(), String.valueOf(diario.getNota1()), String.valueOf(diario.getNota2()), String.valueOf(diario.getNota3()), String.valueOf(diario.getQuartaProva()), String.valueOf(diario.getMedia()), String.valueOf(diario.getFrequencia()), status, ""));
                 }
                 
                 tblGeral.setItems(obsTest);                
@@ -171,13 +177,40 @@ public class ProfessorController {
    }
 
    public void salvarDiario(ActionEvent e) {
+        DiarioVO diarioVO = new DiarioVO();
+        DiarioBO diarioBO = new DiarioBO();
+        AlunoBO alunoBO = new AlunoBO();
+        try {
+            ObservableList<modelAdmin> obsList = tblGeral.getItems();
+            for (modelAdmin obs : obsList) {
+                if (obs.isAction()) {
+                    for (AlunoVO aluno : turmaDiarios.getAlunos()) {
+                        if(aluno.getNome().equals(obs.getColuna1()))
+                            diarioVO.setAluno(alunoBO.getById(aluno.getId()));
+                    }
+                    diarioVO = diarioBO.buscarPorAlunoETurma(diarioVO.getAluno().getId(), turmaDiarios.getId());
+                    diarioVO.setTurma(turmaDiarios);
+                    diarioVO.setNota1(Double.valueOf(obs.getColuna2()));
+                    diarioVO.setNota2(Double.valueOf(obs.getColuna3()));
+                    diarioVO.setNota3(Double.valueOf(obs.getColuna4()));
+                    diarioVO.setQuartaProva(Double.valueOf(obs.getColuna5()));
+                    diarioVO.setMedia(Double.valueOf(obs.getColuna6()));
+                    diarioVO.setFrequencia(Integer.valueOf(obs.getColuna7()));
 
+                    diarioBO.editar(diarioVO);
+                }
+            }
+
+            Telas.telaInicialProfessor(profVO);
+        } catch (Exception t) {
+            t.printStackTrace();
+        }
    }
 
    public void pesquisar() throws Exception {
         
         
-    }
+   }
 
    // ==> Navegação de telas
 
@@ -188,6 +221,7 @@ public class ProfessorController {
    public void abreDiario(ActionEvent e) throws Exception {
         TurmaBO turmaBO = new TurmaBO();
         TurmaVO turmaVO = new TurmaVO();
+        AlunoBO alunoBO = new AlunoBO();
         String codigo = "";
         ObservableList<modelAdmin> obsList = tblGeral.getItems();
         for (modelAdmin obs : obsList) {
@@ -197,6 +231,10 @@ public class ProfessorController {
         }
 
         turmaVO = turmaBO.getByCodigo(codigo);
+
+        turmaVO.setAlunos(alunoBO.buscarPorTurma(turmaVO.getId()));
+
+        
         if(turmaVO.isAberta()) {
             Telas.diarioProfessor(profVO, turmaVO);
         } else {

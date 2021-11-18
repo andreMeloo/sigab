@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import model.dao.TurmaDAO;
+import model.vo.AlunoVO;
 import model.vo.TurmaVO;
 
 public class TurmaBO implements EntityBOInterface<TurmaVO>{
@@ -47,6 +48,13 @@ public class TurmaBO implements EntityBOInterface<TurmaVO>{
     public TurmaVO getById(Long id) {
         TurmaDAO turmaDAO = new TurmaDAO();
         return turmaDAO.getById(id);
+    }
+
+    public List<TurmaVO> buscarPorAluno(AlunoVO aluno) {
+        TurmaDAO turmaDAO = new TurmaDAO();
+        List<TurmaVO> turmasVO = new ArrayList<TurmaVO>();
+        turmasVO = turmaDAO.getByAlunoId(aluno.getId());
+        return turmasVO;
     }
 
     public TurmaVO getByCodigo(String codigo) {

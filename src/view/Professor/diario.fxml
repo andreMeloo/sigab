@@ -122,12 +122,12 @@
                   </ImageView>
                   <TableView fx:id="tblGeral" editable="true" layoutX="19.0" layoutY="54.0" prefHeight="290.0" prefWidth="571.0">
                      <columns>
-                        <TableColumn fx:id="colunmAction" maxWidth="40.0" prefWidth="40.0" resizable="false" sortable="false" />
+                        <TableColumn fx:id="colunmAction" maxWidth="33.0" prefWidth="33.0" resizable="false" sortable="false" />
                         <TableColumn fx:id="colunm1" maxWidth="200.0" prefWidth="152.00001525878906" sortable="false" text="Aluno" />
-                        <TableColumn fx:id="colunm2" maxWidth="30.0" prefWidth="30.0" resizable="false" text="N1" />
-                        <TableColumn fx:id="colunm3" maxWidth="30.0" prefWidth="30.0" resizable="false" text="N2" />
-                        <TableColumn fx:id="colunm4" maxWidth="30.0" prefWidth="30.0" resizable="false" text="N3" />
-                        <TableColumn fx:id="colunm5" maxWidth="30.0" prefWidth="30.0" resizable="false" text="N4" />
+                        <TableColumn fx:id="colunm2" maxWidth="40.0" prefWidth="40.0" resizable="false" text="N1" />
+                        <TableColumn fx:id="colunm3" maxWidth="40.0" prefWidth="40.0" resizable="false" text="N2" />
+                        <TableColumn fx:id="colunm4" maxWidth="40.0" prefWidth="40.0" resizable="false" text="N3" />
+                        <TableColumn fx:id="colunm5" maxWidth="40.0" prefWidth="40.0" resizable="false" text="N4" />
                         <TableColumn fx:id="colunm6" maxWidth="50.0" prefWidth="50.0" resizable="false" text="Média" />
                         <TableColumn fx:id="colunm7" maxWidth="60.0" prefWidth="60.0" text="Freq." />
                         <TableColumn fx:id="colunm8" maxWidth="150.0" prefWidth="150.0" text="Status" />

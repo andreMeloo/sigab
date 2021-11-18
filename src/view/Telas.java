@@ -90,6 +90,7 @@ public class Telas extends Application {
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Professor");
         primaryStage.setScene(cena);
+        controller.setTurmaDiarios(turma);
         controller.setProfessor(professor);
     }
 
