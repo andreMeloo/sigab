@@ -118,5 +118,11 @@ public class TurmaBO implements EntityBOInterface<TurmaVO>{
         }
         return turmasProf;
     }
+
+    public void fecharTurma(TurmaVO turma) {
+        TurmaDAO turmaDAO = new TurmaDAO();
+        turma.setAberta(false);
+        turmaDAO.editar(turma);
+    }
     
 }
