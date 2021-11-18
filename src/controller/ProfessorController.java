@@ -93,7 +93,7 @@ public class ProfessorController {
                TurmaBO turmaBO = new TurmaBO();
                AlunoBO alunoBO = new AlunoBO();
        
-               turmasVO = turmaBO.listar();
+               turmasVO = turmaBO.getTurmasDoProfessor(10L);
                
                
                colunm1.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna1"));

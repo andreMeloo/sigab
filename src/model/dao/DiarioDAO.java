@@ -28,9 +28,10 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
             preparedStatement.setLong(6, diarioVO.getAluno().getId());
             preparedStatement.setLong(7, diarioVO.getTurma().getId());
             preparedStatement.execute();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally{
+            try {connection.close();} catch (Exception e) {}
         }
     }
 
@@ -43,9 +44,10 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
             preparedStatement.setLong(1, diarioVO.getAluno().getId());
             preparedStatement.setLong(2, diarioVO.getTurma().getId());
             preparedStatement.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally{
+            try {connection.close();} catch (Exception e) {}
         }
     }
 
@@ -75,9 +77,10 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
 
                 diarioVOs.add(diarioVO);
             }
-            connection.close();
         } catch (SQLException e) {   
             e.printStackTrace();
+        }finally{
+            try {connection.close();} catch (Exception e) {}
         }
 
         return diarioVOs;
@@ -98,9 +101,10 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
             preparedStatement.setLong(6, diarioVO.getAluno().getId());
             preparedStatement.setLong(7, diarioVO.getTurma().getId());
             preparedStatement.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally{
+            try {connection.close();} catch (Exception e) {}
         }
     }
 
@@ -135,9 +139,10 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
                 diario.setAluno(alunoDAO.getById(resultSet.getLong("aluno_id")));
                 diario.setTurma(turmaDAO.getById(resultSet.getLong("turma_id")));
             }
-            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally{
+            try {connection.close();} catch (Exception e) {}
         }
 
         return diario;
@@ -171,9 +176,10 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
 
                 boletins.add(diarioVO);
             }
-            connection.close();
         } catch (SQLException e) {   
             e.printStackTrace();
+        }finally{
+            try {connection.close();} catch (Exception e) {}
         }
 
         return boletins;

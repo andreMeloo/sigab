@@ -1,6 +1,7 @@
 package view;
 
 import controller.AdminController;
+import controller.ProfessorController;
 // import controller.ProfessorController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -56,7 +57,9 @@ public class Telas extends Application {
     public static void telaInicialProfessor(UsuarioVO professor) throws Exception {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Professor/ProfTurmas.fxml"));
         Parent root = (Parent) floader.load();
-        // ProfessorController controller = floader.<ProfessorController>getController();
+        ProfessorController controller = floader.<ProfessorController>getController();
+        controller.carregaTabelas();
+
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Professor");
