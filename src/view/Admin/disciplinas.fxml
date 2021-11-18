@@ -149,7 +149,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnRemover" layoutX="97.0" layoutY="362.0" mnemonicParsing="false" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #274D63;" text="Remover -" textFill="WHITE">
+                  <Button fx:id="btnRemover" layoutX="97.0" layoutY="362.0" mnemonicParsing="false" onAction="#perguntaRemover" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #274D63;" text="Remover -" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -183,6 +183,31 @@
                      </cursor>
                   </Button>
                   <Label alignment="CENTER" contentDisplay="TOP" layoutX="23.0" layoutY="34.0" prefHeight="21.0" prefWidth="170.0" text="Deseja Realmente sair?">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="removePane" disable="true" layoutX="215.0" layoutY="170.0" prefHeight="136.0" prefWidth="270.0" style="-fx-background-color: F0F0F0; -fx-border-style: solid; -fx-border-radius: 5px; -fx-border-width: 5px; -fx-border-color: #274D63;" visible="false">
+               <children>
+                  <Button fx:id="btnNaoRemove" layoutX="164.0" layoutY="91.0" mnemonicParsing="false" onAction="#carregaTelaDisciplinas" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #274D63;" text="NÃO" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnSimRemove" layoutX="23.0" layoutY="90.0" mnemonicParsing="false" onAction="#removerItems" onMouseEntered="#acenderBtn" onMouseExited="#apagarBtn" prefHeight="27.0" prefWidth="90.0" style="-fx-background-color: white; -fx-border-style: solid; -fx-border-radius: 3px; -fx-border-color: red;" text="SIM" textFill="RED">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label alignment="CENTER" contentDisplay="TOP" layoutX="23.0" layoutY="34.0" prefHeight="21.0" prefWidth="231.0" text="Deseja realmente excluir os items?">
                      <font>
                         <Font size="15.0" />
                      </font>

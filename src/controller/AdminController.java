@@ -65,6 +65,7 @@ public class AdminController {
     @FXML private Pane exitPane;
     @FXML private Pane concluidoPane;
     @FXML private Pane painelErro;
+    @FXML private Pane removePane;
 
     // Labels
     @FXML private Label lblTituloTela;
@@ -380,30 +381,120 @@ public class AdminController {
     }
 
     public void removerItems(ActionEvent e) throws Exception {
-       try {
-            List<String> matriculas = new ArrayList<String>();
-            ObservableList<modelAdmin> obsList = tblGeral.getItems();
-            for (modelAdmin obs : obsList) {
-                if (obs.isAction()) {
-                    matriculas.add(obs.getColuna2());
+        switch (lblTituloTela.getText()) {
+            case "Alunos": {
+                try {
+                    List<String> matriculas = new ArrayList<String>();
+                    ObservableList<modelAdmin> obsList = tblGeral.getItems();
+                    for (modelAdmin obs : obsList) {
+                        if (obs.isAction()) {
+                            matriculas.add(obs.getColuna2());
+                        }
+                    }
+        
+                    AlunoBO alunoBO = new AlunoBO();
+                    List<AlunoVO> alunosVO = new ArrayList<AlunoVO>();
+                    for (String matricula : matriculas) {
+                        if (alunoBO.buscarPorMatricula(matricula) != null)
+                            alunosVO.add(alunoBO.buscarPorMatricula(matricula));
+                    }
+        
+                    for (AlunoVO alunoVO : alunosVO) {
+                        alunoBO.remover(alunoVO);
+                    }
+                } catch (Exception a) {
+                    a.printStackTrace();
                 }
+                Telas.telaAlunos(userVO);
+                break;
             }
 
-            AlunoBO alunoBO = new AlunoBO();
-            List<AlunoVO> alunosVO = new ArrayList<AlunoVO>();
-            for (String matricula : matriculas) {
-                if (alunoBO.buscarPorMatricula(matricula) != null) {
-                    alunosVO.add(alunoBO.buscarPorMatricula(matricula));
+            case "Professores": {
+                try {
+                    List<String> cpfs = new ArrayList<String>();
+                    ObservableList<modelAdmin> obsList = tblGeral.getItems();
+                    for (modelAdmin obs : obsList) {
+                        if (obs.isAction()) {
+                            cpfs.add(obs.getColuna2());
+                        }
+                    }
+        
+                    ProfessorBO professorBO = new ProfessorBO();
+                    List<ProfessorVO> professoresVO = new ArrayList<ProfessorVO>();
+                    for (String cpf : cpfs) {
+                        if (professorBO.getByCPF(cpf) != null)
+                            professoresVO.add(professorBO.getByCPF(cpf));
+                    }
+        
+                    for (ProfessorVO professor : professoresVO) {
+                        professorBO.remover(professor);
+                    }
+                } catch (Exception a) {
+                    a.printStackTrace();
                 }
+                Telas.telaProfessores(userVO);
+                break;
             }
 
-            for (AlunoVO alunoVO : alunosVO) {
-                alunoBO.remover(alunoVO);
+            case "Disciplinas": {
+                try {
+                    List<String> codigos = new ArrayList<String>();
+                    ObservableList<modelAdmin> obsList = tblGeral.getItems();
+                    for (modelAdmin obs : obsList) {
+                        if (obs.isAction()) {
+                            codigos.add(obs.getColuna1());
+                        }
+                    }
+        
+                    DisciplinaBO disciplinaBO = new DisciplinaBO();
+                    List<DisciplinaVO> disciplinasVO = new ArrayList<DisciplinaVO>();
+                    for (String codigo : codigos) {
+                        if (disciplinaBO.buscarDisciplinaPorCod(codigo) != null)
+                            disciplinasVO.add(disciplinaBO.buscarDisciplinaPorCod(codigo));
+                    }
+        
+                    for (DisciplinaVO disciplina : disciplinasVO) {
+                        disciplinaBO.remover(disciplina);
+                    }
+                } catch (Exception a) {
+                    a.printStackTrace();
+                }
+                Telas.telaDisciplinas(userVO);
+                break;                
             }
-       } catch (Exception a) {
-           a.printStackTrace();
-       }
-       Telas.telaAlunos(userVO);
+
+            case "Turmas": {
+                try {
+                    List<String> codigos = new ArrayList<String>();
+                    ObservableList<modelAdmin> obsList = tblGeral.getItems();
+                    for (modelAdmin obs : obsList) {
+                        if (obs.isAction()) {
+                            codigos.add(obs.getColuna1());
+                        }
+                    }
+        
+                    TurmaBO turmaBO = new TurmaBO();
+                    List<TurmaVO> turmasVO = new ArrayList<TurmaVO>();
+                    for (String codigo : codigos) {
+                        if (turmaBO.getByCodigo(codigo) != null)
+                            turmasVO.add(turmaBO.getByCodigo(codigo));
+                    }
+        
+                    for (TurmaVO turma : turmasVO) {
+                        turmaBO.remover(turma);
+                    }
+                } catch (Exception a) {
+                    a.printStackTrace();
+                }
+                Telas.telaInicialAdmin(userVO);
+                break;
+            }
+
+            default:
+                break;
+        }
+
+
     }
 
     // ==> Métodos dos botões de navegação <==
@@ -488,6 +579,11 @@ public class AdminController {
 
     public void voltaTelaLogin( ActionEvent e) throws Exception {
         Telas.telaLogin();
+    }
+
+    public void perguntaRemover(ActionEvent e) {
+        removePane.setVisible(true);
+        removePane.setDisable(false);
     }
     
     // Efeitos

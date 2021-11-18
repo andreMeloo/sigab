@@ -49,6 +49,20 @@ public class TurmaBO implements EntityBOInterface<TurmaVO>{
         return turmaDAO.getById(id);
     }
 
+    public TurmaVO getByCodigo(String codigo) {
+        TurmaDAO turmaDAO = new TurmaDAO();
+        TurmaVO turmaVO = new TurmaVO();
+
+        try {
+            turmaVO = turmaDAO.getByCodigo(codigo);
+            return turmaVO;
+    
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public List<TurmaVO> getTurmasDoProfessor(Long id) throws Exception  {
         try {
             TurmaDAO turmaDAO = new TurmaDAO();
@@ -89,7 +103,7 @@ public class TurmaBO implements EntityBOInterface<TurmaVO>{
     public String turmasProfString(List<TurmaVO> turmas) {
         String turmasProf = "";
         for (TurmaVO turma : turmas) {
-            turmasProf += turma.getCodigo() + ", ";
+            turmasProf += turma.getCodigo() + " ";
         }
         return turmasProf;
     }

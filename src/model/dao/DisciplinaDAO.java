@@ -133,10 +133,12 @@ public class DisciplinaDAO extends BaseDAO implements EntityDAOInterface<Discipl
             preparedStatement.setString(1, cod);
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
-            disciplinaVO.setCodigo(resultSet.getString("codigo"));
-            disciplinaVO.setNome(resultSet.getString("nome"));
-            disciplinaVO.setId(resultSet.getLong("id"));
 
+            if (resultSet.next()) {
+                disciplinaVO.setCodigo(resultSet.getString("codigo"));
+                disciplinaVO.setNome(resultSet.getString("nome"));
+                disciplinaVO.setId(resultSet.getLong("id"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

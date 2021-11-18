@@ -58,4 +58,19 @@ public class ProfessorBO implements EntityBOInterface<ProfessorVO>{
 
         return listaPorNome;
     }
+
+    public ProfessorVO getByCPF(String cpf) {
+        try {
+            ProfessorDAO professorDAO = new ProfessorDAO();
+            ProfessorVO professorVO = new ProfessorVO();
+            
+            professorVO = professorDAO.getByCPF(cpf);
+            return professorVO;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 }

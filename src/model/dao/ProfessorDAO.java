@@ -42,11 +42,11 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
     }
 
     public void remover(ProfessorVO professorVO) {
-        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        // EnderecoDAO enderecoDAO = new EnderecoDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         usuarioDAO.remover(usuarioDAO.getById(professorVO.getId()));
-        enderecoDAO.remover(enderecoDAO.getByProfessor(professorVO));
+        // enderecoDAO.remover(enderecoDAO.getByProfessor(professorVO));
     }
 
     public List<ProfessorVO> listar() {
@@ -108,6 +108,36 @@ public class ProfessorDAO extends BaseDAO implements EntityDAOInterface <Profess
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+
+            if(resultSet.next()) {
+                professor.setId(resultSet.getLong("id"));
+                professor.setNome(resultSet.getString("nome"));
+                professor.setCpf(resultSet.getString("cpf"));
+                professor.setUsername(resultSet.getString("username"));
+                professor.setSenha(resultSet.getString("senha"));
+                professor.setEndereco(enderecoDAO.getById(resultSet.getLong("endereco_id")));
+            }
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return professor;
+    }
+
+    public ProfessorVO getByCPF(String cpf) {
+        connection = getConnection();
+        String sql = "SELECT * FROM Professor INNER JOIN Usuario ON Professor.id=Usuario.id WHERE Professor.cpf=?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
+        ProfessorVO professor = new ProfessorVO();
+        
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, cpf);
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
 

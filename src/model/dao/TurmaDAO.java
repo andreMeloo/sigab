@@ -147,6 +147,41 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
         return turma;
     }
 
+    public TurmaVO getByCodigo(String codigo) {
+
+        ProfessorDAO professorDAO = new ProfessorDAO();
+        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+
+        connection = getConnection();
+        String sql = "SELECT Turma.id, disciplina_id, professor_id, Turma.codigo, horario, local, aberta FROM Turma "
+                    + "JOIN Professor ON Turma.professor_id=Professor.id "
+                    + "JOIN Disciplina ON Turma.disciplina_id=Disciplina.id "
+                    + "WHERE Turma.codigo=?";
+        TurmaVO turma = new TurmaVO();
+        
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, codigo);
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            
+            if(resultSet.next()) {
+                turma.setId(resultSet.getLong("id"));
+                turma.setCodigo(resultSet.getString("codigo"));
+                turma.setHorario(resultSet.getString("horario"));
+                turma.setLocal(resultSet.getString("local"));
+                turma.setAberta(resultSet.getBoolean("aberta"));
+                turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
+                turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return turma;
+    }
+
     public List<TurmaVO> getByAlunoId(long id) {
 
         ProfessorDAO professorDAO = new ProfessorDAO();
