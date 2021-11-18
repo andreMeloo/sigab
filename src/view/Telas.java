@@ -61,7 +61,7 @@ public class Telas extends Application {
         FXMLLoader floader = new FXMLLoader(Telas.class.getResource("Professor/ProfTurmas.fxml"));
         Parent root = (Parent) floader.load();
         ProfessorController controller = floader.<ProfessorController>getController();
-        controller.carregaTabelas();
+        controller.carregaTabelas(professor);
 
         Scene cena = new Scene(root);
         primaryStage.setTitle("SIGAB - Professor");

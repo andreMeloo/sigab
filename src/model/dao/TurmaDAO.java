@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.vo.AlunoVO;
 import model.vo.TurmaVO;
 /* atenção aos requisitos do projeto de vocês
 b) Buscar: alunos, professores e disciplinas (por nome). Buscar turmas (por professor). Buscar
@@ -285,6 +286,108 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
                 result.add(turma);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public List<TurmaVO> getTurmasAtivasByAluno(AlunoVO aluno) {
+        ProfessorDAO professorDAO = new ProfessorDAO();
+        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+
+        connection = getConnection();
+        String sql = "SELECT * FROM Turma WHERE id IN (SELECT turma_id FROM Diario WHERE aluno_id = ?) AND aberta = true";
+        TurmaVO turma = new TurmaVO();
+        List<TurmaVO> result = new ArrayList<TurmaVO>();
+        
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, aluno.getId());
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            
+            while (resultSet.next()) {
+                turma.setId(resultSet.getLong("id"));
+                turma.setCodigo(resultSet.getString("codigo"));
+                turma.setHorario(resultSet.getString("horario"));
+                turma.setLocal(resultSet.getString("local"));
+                turma.setAberta(resultSet.getBoolean("aberta"));
+                turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
+                turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
+
+                result.add(turma);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public List<TurmaVO> getTurmasInativasByAluno(AlunoVO aluno) {
+        ProfessorDAO professorDAO = new ProfessorDAO();
+        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+
+        connection = getConnection();
+        String sql = "SELECT * FROM Turma WHERE id IN (SELECT turma_id FROM Diario WHERE aluno_id = ?) AND aberta = false";
+        TurmaVO turma = new TurmaVO();
+        List<TurmaVO> result = new ArrayList<TurmaVO>();
+        
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, aluno.getId());
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            
+            while (resultSet.next()) {
+                turma.setId(resultSet.getLong("id"));
+                turma.setCodigo(resultSet.getString("codigo"));
+                turma.setHorario(resultSet.getString("horario"));
+                turma.setLocal(resultSet.getString("local"));
+                turma.setAberta(resultSet.getBoolean("aberta"));
+                turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
+                turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
+
+                result.add(turma);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public List<TurmaVO> getTurmasDisponiveisParaMatriculaByAluno(AlunoVO aluno) {
+        ProfessorDAO professorDAO = new ProfessorDAO();
+        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+
+        connection = getConnection();
+        String sql = "SELECT * FROM Turma WHERE id NOT IN (SELECT turma_id FROM Diario WHERE aluno_id = ?) AND aberta = true";
+        TurmaVO turma = new TurmaVO();
+        List<TurmaVO> result = new ArrayList<TurmaVO>();
+        
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, aluno.getId());
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            
+            while (resultSet.next()) {
+                turma.setId(resultSet.getLong("id"));
+                turma.setCodigo(resultSet.getString("codigo"));
+                turma.setHorario(resultSet.getString("horario"));
+                turma.setLocal(resultSet.getString("local"));
+                turma.setAberta(resultSet.getBoolean("aberta"));
+                turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
+                turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
+
+                result.add(turma);
+            }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
