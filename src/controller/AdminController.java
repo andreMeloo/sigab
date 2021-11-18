@@ -438,6 +438,8 @@ public class AdminController {
 
             case "Disciplinas": {
                 try {
+                    
+
                     List<String> codigos = new ArrayList<String>();
                     ObservableList<modelAdmin> obsList = tblGeral.getItems();
                     for (modelAdmin obs : obsList) {

@@ -30,7 +30,7 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
 
             keys.next();
             enderecoVO.setId(keys.getLong(1));
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,6 +44,7 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, endereco.getId());
             preparedStatement.executeUpdate();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,7 +68,8 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
                 enderecoVO.setCidade(resultSet.getString("cidade"));
                 enderecoVO.setUf(resultSet.getString("uf"));
                 enderecoVOs.add(enderecoVO);
-            }
+            } 
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,7 +87,7 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
             preparedStatement.setString(3, enderecoVO.getUf());
             preparedStatement.setLong(4, enderecoVO.getId());
             preparedStatement.executeUpdate();
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -110,7 +112,7 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
                 enderecoVO.setCidade(resultSet.getString("cidade"));
                 enderecoVO.setUf(resultSet.getString("uf"));
             }
-        
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -140,7 +142,7 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
                 endereco.setUf(resultSet.getString("uf"));
             }
 
-        
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -169,7 +171,7 @@ public class EnderecoDAO extends BaseDAO implements EntityDAOInterface<EnderecoV
                 endereco.setUf(resultSet.getString("uf"));
                 endereco.setEndereco(resultSet.getString("endereco"));
             }
-        
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

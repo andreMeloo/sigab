@@ -36,7 +36,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
             keys.next();
             turma.setId(keys.getLong(1));
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,6 +51,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, turma.getId());
             preparedStatement.executeUpdate();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,6 +86,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
                 result.add(turma);
             }
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -106,7 +108,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
             preparedStatement.setLong(6, turma.getProfessor().getId());
             preparedStatement.setLong(7, turma.getId());
             preparedStatement.executeUpdate();
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -139,7 +141,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
                 turma.setProfessor(professorDAO.getById(resultSet.getLong("professor_id")));
                 turma.setDisciplina(disciplinaDAO.getById(resultSet.getLong("disciplina_id")));
             }
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -213,7 +215,7 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
                 result.add(turma);
             }
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -252,11 +254,10 @@ public class TurmaDAO extends BaseDAO implements EntityDAOInterface<TurmaVO> {
 
                 result.add(turma);
             }
-
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return result;
     }
 }
