@@ -81,7 +81,7 @@ public class ProfessorController {
        this.userVO = professor;
    }
 
-   public void carregaTabelas() throws Exception {
+   public void carregaTabelas(UsuarioVO usuario) throws Exception {
        switch (lblTituloTela.getText()) {
            case "Turmas": {
                List<TurmaVO> turmasVO = new ArrayList<TurmaVO>();
@@ -89,7 +89,7 @@ public class ProfessorController {
                TurmaBO turmaBO = new TurmaBO();
                AlunoBO alunoBO = new AlunoBO();
        
-               turmasVO = turmaBO.getTurmasDoProfessor(10L);
+               turmasVO = turmaBO.getTurmasDoProfessor(usuario.getId());
                
                
                colunm1.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna1"));
