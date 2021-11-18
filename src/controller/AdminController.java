@@ -133,7 +133,7 @@ public class AdminController {
                 ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
         
                 for (AlunoVO aluno : alunosVO) {
-                    obsTest.add(new modelAdmin(aluno.getNome(), aluno.getMatricula(), aluno.getEndereco().getEndereco() + ", " + aluno.getEndereco().getCidade() + ", " + aluno.getEndereco().getUf(), "", "", "", ""));
+                    obsTest.add(new modelAdmin(aluno.getNome(), aluno.getMatricula(), aluno.getEndereco().getEndereco() + ", " + aluno.getEndereco().getCidade() + ", " + aluno.getEndereco().getUf(), "", "", "", "", "", ""));
                 }
         
                 tblGeral.setItems(obsTest);                            
@@ -161,7 +161,7 @@ public class AdminController {
         
                 for (ProfessorVO professor : professoresVO) {
                     turmasProfessor = turmaBO.getTurmasDoProfessor(professor.getId());
-                    obsTest.add(new modelAdmin(professor.getNome(), professor.getCpf(), professor.getEndereco().getEndereco() + ", " + professor.getEndereco().getCidade() + ", " + professor.getEndereco().getUf(), turmaBO.turmasProfString(turmasProfessor) , "", "", ""));
+                    obsTest.add(new modelAdmin(professor.getNome(), professor.getCpf(), professor.getEndereco().getEndereco() + ", " + professor.getEndereco().getCidade() + ", " + professor.getEndereco().getUf(), turmaBO.turmasProfString(turmasProfessor) , "", "", "", "", ""));
                 }
         
                 tblGeral.setItems(obsTest);                
@@ -184,7 +184,7 @@ public class AdminController {
                 ObservableList<modelAdmin> obsTest = FXCollections.observableArrayList();
         
                 for (DisciplinaVO disciplina : disciplinasVO) {
-                    obsTest.add(new modelAdmin(disciplina.getCodigo(), disciplina.getNome(), "", "", "", "", ""));
+                    obsTest.add(new modelAdmin(disciplina.getCodigo(), disciplina.getNome(), "", "", "", "", "", "", ""));
                 }
         
                 tblGeral.setItems(obsTest);                            
@@ -214,7 +214,7 @@ public class AdminController {
         
                 for (TurmaVO turma : turmasVO) {
                     alunosDaTurma = alunoBO.buscarPorTurma(turma.getCodigo());
-                    obsTest.add(new modelAdmin(turma.getCodigo(), turma.getProfessor().getNome(), turma.getDisciplina().getNome(), turma.getHorario() ,String.valueOf(alunosDaTurma.size()) , String.valueOf(turma.isAberta()), turma.getLocal()));
+                    obsTest.add(new modelAdmin(turma.getCodigo(), turma.getProfessor().getNome(), turma.getDisciplina().getNome(), turma.getHorario() ,String.valueOf(alunosDaTurma.size()) , String.valueOf(turma.isAberta()), turma.getLocal(), "", ""));
                 }
         
                 tblGeral.setItems(obsTest);                
@@ -411,6 +411,7 @@ public class AdminController {
 
             case "Professores": {
                 try {
+                    String nomeProfessor;
                     List<String> cpfs = new ArrayList<String>();
                     ObservableList<modelAdmin> obsList = tblGeral.getItems();
                     for (modelAdmin obs : obsList) {
@@ -425,10 +426,20 @@ public class AdminController {
                         if (professorBO.getByCPF(cpf) != null)
                             professoresVO.add(professorBO.getByCPF(cpf));
                     }
-        
+
+                    TurmaBO turmaBO = new TurmaBO();
+                    List<TurmaVO> turmasVO = new ArrayList<TurmaVO>(); 
+                    
                     for (ProfessorVO professor : professoresVO) {
-                        professorBO.remover(professor);
+                        turmasVO = turmaBO.getTurmasDoProfessor(professor.getId());
+                        if (turmasVO.size() < 1) {
+                            
+                        } else {
+                            
+                        }
                     }
+                    
+                    professorBO.remover(professor);
                 } catch (Exception a) {
                     a.printStackTrace();
                 }
@@ -438,8 +449,7 @@ public class AdminController {
 
             case "Disciplinas": {
                 try {
-                    
-
+                    String nomeDisciplina;
                     List<String> codigos = new ArrayList<String>();
                     ObservableList<modelAdmin> obsList = tblGeral.getItems();
                     for (modelAdmin obs : obsList) {
@@ -454,6 +464,8 @@ public class AdminController {
                         if (disciplinaBO.buscarDisciplinaPorCod(codigo) != null)
                             disciplinasVO.add(disciplinaBO.buscarDisciplinaPorCod(codigo));
                     }
+
+
         
                     for (DisciplinaVO disciplina : disciplinasVO) {
                         disciplinaBO.remover(disciplina);
