@@ -20,8 +20,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 
 import model.dao.AlunoDAO;
+import model.dao.TurmaDAO;
 import model.vo.AlunoVO;
 import model.vo.DiarioVO;
+import model.vo.TurmaVO;
 
 public class AlunoBO implements EntityBOInterface<AlunoVO>{
 
@@ -194,6 +196,27 @@ public class AlunoBO implements EntityBOInterface<AlunoVO>{
 
     private String normalizeNota(Double nota) {
         return nota == null ? "-" : String.valueOf(nota);
+    }
+
+    public List<TurmaVO> getTurmasAtivasByAluno(AlunoVO aluno) {
+        TurmaDAO turmaDAO = new TurmaDAO();
+        List<TurmaVO> turmas = turmaDAO.getTurmasAtivasByAluno(aluno);
+
+        return turmas;
+    }
+
+    public List<TurmaVO> getTurmasInativasByAluno(AlunoVO aluno) {
+        TurmaDAO turmaDAO = new TurmaDAO();
+        List<TurmaVO> turmas = turmaDAO.getTurmasInativasByAluno(aluno);
+
+        return turmas;
+    }
+
+    public List<TurmaVO> getTurmasDisponiveisParaMatriculaByAluno(AlunoVO aluno) {
+        TurmaDAO turmaDAO = new TurmaDAO();
+        List<TurmaVO> turmas = turmaDAO.getTurmasDisponiveisParaMatriculaByAluno(aluno);
+
+        return turmas;
     }
 
 }
