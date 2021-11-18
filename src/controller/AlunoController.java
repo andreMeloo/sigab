@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import model.bo.AlunoBO;
 import model.bo.DiarioBO;
+import model.bo.TurmaBO;
 import model.vo.AlunoVO;
 import model.vo.DiarioVO;
 import model.vo.DisciplinaVO;
@@ -174,6 +175,7 @@ public class AlunoController {
             colunm2.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna2"));
             colunm3.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna3"));
             colunm4.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna4"));
+            colunm5.setCellValueFactory(new PropertyValueFactory<modelAdmin, String>("coluna5"));
 
             colunmAction.setCellFactory(CheckBoxTableCell.forTableColumn(colunmAction));
 
@@ -198,7 +200,26 @@ public class AlunoController {
    }
 
    public void matricularAluno(ActionEvent e) {
-        
+        try {
+            DiarioVO diarioVO = new DiarioVO();
+            DiarioBO diarioBO = new DiarioBO();
+            TurmaVO turmaVO = new TurmaVO();
+            TurmaBO turmaBO = new TurmaBO();
+
+            ObservableList<modelAdmin> obs = tblGeral.getItems();
+            for (modelAdmin modelAdmin : obs) {
+                if (modelAdmin.isAction() && turmaVO == null) {
+                    turmaVO = turmaBO.getByCodigo(modelAdmin.getColuna1());
+                }
+            }
+    
+            diarioVO = diarioBO.buscarPorAlunoETurma(userAluno.getId(), turmaVO.getId());
+            diarioVO.setAluno(userAluno);
+            diarioVO.setTurma(turmaDiarios);
+            diarioBO.salvar(diarioVO);
+        } catch (Exception a) {
+            a.printStackTrace();
+        }
    }
 
    public void pesquisar() throws Exception {
