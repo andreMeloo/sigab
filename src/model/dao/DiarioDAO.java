@@ -179,7 +179,7 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
         String sql = "SELECT Usuario.nome, Diario.aluno_id, Diario.turma_id, Diario.nota1, Diario.nota2, Diario.nota3, Diario.quarta_prova, " 
         +" Diario.media, Diario.frequencia"
         +" FROM Diario JOIN Usuario ON Diario.aluno_id=Usuario.id"
-        +" WHERE Usuario.nome=? AND Diario.turma_id=?";
+        +" WHERE Usuario.nome LIKE ? AND Diario.turma_id=?";
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         AlunoDAO alunoDAO = new AlunoDAO();
@@ -188,7 +188,7 @@ public class DiarioDAO extends BaseDAO implements EntityDAOInterface<DiarioVO>{
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, nome);
+            preparedStatement.setString(1, "%" + nome + "%");
             preparedStatement.setLong(2, turmaVO.getId());
             
             preparedStatement.execute();
