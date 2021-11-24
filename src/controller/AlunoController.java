@@ -208,14 +208,14 @@ public class AlunoController {
 
             ObservableList<modelAdmin> obs = tblGeral.getItems();
             for (modelAdmin modelAdmin : obs) {
-                if (modelAdmin.isAction() && turmaVO == null) {
+                if (modelAdmin.isAction() && turmaVO.getId() == null) {
                     turmaVO = turmaBO.getByCodigo(modelAdmin.getColuna1());
                 }
             }
     
             diarioVO = diarioBO.buscarPorAlunoETurma(userAluno.getId(), turmaVO.getId());
             diarioVO.setAluno(userAluno);
-            diarioVO.setTurma(turmaDiarios);
+            diarioVO.setTurma(turmaVO);
             diarioBO.salvar(diarioVO);
         } catch (Exception a) {
             a.printStackTrace();

@@ -39,7 +39,7 @@ public class DiarioBO implements EntityBOInterface<DiarioVO> {
         return null;
     }
 
-    public DiarioVO buscarPorAlunoETurma(Long aluno_id, Long turma_id) {
+    public DiarioVO buscarPorAlunoETurma(Long turma_id , Long aluno_id) {
         try {
             
             DiarioDAO diarioDAO = new DiarioDAO();
