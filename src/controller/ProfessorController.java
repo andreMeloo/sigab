@@ -22,7 +22,6 @@ import javafx.scene.layout.Pane;
 import model.bo.AlunoBO;
 import model.bo.DiarioBO;
 import model.bo.TurmaBO;
-import model.bo.UsuarioBO;
 import model.vo.AlunoVO;
 import model.vo.DiarioVO;
 import model.vo.DisciplinaVO;
