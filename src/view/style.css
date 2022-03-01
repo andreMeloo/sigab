@@ -1,0 +1,50 @@
+#leftPane {
+    -fx-background-color:  rgb(59, 73, 80);
+}
+
+/* botões */
+
+Button {
+    -fx-transition: all ease 0.2s;
+}
+
+Button:hover {
+    -fx-opacity: 0.8;
+}
+
+#btnLeftPane_1, 
+#btnLeftPane_2,
+#btnLeftPane_3,
+#btnLeftPane_4 {
+    -fx-background-color:  rgb(39,77,99);
+    -fx-background-radius: 0px 0px 0px 40px;
+    -fx-border-style: solid;
+    -fx-border-radius: 0px 0px 0px 40px;
+    -fx-border-color: #f0f0f0;
+}
+
+#btnLeftPane_1:hover, 
+#btnLeftPane_2:hover,
+#btnLeftPane_3:hover,
+#btnLeftPane_4:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #274D63;
+    -fx-opacity: 0.8;
+}
+
+#btnCenterPane_1,
+#btnCenterPane_2,
+#btnCenterPane_3 {
+    -fx-background-color:  rgb(39,77,99);
+    -fx-border-style: solid;
+    -fx-border-radius: 3px;
+    -fx-border-color: #f0f0f0;
+}
+
+
+#btnSair {
+    -fx-background-color: transparent;
+    -fx-border-style: none;
+    -fx-border-color: transparent;
+}
+
